@@ -51,6 +51,9 @@ Login::Login(QWidget *parent)
 	connect(ui->btnMin2, &QPushButton::clicked, this, &QWidget::showMinimized);
 	connect(ui->btnMenu, &QPushButton::clicked, ui->stackedWidget, &RotateStackedWidget::nextPage);
 	connect(ui->btnCancel, &QPushButton::clicked, ui->stackedWidget, &RotateStackedWidget::nextPage);
+	connect(ui->btnOk, &QPushButton::clicked, [this]() {
+		qDebug() << ui->lineEditServerAddress->text();
+	});
 }
 
 Login::~Login()
