@@ -1,0 +1,79 @@
+/* 主窗口背景色 */
+QWidget#LoginClass {
+    background-color: #f2f2f2;
+    /* background-color: transparent; */
+}
+
+/* 标题栏背景颜色 */
+QWidget#widgetWinTitle, QWidget#widgetWinTitle2 {
+    background-color: #62dce7;
+}
+
+/* 标题栏中的标签名称 */
+QLabel#labelWinTitle,QLabel#labelWinTitle2 {
+    color: #FFFFFF;
+    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-size: 14pt;
+    font-weight: 400;
+} 
+
+/* 按钮的背景色 */
+QPushButton#btnMenu, QPushButton#btnMin, QPushButton#btnClose, 
+QPushButton#btnClose2, QPushButton#btnMin2 {
+    background-color: #62dce7;
+}
+
+QPushButton#btnOk, QPushButton#btnCancel {
+    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    background-color: #62dce7;
+    font-size: 14pt;
+    font-weight: 400;
+}
+
+/*登录按钮样式*/
+QPushButton#btnLogin {
+    background-color: #62dce7;
+    color: #FFFFFF;
+    border-radius: 6px;
+    font-size: 16pt;
+}
+
+QPushButton#btnLogin:hover, QPushButton#btnCancel:hover, QPushButton#btnOk:hover,
+QPushButton#btnMenu:hover, QPushButton#btnMin:hover, QPushButton#btnMin2:hover {
+    background-color: #b8b5b5;
+}
+QPushButton#btnLogin:pressed {
+    background-color: #1c639a;
+}
+
+QPushButton#btnClose:hover, QPushButton#btnClose2:hover {
+    background-color: #E74C3C;
+}
+
+QLabel#label, QLabel#label_2, QLabel#label_3, QGroupBox#groupBox {
+    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-size: 14pt;
+    font-weight: 400;
+}
+
+/* 输入框样式 */
+QLineEdit#lineEditUser, QLineEdit#lineEditPasswd {
+    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-size: 14pt;
+    background-color: #ECF0F1;
+    border: 3px solid #62dce7;
+    color: #2C3E50;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QLineEdit#lineEditServerAddress,QLineEdit#lineEditMsgServerPort, 
+QLineEdit#lineEditFileServerPort {
+    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-size: 12pt;
+    background-color: #ECF0F1;
+    border: 2px solid #62dce7;
+    color: #2C3E50;
+    border-radius: 5px;
+    padding: 5px;
+}
