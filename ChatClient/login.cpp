@@ -5,6 +5,7 @@
 #include "qdebug.h"
 #include "qlineedit.h"
 #include "qfile.h"
+#include "qdebug.h"
 
 Login::Login(QWidget *parent)
 	: QWidget(parent)
@@ -34,6 +35,8 @@ Login::Login(QWidget *parent)
 	// 设置page2
 	ui->btnClose2->setIcon(QIcon(":/resource/common/ic_close_white.png"));
 	ui->btnMin2->setIcon(QIcon(":/resource/common/ic_min_white.png"));
+	ui->lineEditMsgServerPort->setAlignment(Qt::AlignCenter);
+	ui->lineEditFileServerPort->setAlignment(Qt::AlignCenter);
 
 	// 通过样式表文件加载样式
 	QFile file(":/qss/resource/qss/loadwindow.css");

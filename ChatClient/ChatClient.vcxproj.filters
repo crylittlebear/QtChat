@@ -32,12 +32,18 @@
     <ClCompile Include="basewidget\rotatestackedwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="basewidget\customLineEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="basewidget\rotatestackedwidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="basewidget\customLineEdit.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

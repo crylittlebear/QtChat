@@ -53,6 +53,9 @@
        </property>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="spacing">
+          <number>6</number>
+         </property>
          <item>
           <widget class="QWidget" name="widgetWinTitle" native="true">
            <property name="minimumSize">
@@ -208,13 +211,13 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>75</height>
+                <height>85</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>75</height>
+                <height>85</height>
                </size>
               </property>
               <property name="text">
@@ -341,10 +344,16 @@
                 </item>
                 <item>
                  <widget class="QCheckBox" name="checkBoxRemember">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>20</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="font">
@@ -373,10 +382,16 @@
                 </item>
                 <item>
                  <widget class="QCheckBox" name="checkBoxAutoLoad">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>25</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>20</height>
+                    <height>25</height>
                    </size>
                   </property>
                   <property name="font">
@@ -410,7 +425,7 @@
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>35</height>
+                  <height>40</height>
                  </size>
                 </property>
                 <property name="font">
@@ -589,10 +604,10 @@
                   <number>15</number>
                  </property>
                  <property name="leftMargin">
-                  <number>10</number>
+                  <number>40</number>
                  </property>
                  <property name="rightMargin">
-                  <number>10</number>
+                  <number>40</number>
                  </property>
                  <item row="0" column="0">
                   <widget class="QLabel" name="label">
@@ -610,7 +625,7 @@
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLineEdit" name="lineEditServerAddress"/>
+                  <widget class="IpLineEdit" name="lineEditServerAddress"/>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_2">
@@ -723,6 +738,11 @@
    <extends>QStackedWidget</extends>
    <header location="global">rotatestackedwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>IpLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">customLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
