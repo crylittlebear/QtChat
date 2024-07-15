@@ -6,6 +6,7 @@
 #include "qlineedit.h"
 #include "qfile.h"
 #include "qdebug.h"
+#include "MainWindow.h"
 
 Login::Login(QWidget *parent)
 	: QWidget(parent)
@@ -53,6 +54,11 @@ Login::Login(QWidget *parent)
 	connect(ui->btnCancel, &QPushButton::clicked, ui->stackedWidget, &RotateStackedWidget::nextPage);
 	connect(ui->btnOk, &QPushButton::clicked, [this]() {
 		qDebug() << ui->lineEditServerAddress->text();
+	});
+	connect(ui->btnLogin, &QPushButton::clicked, [this]() {
+		MainWindow* win = new MainWindow;
+		win->show();
+		this->hide();
 	});
 }
 

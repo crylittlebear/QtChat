@@ -48,7 +48,6 @@
         <file>resource/ico/ico_360.ico</file>
         <file>resource/images/applay.png</file>
         <file>resource/images/applay_hover.png</file>
-        <file>resource/images/contacts.png</file>
         <file>resource/images/contacts_hover.png</file>
         <file>resource/images/conversation_hover.png</file>
         <file>resource/images/conversation_normal.png</file>
@@ -70,6 +69,12 @@
         <file>resource/images/ic_warning.png</file>
         <file>resource/images/ic_zip.png</file>
         <file>resource/images/robot.png</file>
+        <file>resource/images/contacts.png</file>
+        <file>resource/images/cloudy.png</file>
+        <file>resource/buttonIcon/config.png</file>
+        <file>resource/buttonIcon/add-user.png</file>
+        <file>resource/buttonIcon/calendar.png</file>
+        <file>resource/buttonIcon/cloudy.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>resource/qss/loadwindow.css</file>

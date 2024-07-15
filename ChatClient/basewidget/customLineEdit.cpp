@@ -81,11 +81,11 @@ bool IpLineEdit::eventFilter(QObject * obj, QEvent * event) {
 		case Qt::Key_9:
 		{
 			QString str = lineEdit->text();
-			if (str.length() <= 3 && str.toInt() * 10 > 255) {
+			if (str.length() == 3 || str.toInt() * 10 > 255) {
 				int index = getIndex(lineEdit);
 				if (index != -1 && index != 3) {
 					lineEdits_[index + 1]->setFocus();
-					lineEdits_[index + 1]->selectAll();
+					//lineEdits_[index + 1]->selectAll();
 				}
 			}
 			return QLineEdit::eventFilter(obj, event);

@@ -1,3 +1,5 @@
+/*=======================Login Window==================================*/
+
 /* 主窗口背景色 */
 QWidget#LoginClass {
     background-color: #f2f2f2;
@@ -5,39 +7,44 @@ QWidget#LoginClass {
 
 /* 标题栏背景颜色 */
 QWidget#widgetWinTitle, QWidget#widgetWinTitle2 {
-    background-color: #62dce7;
+    background-color: #0da2af;
 }
 
 /* 标题栏中的标签名称 */
 QLabel#labelWinTitle,QLabel#labelWinTitle2 {
     color: #FFFFFF;
     font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    font-size: 14pt;
-    font-weight: 400;
+    font-size: 12pt;
+    font-weight: bold;
 } 
 
 /* 按钮的背景色 */
 QPushButton#btnMenu, QPushButton#btnMin, QPushButton#btnClose, 
 QPushButton#btnClose2, QPushButton#btnMin2 {
-    background-color: #62dce7;
+    background-color: #0da2af;
 }
 
 QPushButton#btnOk, QPushButton#btnCancel {
     font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    background-color: #62dce7;
-    font-size: 14pt;
+    background-color: #0da2af;
+    font-size: 12pt;
     font-weight: 400;
 }
 
 /*登录按钮样式*/
 QPushButton#btnLogin {
-    background-color: #62dce7;
+    background-color: #0da2af;
     color: #FFFFFF;
-    border-radius: 6px;
-    font-size: 16pt;
+    border-radius: 5px;
+    font-size: 12pt;
+    font-weight: bold;
 }
 
-QPushButton#btnLogin:hover, QPushButton#btnCancel:hover, QPushButton#btnOk:hover,
+QPushButton#btnLogin:hover {
+    background-color: #E74C3C;
+}
+
+QPushButton#btnCancel:hover, QPushButton#btnOk:hover,
 QPushButton#btnMenu:hover, QPushButton#btnMin:hover, QPushButton#btnMin2:hover {
     background-color: #b8b5b5;
 }
@@ -51,14 +58,14 @@ QPushButton#btnClose:hover, QPushButton#btnClose2:hover {
 
 QLabel#label, QLabel#label_2, QLabel#label_3, QGroupBox#groupBox {
     font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    font-size: 14pt;
+    font-size: 12pt;
     font-weight: 400;
 }
 
 /* 输入框样式 */
 QLineEdit#lineEditUser, QLineEdit#lineEditPasswd {
     font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    font-size: 14pt;
+    font-size: 12pt;
     background-color: #ECF0F1;
     border: 3px solid #62dce7;
     color: #2C3E50;
@@ -76,4 +83,36 @@ QLineEdit#lineEditFileServerPort {
     color: #2C3E50;
     border-radius: 5px;
     padding: 5px;
+}
+
+
+/*=======================Main Window======================================*/
+
+QWidget#widgetStackControlButtons,
+QWidget#widgetBottomTool {
+    background-color: #0da2af;
+}
+
+QWidget#widget_9 {
+    background-color: #76d4dd;
+    border: 2px solid #62dce7;
+}
+
+QToolButton#toolButtonFriends,
+QToolButton#toolButtonGroup,
+QToolButton#toolButtonSession,
+QToolButton#toolButtonApp {
+    background-color: #76d4dd;
+}
+
+QToolButton#toolButtonFriends:hover,
+QToolButton#toolButtonGroup:hover,
+QToolButton#toolButtonSession:hover,
+QToolButton#toolButtonApp:hover {
+    background-color: #0da2af;
+}
+
+QPushButton#btnConfig, QToolButton#btnAddFriend,
+QToolButton#btnWeather,QToolButton#btnCalendar {
+    background-color: #5c6d7d;
 }
