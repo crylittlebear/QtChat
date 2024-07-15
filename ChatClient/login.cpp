@@ -33,6 +33,9 @@ Login::Login(QWidget *parent)
 	ui->lineEditPasswd->setPlaceholderText(QString::fromLocal8Bit("ÇëÊäÈëÃÜÂë"));
 	ui->lineEditPasswd->setEchoMode(QLineEdit::Password);
 
+	ui->lineEditUser->setPixmap(QPixmap(":/resource/common/ic_user.png"));
+	ui->lineEditPasswd->setPixmap(QPixmap(":/resource/common/ic_lock.png"));
+
 	// ÉèÖÃpage2
 	ui->btnClose2->setIcon(QIcon(":/resource/common/ic_close_white.png"));
 	ui->btnMin2->setIcon(QIcon(":/resource/common/ic_min_white.png"));

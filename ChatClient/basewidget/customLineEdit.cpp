@@ -154,3 +154,28 @@ int IpLineEdit::getIndex(QLineEdit* lineEdit)
 	}
 	return -1;
 }
+
+
+/*
+* ////////////////////////////////////////////////////////////////////////
+*							IconLineEdit
+* ////////////////////////////////////////////////////////////////////////
+*/
+
+IconLineEdit::IconLineEdit(QWidget* parent) : QLineEdit(parent){
+	label_ = new QLabel(this);
+	label_->setMinimumSize(20, 20);
+	label_->setVisible(false);
+}
+
+IconLineEdit::~IconLineEdit() {}
+
+void IconLineEdit::setPixmap(const QPixmap& pixmap) {
+	if (pixmap.isNull()) return;
+
+	label_->setPixmap(pixmap);
+	label_->setScaledContents(true);
+	label_->setVisible(true);
+	label_->setGeometry(5, (this->height() - pixmap.height()) / 2, 25, 25);
+	this->setTextMargins(30, 1, 1, 1);
+}

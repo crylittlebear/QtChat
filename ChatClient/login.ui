@@ -300,7 +300,7 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QLineEdit" name="lineEditUser">
+                    <widget class="IconLineEdit" name="lineEditUser">
                      <property name="minimumSize">
                       <size>
                        <width>0</width>
@@ -319,7 +319,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEditPasswd">
+                    <widget class="IconLineEdit" name="lineEditPasswd">
                      <property name="minimumSize">
                       <size>
                        <width>0</width>
@@ -747,6 +747,11 @@
   </customwidget>
   <customwidget>
    <class>IpLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">customLineEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>IconLineEdit</class>
    <extends>QLineEdit</extends>
    <header location="global">customLineEdit.h</header>
   </customwidget>
