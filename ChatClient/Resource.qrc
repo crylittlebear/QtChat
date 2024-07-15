@@ -75,6 +75,12 @@
         <file>resource/buttonIcon/add-user.png</file>
         <file>resource/buttonIcon/calendar.png</file>
         <file>resource/buttonIcon/cloudy.png</file>
+        <file>resource/buttonIcon/module.png</file>
+        <file>resource/buttonIcon/close (2).png</file>
+        <file>resource/buttonIcon/min.png</file>
+        <file>resource/buttonIcon/close_white.png</file>
+        <file>resource/buttonIcon/add-user_white.png</file>
+        <file>resource/buttonIcon/calendar_white.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>resource/qss/loadwindow.css</file>
