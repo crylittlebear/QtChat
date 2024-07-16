@@ -6,6 +6,7 @@
 #include "qlineedit.h"
 #include "qfile.h"
 #include "qdebug.h"
+#include "qjsonobject.h"
 #include "MainWindow.h"
 
 Login::Login(QWidget *parent)
@@ -48,6 +49,8 @@ Login::Login(QWidget *parent)
 	qApp->setStyleSheet(file.readAll());
 	file.close();
 
+	tcpSocket_ = new ClientSocket;
+
 	// 连接信号槽
 	connect(ui->btnClose, &QPushButton::clicked, this, &QWidget::close);
 	connect(ui->btnClose2, &QPushButton::clicked, this, &QWidget::close);
@@ -58,16 +61,27 @@ Login::Login(QWidget *parent)
 	connect(ui->btnOk, &QPushButton::clicked, [this]() {
 		qDebug() << ui->lineEditServerAddress->text();
 	});
-	connect(ui->btnLogin, &QPushButton::clicked, [this]() {
-		MainWindow* win = new MainWindow;
-		win->show();
-		this->hide();
-	});
+	connect(ui->btnLogin, &QPushButton::clicked, this, &Login::on_btnLogin_clicked);
 }
 
 Login::~Login()
 {
 	delete ui;
+}
+
+void Login::on_btnLogin_clicked() {
+	qDebug() << "In on_btnLogin_clicked()";
+	// 检查是否连接到服务器
+	tcpSocket_->checkConnected();
+
+	QString userName = ui->lineEditUser->text();
+	QString passwd = ui->lineEditPasswd->text();
+
+	QJsonObject json;
+	json.insert("name", userName);
+	json.insert("passwd", passwd);
+
+	tcpSocket_->sltSendMessage(0x11, json);
 }
 
 

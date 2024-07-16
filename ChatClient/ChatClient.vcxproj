@@ -37,7 +37,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>5.15.2_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;network;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -100,6 +100,7 @@
     <ClCompile Include="basewidget\customLineEdit.cpp" />
     <ClCompile Include="basewidget\CustomWidget.cpp" />
     <ClCompile Include="basewidget\rotatestackedwidget.cpp" />
+    <ClCompile Include="ClientSocket.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
@@ -125,6 +126,12 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="basewidget\CustomWidget.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="ClientSocket.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="comapi\unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
