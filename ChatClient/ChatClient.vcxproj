@@ -101,6 +101,7 @@
     <ClCompile Include="basewidget\CustomWidget.cpp" />
     <ClCompile Include="basewidget\rotatestackedwidget.cpp" />
     <ClCompile Include="ClientSocket.cpp" />
+    <ClCompile Include="comapi\MyApp.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
@@ -131,6 +132,7 @@
     <QtMoc Include="ClientSocket.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="comapi\MyApp.h" />
     <ClInclude Include="comapi\unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

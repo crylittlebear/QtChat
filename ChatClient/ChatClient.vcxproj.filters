@@ -44,6 +44,9 @@
     <ClCompile Include="ClientSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="comapi\MyApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login.h">
@@ -80,6 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="comapi\unit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="comapi\MyApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
