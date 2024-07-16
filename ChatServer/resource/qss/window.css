@@ -1,0 +1,103 @@
+/* 设置所有的字体和字体大小 */
+*{
+    font-family: "微软雅黑";
+    font-size: 12pt;
+}
+
+/* 主界面样式 */
+QWidget#widgetWinTitle,
+QPushButton#btnWinClose,
+QPushButton#btnWinMin {
+    background-color: #0da2af;
+}
+
+/* QWidget#widgetWinBody {
+    background-color:#0da2af;
+} */
+
+QWidget#widgetLoading {
+    background-color:azure;
+    border: 3px solid #FF0000;
+}
+
+QWidget#widgetNavi {
+    border-left: 3px solid #0da2af;
+    border-right: 3px solid #0da2af;
+}
+
+QWidget#widgetBottom {
+    border-top: 3px solid #0da2af;
+}
+
+QLabel#labelWinTitle {
+    font-weight: bold;
+    font-size: 16pt;
+    color: #FFFFFF;
+}
+
+QPushButton#btnDataBackup {
+    border: 2px solid #0da2af;
+    border-radius: 4px;
+}
+
+QPushButton#btnDataBackup:hover {
+    background-color: #0da2af;
+}
+
+QPushButton#btnPasswdMod {
+    border: 2px solid #0da2af;
+    border-radius: 4px;
+}
+
+QPushButton#btnPasswdMod:hover {
+    background-color: #0da2af;
+}
+
+QPushButton#btnServerConfig {
+    border: 2px solid #0da2af;
+    border-radius: 4px;
+}
+
+QPushButton#btnServerConfig:hover {
+    background-color: #0da2af;
+}
+
+QPushButton#btnUserConfig {
+    border: 2px solid #0da2af;
+    border-radius: 4px;
+}
+
+QPushButton#btnUserConfig:hover {
+    background-color: #0da2af;
+}
+
+QPushButton#btnUserInfo {
+    border: 2px solid #0da2af;
+    border-radius: 4px;
+}
+
+QPushButton#btnUserInfo:hover {
+    background-color: #0da2af;
+}
+
+QPushButton#btnUserSearch {
+    border: 2px solid #0da2af;
+    border-radius: 4px;
+}
+
+QPushButton#btnUserSearch:hover {
+    background-color: #0da2af;
+}
+
+QPushButton#btnExit {
+    border: 2px solid #0da2af;
+    border-radius: 4px;
+}
+
+QPushButton#btnExit:hover {
+    background-color: #ea053e;
+}
+
+QGroupBox#groupBox {
+    border: 3px solid #0da2af;
+}

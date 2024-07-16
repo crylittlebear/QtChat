@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChatClient", "ChatClient\ChatClient.vcxproj", "{41D74BF6-17E6-41F6-AF46-6B271C70E0EE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChatServer", "ChatServer\ChatServer.vcxproj", "{5D530E1B-D9BB-411C-9856-BCF7F474A197}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{41D74BF6-17E6-41F6-AF46-6B271C70E0EE}.Debug|x64.Build.0 = Debug|x64
 		{41D74BF6-17E6-41F6-AF46-6B271C70E0EE}.Release|x64.ActiveCfg = Release|x64
 		{41D74BF6-17E6-41F6-AF46-6B271C70E0EE}.Release|x64.Build.0 = Release|x64
+		{5D530E1B-D9BB-411C-9856-BCF7F474A197}.Debug|x64.ActiveCfg = Debug|x64
+		{5D530E1B-D9BB-411C-9856-BCF7F474A197}.Debug|x64.Build.0 = Debug|x64
+		{5D530E1B-D9BB-411C-9856-BCF7F474A197}.Release|x64.ActiveCfg = Release|x64
+		{5D530E1B-D9BB-411C-9856-BCF7F474A197}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
