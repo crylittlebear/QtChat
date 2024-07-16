@@ -427,7 +427,7 @@
            <number>0</number>
           </property>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,8">
+           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,8">
             <property name="spacing">
              <number>0</number>
             </property>
@@ -439,236 +439,237 @@
             </property>
             <item>
              <widget class="QWidget" name="widgetNavi" native="true">
-              <layout class="QVBoxLayout" name="verticalLayout_2">
-               <property name="spacing">
-                <number>15</number>
-               </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="5">
                <property name="leftMargin">
-                <number>12</number>
-               </property>
-               <property name="topMargin">
                 <number>10</number>
                </property>
                <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
                 <number>10</number>
                </property>
                <item>
-                <widget class="QPushButton" name="btnUserSearch">
-                 <property name="minimumSize">
-                  <size>
-                   <width>100</width>
-                   <height>45</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>130</width>
-                   <height>45</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>用户查询</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="MainWindow.qrc">
-                   <normaloff>:/resource/images/ic_find.png</normaloff>:/resource/images/ic_find.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>40</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btnUserInfo">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>45</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>130</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>用户信息</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="MainWindow.qrc">
-                   <normaloff>:/resource/images/ic_goods.png</normaloff>:/resource/images/ic_goods.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>30</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btnServerConfig">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>45</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>130</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>服务配置</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="MainWindow.qrc">
-                   <normaloff>:/resource/images/ic_goods.png</normaloff>:/resource/images/ic_goods.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>30</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btnUserConfig">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>45</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>130</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>用户管理</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="MainWindow.qrc">
-                   <normaloff>:/resource/images/if_users.png</normaloff>:/resource/images/if_users.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>30</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btnPasswdMod">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>45</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>130</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>密码修改</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="MainWindow.qrc">
-                   <normaloff>:/resource/images/ic_key.png</normaloff>:/resource/images/ic_key.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>30</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btnDataBackup">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>45</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>130</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>数据备份</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="MainWindow.qrc">
-                   <normaloff>:/resource/images/ic_backup.png</normaloff>:/resource/images/ic_backup.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>30</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="verticalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>129</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btnExit">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>45</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>130</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>退出系统</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="MainWindow.qrc">
-                   <normaloff>:/resource/images/ic_exit.png</normaloff>:/resource/images/ic_exit.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>30</width>
-                   <height>30</height>
-                  </size>
-                 </property>
+                <widget class="QWidget" name="widgetLeftButtons" native="true">
+                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_2">
+                    <item>
+                     <widget class="QPushButton" name="btnUserSearch">
+                      <property name="minimumSize">
+                       <size>
+                        <width>100</width>
+                        <height>45</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>130</width>
+                        <height>45</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>用户查询</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="MainWindow.qrc">
+                        <normaloff>:/resource/images/ic_find.png</normaloff>:/resource/images/ic_find.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>40</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnUserInfo">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>45</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>130</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>用户信息</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="MainWindow.qrc">
+                        <normaloff>:/resource/images/ic_goods.png</normaloff>:/resource/images/ic_goods.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>30</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnServerConfig">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>45</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>130</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>服务配置</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="MainWindow.qrc">
+                        <normaloff>:/resource/images/ic_goods.png</normaloff>:/resource/images/ic_goods.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>30</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnUserConfig">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>45</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>130</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>用户管理</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="MainWindow.qrc">
+                        <normaloff>:/resource/images/if_users.png</normaloff>:/resource/images/if_users.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>30</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnPasswdMod">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>45</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>130</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>密码修改</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="MainWindow.qrc">
+                        <normaloff>:/resource/images/ic_key.png</normaloff>:/resource/images/ic_key.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>30</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btnDataBackup">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>45</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>130</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>数据备份</string>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="MainWindow.qrc">
+                        <normaloff>:/resource/images/ic_backup.png</normaloff>:/resource/images/ic_backup.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>30</width>
+                        <height>30</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>129</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btnExit">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>45</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>130</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>退出系统</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="MainWindow.qrc">
+                      <normaloff>:/resource/images/ic_exit.png</normaloff>:/resource/images/ic_exit.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </item>
               </layout>
