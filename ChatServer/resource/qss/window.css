@@ -34,7 +34,7 @@ QLabel#labelWinTitle {
     font-size: 16pt;
     color: #FFFFFF;
 }
-
+/* 
 QPushButton#btnDataBackup {
     border: 2px solid #0da2af;
     border-radius: 4px;
@@ -96,6 +96,19 @@ QPushButton#btnExit {
 
 QPushButton#btnExit:hover {
     background-color: #ea053e;
+} */
+
+QPushButton {
+    border: 2px solid #0da2af;
+    border-radius: 4px;
+}
+
+QPushButton:hover {
+    background-color: #0da2af;
+}
+
+QPushButton#btnWinClose:hover{
+    background-color: #FF0000;
 }
 
 QGroupBox#groupBox {

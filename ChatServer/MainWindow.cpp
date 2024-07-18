@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnExit, &QPushButton::clicked, this, &QWidget::close);
     connect(ui->btnWinClose, &QPushButton::clicked, this, &QWidget::close);
     connect(ui->btnWinMin, &QPushButton::clicked, this, &QWidget::showMinimized);
+    connect(ui->btnLogin, &QPushButton::clicked, ui->stackedWidget_2, &RotateStackedWidget::nextPage);
 }
 
 MainWindow::~MainWindow()
