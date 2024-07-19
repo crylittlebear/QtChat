@@ -25,7 +25,7 @@ typedef enum {
 	AddGroupResponse = 0x23,		// 添加群组相应
 	CreateGroup = 0x25,		// 创建群组
 	GetMyFriends = 0x30,		// 获取用户朋友信息
-	GetMyGroup = 0x31,		// 获取用户群组信息
+	GetMyGroups = 0x31,		// 获取用户群组信息
 	RefreshFriends = 0x35,		// 刷新朋友信息
 	RefreshGroup = 0x36,		// 刷新群组信息
 	SendMsg = 0x40,		// 发送普通信息

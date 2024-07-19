@@ -34,6 +34,78 @@ void ServerSocket::close() {
 	tcpSocket_->abort();
 }
 
+void ServerSocket::sltReadyRead() {
+	// 从套接字中读取待读数据
+	QByteArray request = tcpSocket_->readAll();
+	QJsonParseError jsonErr;
+	// 将数据转化为JsonDocument格式
+	QJsonDocument document = QJsonDocument::fromJson(request, &jsonErr);
+	// 解析未发生错误
+	if (!document.isNull() && jsonErr.error == QJsonParseError::NoError) {
+		if (document.isObject()) {
+			QJsonObject jsonObj = document.object();
+			int type = jsonObj.value("type").toInt();
+			QJsonValue jsonVal = jsonObj.value("data");
+			switch (type) {
+			case Register:
+				parseRegister(jsonVal);
+				break;
+			case Login:
+				parseLogin(jsonVal);
+				break;
+			case UserOnline:
+				parseUserOnline(jsonVal);
+				break;
+			case Logout:
+				parseLogout(jsonVal);
+				emit sigDisconnected();
+				tcpSocket_->abort();
+				break;
+			case UpdateHeadPic:
+				parseUpdateUserHead(jsonVal);
+				break;
+			case AddFriend:
+				parseAddFriend(jsonVal);
+				break;
+			case AddGroup:
+				parseAddGroup(jsonVal);
+				break;
+			case CreateGroup:
+				parseCreateGroup(jsonVal);
+				break;
+			case GetMyFriends:
+				parseGetMyFriend(jsonVal);
+				break;
+			case GetMyGroups:
+				parseGetMyGroups(jsonVal);
+				break;
+			case RefreshFriends:
+				parseRefreshFriend(jsonVal);
+				break;
+			case RefreshGroup:
+				parseRefreshGroups(jsonVal);
+			case SendMsg:
+			case SendPicture:
+			case SendFile:
+				parseFriendMessages(request);
+				break;
+			case SendGroupMsg:
+				parseGroupMessages(request);
+				break;
+			case SendFace:
+				parseFaceMessages(request);
+				break;
+			case SendFileOk:
+				break;
+			case GetFile:
+				emit sigDownloadFile(jsonVal);
+			default:
+				break;
+			}
+		}
+	}
+}
+
 void ServerSocket::sltSendMessage(const quint8& type, const QJsonValue& json) {
 
 }
@@ -142,40 +214,114 @@ void ServerSocket::parseRegister(const QJsonValue& dataVal) {
 	}
 }
 
-void ServerSocket::parseAddFriend(const QJsonValue& dataVal)
-{
+void ServerSocket::parseAddFriend(const QJsonValue& dataVal) {
+	if (dataVal.isObject()) {
+		QJsonObject dataObj = dataVal.toObject();
+		QString strName = dataObj.value("name").toString();
+		QJsonObject jsonFriend = DatabaseManager::instance()->addFriend(strName);
+		int id = jsonFriend.value("id").toInt();
+		QString strMsg = jsonFriend.value("msg").toString();
+		// 将查询结果发送到客户端
+		sltSendMessage(AddFriend, jsonFriend);
+		if (id < 0) { return; }
+		// 给对方发送添加请求
+		QJsonObject jsonQuery = DatabaseManager::instance()->getUserInfo(id);
+		QJsonObject jsonResponse;
+		jsonResponse.insert("id", id);
+		jsonResponse.insert("name", jsonQuery.value("name").toString());
+		jsonResponse.insert("head", jsonQuery.value("head").toString());
+		jsonResponse.insert("msg", strMsg.isEmpty() ? "附加消息: 你好!" : strMsg);
+		emit sigMsgToClient(AddFriendResponse, id, jsonResponse);
+	}
 }
 
-void ServerSocket::parseAddGroup(const QJsonValue& dataVal)
-{
+void ServerSocket::parseAddGroup(const QJsonValue& dataVal) {
+	if (dataVal.isObject()) {
+		QJsonObject dataObj = dataVal.toObject();
+		int id = dataObj.value("id").toInt();
+		QString strName = dataObj.value("name").toString();
+		auto json = DatabaseManager::instance()->addGroup(id, strName);
+		// 发送消息到客户端
+		sltSendMessage(AddGroup, json);
+	}
 }
 
-void ServerSocket::parseCreateGroup(const QJsonValue& dataVal)
-{
+void ServerSocket::parseCreateGroup(const QJsonValue& dataVal) {
+	if (dataVal.isObject()) {
+		QJsonObject dataObj = dataVal.toObject();
+		int id = dataObj.value("id").toInt();
+		QString strName = dataObj.value("id").toString();
+		auto json = DatabaseManager::instance()->createGroup(id, strName);
+		// 发送
+		sltSendMessage(CreateGroup, json);
+	}
 }
 
-void ServerSocket::parseGetMyFriend(const QJsonValue& dataVal)
-{
+void ServerSocket::parseGetMyFriend(const QJsonValue& dataVal) {
+	QJsonArray responseArr;
+	if (dataVal.isArray()) {
+		QJsonArray dataArr = dataVal.toArray();
+		int size = dataArr.size();
+		for (int i = 0; i < size; ++i) {
+			int id = dataArr.at(i).toInt();
+			responseArr.append(DatabaseManager::instance()->getUserStatus(id));
+		}
+	}
+	sltSendMessage(GetMyFriends, responseArr);
 }
 
-void ServerSocket::parseGetMyGroups(const QJsonValue& dataVal)
-{
+void ServerSocket::parseGetMyGroups(const QJsonValue& dataVal) {
+	QJsonArray responseArr;
+	if (dataVal.isObject()) {
+		QJsonObject dataObj = dataVal.toObject();
+		int id = dataObj.value("id").toInt();
+		responseArr = DatabaseManager::instance()->getGroupUsers(id);
+	}
+	sltSendMessage(GetMyGroups, responseArr);
 }
 
-void ServerSocket::parseRefreshFriend(const QJsonValue& dataVal)
-{
+void ServerSocket::parseRefreshFriend(const QJsonValue& dataVal) {
+	QJsonArray jsonArr;
+	if (dataVal.isArray()) {
+		QJsonArray dataArr = dataVal.toArray();
+		int size = dataArr.size();
+		for (int i = 0; i < size; ++i) {
+			int id = dataArr.at(i).toInt();
+			jsonArr.append(DatabaseManager::instance()->getUserStatus(id));
+		}
+	}
+	sltSendMessage(RefreshFriends, jsonArr);
 }
 
-void ServerSocket::parseRefreshGroups(const QJsonValue& dataVal)
-{
+void ServerSocket::parseRefreshGroups(const QJsonValue& dataVal) {
+	QJsonArray jsonArr;
+	if (dataVal.isObject()) {
+		QJsonObject dataObj = dataVal.toObject();
+		int id = dataObj.value("id").toInt();
+		DatabaseManager::instance()->getGroupUsers(id);
+	}
+	sltSendMessage(RefreshGroup, jsonArr);
 }
 
-void ServerSocket::parseFriendMessages(const QByteArray& reply)
-{
+void ServerSocket::parseFriendMessages(const QByteArray& reply) {
+	// 重新组装数据
+	QJsonParseError jsonErr;
+	// 转化为json文档
+	QJsonDocument document = QJsonDocument::fromJson(reply, &jsonErr);
+	if (!document.isNull() && jsonErr.error == QJsonParseError::NoError) {
+		if (document.isObject()) {
+			QJsonObject dataObj = document.object();
+			int type = dataObj.value("type").toInt();
+			QJsonValue dataVal = dataObj.value("data");
+			QJsonObject jsonObj = dataVal.toObject();
+			int id = jsonObj.value("id").toInt();
+			sigMsgToClient(type, id, jsonObj);
+		}
+	}
 }
 
-void ServerSocket::parseGroupMessages(const QByteArray& reply)
-{
+void ServerSocket::parseGroupMessages(const QByteArray& reply) {
+
 }
 
 void ServerSocket::parseFaceMessages(const QByteArray& reply)
@@ -190,78 +336,6 @@ void ServerSocket::sltDisconnected() {
 	qDebug() << "disconnected()";
 	DatabaseManager::instance()->updateUserStatus(id_, Offline);
 	emit sigDisconnected();
-}
-
-void ServerSocket::sltReadyRead() {
-	// 从套接字中读取待读数据
-	QByteArray request = tcpSocket_->readAll();
-	QJsonParseError jsonErr;
-	// 将数据转化为JsonDocument格式
-	QJsonDocument document = QJsonDocument::fromJson(request, &jsonErr);
-	// 解析未发生错误
-	if (!document.isNull() && jsonErr.error == QJsonParseError::NoError) {
-		if (document.isObject()) {
-			QJsonObject jsonObj = document.object();
-			int type = jsonObj.value("type").toInt();
-			QJsonValue jsonVal = jsonObj.value("data");
-			switch (type) {
-			case Register:
-				parseRegister(jsonVal);
-				break;
-			case Login:
-				parseLogin(jsonVal);
-				break;
-			case UserOnline:
-				parseUserOnline(jsonVal);
-				break;
-			case Logout:
-				parseLogout(jsonVal);
-				emit sigDisconnected();
-				tcpSocket_->abort();
-				break;
-			case UpdateHeadPic:
-				parseUpdateUserHead(jsonVal);
-				break;
-			case AddFriend:
-				parseAddFriend(jsonVal);
-				break;
-			case AddGroup:
-				parseAddGroup(jsonVal);
-				break;
-			case CreateGroup:
-				parseCreateGroup(jsonVal);
-				break;
-			case GetMyFriends:
-				parseGetMyFriend(jsonVal);
-				break;
-			case GetMyGroup:
-				parseGetMyGroups(jsonVal);
-				break;
-			case RefreshFriends:
-				parseRefreshFriend(jsonVal);
-				break;
-			case RefreshGroup:
-				parseRefreshGroups(jsonVal);
-			case SendMsg:
-			case SendPicture:
-			case SendFile:
-				parseFriendMessages(request);
-				break;
-			case SendGroupMsg:
-				parseGroupMessages(request);
-				break;
-			case SendFace:
-				parseFaceMessages(request);
-				break;
-			case SendFileOk:
-				break;
-			case GetFile:
-				emit sigDownloadFile(jsonVal);
-			default:
-				break;
-			}
-		}
-	}
 }
 
 
