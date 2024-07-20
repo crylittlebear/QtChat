@@ -1,3 +1,8 @@
+/*!
+*  @Author: crylittlebear
+*  @Data  : 2024-7-20
+*/
+
 #include "DatabaseManager.h"
 #include "unit.h"
 
@@ -9,8 +14,6 @@
 #include "qsqlquery.h"
 
 #define DATA_TIME_FORMAT QDateTime::currentDateTime().toString("yyyy/MM/dd hh::mm::ss")
-
-DatabaseManager* DatabaseManager::self_ = nullptr;
 
 DatabaseManager::DatabaseManager(QObject *parent)
 	: QObject(parent)
@@ -33,7 +36,7 @@ bool DatabaseManager::openDb(const QString& databaseName)
 		qDebug() << "open database failed";
 		return false;
 	}
-	// Ìí¼ÓÊý¾Ý¿â±í
+	// æ·»åŠ æ•°æ®åº“è¡¨
 	QSqlQuery query;
 	query.exec("create table userinfo("
 		"id primary key,"
@@ -158,26 +161,26 @@ QJsonObject DatabaseManager::checkUserLogin(const QString& name, const QString& 
 {
 #if 1
 	/*!
-	* ÕâÀï»¹ÊÇÓÐÒ»Ð©Âß¼­ÉÏµÄÂ©¶´ÐèÒªÍêÉÆ£¬±ÈÈçÕËºÅ²»´æÔÚºÍÃÜÂë´íÎó£¬ÕâÀïÔÚÖ´ÐÐselectµÄ
-	* Ê±ºòÊÇÕËºÅºÍÃÜÂëÒ»ÆðËÑË÷µÄ£¬ÑÏ½÷Ò»µãÓ¦¸ÃÏÈ²éÕÒÕËºÅÊÇ·ñ´æÔÚ
+	* è¿™é‡Œè¿˜æ˜¯æœ‰ä¸€äº›é€»è¾‘ä¸Šçš„æ¼æ´žéœ€è¦å®Œå–„ï¼Œæ¯”å¦‚è´¦å·ä¸å­˜åœ¨å’Œå¯†ç é”™è¯¯ï¼Œè¿™é‡Œåœ¨æ‰§è¡Œselectçš„
+	* æ—¶å€™æ˜¯è´¦å·å’Œå¯†ç ä¸€èµ·æœç´¢çš„ï¼Œä¸¥è°¨ä¸€ç‚¹åº”è¯¥å…ˆæŸ¥æ‰¾è´¦å·æ˜¯å¦å­˜åœ¨
 	*/
 	QString sql = QString("select [id], [passwd], [head], [status] from userinfo where name = %1;").arg(name);
 	QSqlQuery query(sql);
 	QJsonObject responseObj;
 	int id = -1;
-	// ¶ÔÓ¦ÕËºÅÎ´ÕÒµ½
+	// å¯¹åº”è´¦å·æœªæ‰¾åˆ°
 	int code = -1;
 	QString head = "0.bmp";
-	// Èç¹ûÊý¾Ý¿âÖÐ´æÔÚ¸ÃÕËºÅÏà¹ØµÄÐÅÏ¢
+	// å¦‚æžœæ•°æ®åº“ä¸­å­˜åœ¨è¯¥è´¦å·ç›¸å…³çš„ä¿¡æ¯
 	if (query.next()) {
 		id = query.value("id").toInt();
 		head = query.value("head").toString();
-		// Èç¹ûÕÒµ½¸ÃÓÃ»§µ«ÊÇÃÜÂëÆ¥ÅäÊ§°Ü
+		// å¦‚æžœæ‰¾åˆ°è¯¥ç”¨æˆ·ä½†æ˜¯å¯†ç åŒ¹é…å¤±è´¥
 		if (query.value("passwd").toString() != passwd) {
 			code = -2;
 		}
 		else if (query.value("status").toInt() == Online) {
-			// ÕÒµ½¸ÃÓÃ»§ÇÒÃÜÂëÆ¥Åä³É¹¦
+			// æ‰¾åˆ°è¯¥ç”¨æˆ·ä¸”å¯†ç åŒ¹é…æˆåŠŸ
 			code = -3;
 		}
 		else {
@@ -231,7 +234,7 @@ int DatabaseManager::registerUser(const QString& name, const QString& passwd)
 	if (query.next()) {
 		id = query.value(0).toInt();
 	}
-	// ´´½¨ÐÂÓÃ»§
+	// åˆ›å»ºæ–°ç”¨æˆ·
 	query.prepare("insert into userinfo (id, name, passwd, head, status, groupId, lasttime)"
 		" values(?, ?, ?, ?, ?, ?, ?);");
 	query.bindValue(0, id + 1);
@@ -241,7 +244,7 @@ int DatabaseManager::registerUser(const QString& name, const QString& passwd)
 	query.bindValue(4, 0);
 	query.bindValue(5, 0);
 	query.bindValue(6, DATA_TIME_FORMAT);
-	// Ö´ÐÐsqlÓï¾ä
+	// æ‰§è¡Œsqlè¯­å¥
 	query.exec();
 	return id + 1;
 }
@@ -269,7 +272,7 @@ QJsonObject DatabaseManager::addFriend(const QString& name)
 
 QJsonObject DatabaseManager::addGroup(const int& userId, const QString& name)
 {
-	// ÏÈ²éÑ¯ÊÇ·ñÓÐ¸ÃÈº×é
+	// å…ˆæŸ¥è¯¢æ˜¯å¦æœ‰è¯¥ç¾¤ç»„
 	QString strQuery = "SELECT [groupId] FROM GROUPINFO ";
 	strQuery.append("WHERE name='");
 	strQuery.append(name);
@@ -281,32 +284,32 @@ QJsonObject DatabaseManager::addGroup(const int& userId, const QString& name)
 
 	QSqlQuery query(strQuery);
 
-	// ²éÑ¯µ½ÓÐ¸ÃÓÃ»§×é
+	// æŸ¥è¯¢åˆ°æœ‰è¯¥ç”¨æˆ·ç»„
 	if (query.next()) {
-		// ²éÑ¯µ½ÓÐ¸ÃÈº×é£¬ÔÙÅÐ¶Ï¸ÃÓÃ»§ÊÇ·ñÒÑ¾­¼ÓÈë¸ÃÈº×é
+		// æŸ¥è¯¢åˆ°æœ‰è¯¥ç¾¤ç»„ï¼Œå†åˆ¤æ–­è¯¥ç”¨æˆ·æ˜¯å¦å·²ç»åŠ å…¥è¯¥ç¾¤ç»„
 		nGroupId = query.value(0).toInt();
 		strQuery = QString("SELECT [userId] FROM GROUPINFO WHERE groupId=");
 		strQuery.append(QString::number(nGroupId));
 		strQuery.append("");
 
 		query = QSqlQuery(strQuery);
-		// ²éÑ¯µ½ÒÑ¾­Ìí¼Óµ½¸ÃÈº×é
+		// æŸ¥è¯¢åˆ°å·²ç»æ·»åŠ åˆ°è¯¥ç¾¤ç»„
 		if (query.next()) {
 			nCode = -2;
 		}
 		else
 		{
-			// ²éÑ¯Êý¾Ý¿â
+			// æŸ¥è¯¢æ•°æ®åº“
 			query = QSqlQuery("SELECT [id] FROM GROUPINFO ORDER BY id DESC;");
 			int nIndex = 0;
-			// ²éÑ¯×î¸ßID
+			// æŸ¥è¯¢æœ€é«˜ID
 			if (query.next()) {
 				nIndex = query.value(0).toInt();
 			}
 
 			nIndex += 1;
 
-			// ¸ù¾ÝÐÂIDÖØÐÂ´´½¨ÓÃ»§
+			// æ ¹æ®æ–°IDé‡æ–°åˆ›å»ºç”¨æˆ·
 			query.prepare("INSERT INTO GROUPINFO (id, groupId, name, userId, identity) "
 				"VALUES (?, ?, ?, ?, ?);");
 			query.bindValue(0, nIndex);
@@ -314,12 +317,12 @@ QJsonObject DatabaseManager::addGroup(const int& userId, const QString& name)
 			query.bindValue(2, name);
 			query.bindValue(3, userId);
 			query.bindValue(4, 3);
-			// Ö´ÐÐ²åÈë
+			// æ‰§è¡Œæ’å…¥
 			query.exec();
 		}
 	}
 
-	// ¹¹½¨ Json ¶ÔÏó
+	// æž„å»º Json å¯¹è±¡
 	QJsonObject json;
 	json.insert("id", nGroupId);
 	json.insert("name", name);
@@ -333,7 +336,7 @@ QJsonObject DatabaseManager::addGroup(const int& userId, const QString& name)
 
 QJsonObject DatabaseManager::createGroup(const int& userId, const QString& name)
 {
-	//²éÑ¯Èº×éÊÇ·ñ´æÔÚ
+	//æŸ¥è¯¢ç¾¤ç»„æ˜¯å¦å­˜åœ¨
 	QString strQuery = "SELECT [id],[groupId],[head] FROM GROUPINFO ";
 	strQuery.append("WHERE name='");
 	strQuery.append(name);
@@ -345,7 +348,7 @@ QJsonObject DatabaseManager::createGroup(const int& userId, const QString& name)
 	QString strHead = "1.bmp";
 
 	QSqlQuery query(strQuery);
-	// ²éÑ¯ÓÃ»§ÊÇ·ñÔÚÈº×éÖÐ
+	// æŸ¥è¯¢ç”¨æˆ·æ˜¯å¦åœ¨ç¾¤ç»„ä¸­
 	if (query.next()) {
 		nIndex = query.value("id").toInt();
 		nGroupId = query.value("groupId").toInt();
@@ -355,21 +358,21 @@ QJsonObject DatabaseManager::createGroup(const int& userId, const QString& name)
 		//GROUPINFO
 		//1.
 		//2.
-		// ²éÑ¯Êý¾Ý¿â
+		// æŸ¥è¯¢æ•°æ®åº“
 		query = QSqlQuery("SELECT [id] FROM GROUPINFO ORDER BY id DESC;");
 		nIndex = 0;
-		// ²éÑ¯×î¸ßID
+		// æŸ¥è¯¢æœ€é«˜ID
 		if (query.next()) {
 			nIndex = query.value("id").toInt();
 		}
 
-		// ÔÙ²éÑ¯¸ÃIDÏÂÃæµÄÈº×é
+		// å†æŸ¥è¯¢è¯¥IDä¸‹é¢çš„ç¾¤ç»„
 		nGroupId = 0;
 		strQuery = QString("SELECT [groupId] FROM GROUPINFO WHERE userId=");
 		strQuery.append(QString::number(userId));
 		strQuery.append(" ORDER BY groupId DESC");
 		query = QSqlQuery(strQuery);
-		// ²éÑ¯×î¸ßID
+		// æŸ¥è¯¢æœ€é«˜ID
 		if (query.next()) {
 			nGroupId = query.value("groupId").toInt();
 		}
@@ -377,7 +380,7 @@ QJsonObject DatabaseManager::createGroup(const int& userId, const QString& name)
 		nIndex += 1;
 		nGroupId += 1;
 
-		// ¸ù¾ÝÐÂIDÖØÐÂ´´½¨ÓÃ»§
+		// æ ¹æ®æ–°IDé‡æ–°åˆ›å»ºç”¨æˆ·
 		query.prepare("INSERT INTO GROUPINFO (id, groupId, name, head, userId, identity) "
 			"VALUES (?, ?, ?, ?, ?, ?);");
 		query.bindValue(0, nIndex);
@@ -390,7 +393,7 @@ QJsonObject DatabaseManager::createGroup(const int& userId, const QString& name)
 		query.exec();
 	}
 
-	// ¹¹½¨ Json ¶ÔÏó
+	// æž„å»º Json å¯¹è±¡
 	QJsonObject json;
 	json.insert("id", nGroupId);
 	json.insert("name", name);
@@ -413,7 +416,7 @@ QJsonArray DatabaseManager::getGroupUsers(const int& groupId)
 	QJsonArray jsonArr;
 	QSqlQuery query(strQuery);
 	jsonArr.append(groupId);
-	// ²éÑ¯
+	// æŸ¥è¯¢
 	while (query.next()) {
 		int nId = query.value(0).toInt();
 		strQuery = "SELECT [name],[head],[status] FROM USERINFO WHERE id=";
@@ -437,7 +440,7 @@ void DatabaseManager::changeAllUserStatus()
 {
 	QSqlQuery query("SELECT * FROM USERINFO ORDER BY id;");
 	while (query.next()) {
-		// ¸üÐÂÎªÏÂÏß×´Ì¬
+		// æ›´æ–°ä¸ºä¸‹çº¿çŠ¶æ€
 		updateUserStatus(query.value(0).toInt(), Offline);
 	}
 }
@@ -478,9 +481,9 @@ QJsonObject DatabaseManager::getUserInfo(const int& id) const
 
 	QJsonObject jsonObj;
 	int nCode = -1;
-	// ²éÑ¯Êý¾Ý¿â
+	// æŸ¥è¯¢æ•°æ®åº“
 	QSqlQuery query(strQuery);
-	// ¹¹½¨ÓÃ»§µÄËùÓÐÐÅÏ¢,²»°üÀ¨ÃÜÂë
+	// æž„å»ºç”¨æˆ·çš„æ‰€æœ‰ä¿¡æ¯,ä¸åŒ…æ‹¬å¯†ç 
 	if (query.next()) {
 		jsonObj.insert("id", query.value("id").toInt());
 		jsonObj.insert("name", query.value("name").toString());
@@ -488,7 +491,7 @@ QJsonObject DatabaseManager::getUserInfo(const int& id) const
 		jsonObj.insert("status", query.value("status").toInt());
 		jsonObj.insert("groupId", query.value("status").toInt());
 		jsonObj.insert("lasttime", query.value("lasttime").toString());
-		// ½á¹û´úÂë
+		// ç»“æžœä»£ç 
 		nCode = 0;
 	}
 	jsonObj.insert("code", nCode);

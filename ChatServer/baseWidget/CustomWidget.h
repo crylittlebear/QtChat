@@ -1,9 +1,14 @@
+/*!
+*  @Author: crylittlebear
+*  @Data  : 2024-7-20
+*/
+
 #pragma once
 
 #include <QWidget>
 
 /*!
-*  @brief ±¾³ÌĞòÊ¹ÓÃµÄ´°¿ÚÀàµÄ»ùÀà,¿ÉÒÔÂú×ãÍÏ¶¯ºÍËõ·ÅĞèÇó
+*  @brief æœ¬ç¨‹åºä½¿ç”¨çš„çª—å£ç±»çš„åŸºç±»,å¯ä»¥æ»¡è¶³æ‹–åŠ¨å’Œç¼©æ”¾éœ€æ±‚
 */
 class CustomWidget : public QWidget
 {
@@ -11,60 +16,60 @@ class CustomWidget : public QWidget
 
 public:
 	/*!
-	* @brief ¹¹Ôìº¯Êı
+	* @brief æ„é€ å‡½æ•°
 	*/
 	CustomWidget(QWidget* parent = nullptr);
 
 	/*!
-	* @brief Îö¹¹º¯Êı
+	* @brief ææ„å‡½æ•°
 	*/
 	~CustomWidget();
 
 protected:
 	/*!
-	* @brief ÖØĞ´Êó±ê°´ÏÂÊÂ¼ş
+	* @brief é‡å†™é¼ æ ‡æŒ‰ä¸‹äº‹ä»¶
 	*/
 	virtual void mousePressEvent(QMouseEvent* event) override;
 
 	/*!
-	* @brief ÖØĞ´Êó±êÍÏ¶¯ÊÂ¼ş
+	* @brief é‡å†™é¼ æ ‡æ‹–åŠ¨äº‹ä»¶
 	*/
 	virtual void mouseMoveEvent(QMouseEvent* event) override;
 
 	/*!
-	* @brief ÖØĞ´Êó±êÊÍ·ÅÊÂ¼ş
+	* @brief é‡å†™é¼ æ ‡é‡Šæ”¾äº‹ä»¶
 	*/
 	virtual void mouseReleaseEvent(QMouseEvent* event) override;
 
 private:
 	/*!
-	* @brief ÅĞ¶ÏÊó±êÊÇ·ñ´¦ÓÚÍÏ¶¯ÇøÓòÄÚ
+	* @brief åˆ¤æ–­é¼ æ ‡æ˜¯å¦å¤„äºæ‹–åŠ¨åŒºåŸŸå†…
 	*/
 	bool isInDragingArea(const QPoint& point) const;
 
 	/*!
-	* @brief ÅĞ¶ÏÊó±êÊÇ·ñ´¦ÓÚËõ·ÅÇøÓòÄÚ
+	* @brief åˆ¤æ–­é¼ æ ‡æ˜¯å¦å¤„äºç¼©æ”¾åŒºåŸŸå†…
 	*/
 	bool isInScalingArea(const QPoint& point) const;
 
 	/*!
-	* @brief ÅĞ¶ÏÊÇ·ñ´¦ÓÚ´°¿ÚÓÒ²àËõ·ÅÇøÓò
+	* @brief åˆ¤æ–­æ˜¯å¦å¤„äºçª—å£å³ä¾§ç¼©æ”¾åŒºåŸŸ
 	*/
 	bool isInRightScalingArea(const QPoint& point) const;
 
 	/*!
-	* @brief ÅĞ¶ÏÊÇ·ñ´¦ÓÚ´°¿ÚÏÂ²àËõ·ÅÇøÓò
+	* @brief åˆ¤æ–­æ˜¯å¦å¤„äºçª—å£ä¸‹ä¾§ç¼©æ”¾åŒºåŸŸ
 	*/
 	bool isInBottomScalingArea(const QPoint& point) const;
 
 	/*!
-	* @brief ÅĞ¶ÏÊÇ·ñ´¦ÓÚ´°¿ÚÓÒ²àËõ·ÅÇøÓò
+	* @brief åˆ¤æ–­æ˜¯å¦å¤„äºçª—å£å³ä¾§ç¼©æ”¾åŒºåŸŸ
 	*/
 	bool isInBottomRightScalingArea(const QPoint& point) const;
 
 private:
-	int dragHeight_;
-	bool isDraging_ = false;	/// ÊÇ·ñÕıÔÚÍÏ¶¯ÖĞ
-	bool isScaling_ = false;	/// ÊÇ·ñÕıÔÚËõ·ÅÖĞ
-	QPoint dragStartPoint_;		/// ÍÏ¶¯ÆğÊ¼Êó±êÎ»ÖÃ´°¿ÚÄÚ×ø±ê
+	int dragHeight_;			/// æ‹–åŠ¨çª—å£çš„é«˜åº¦
+	bool isDraging_ = false;	/// æ˜¯å¦æ­£åœ¨æ‹–åŠ¨ä¸­
+	bool isScaling_ = false;	/// æ˜¯å¦æ­£åœ¨ç¼©æ”¾ä¸­
+	QPoint dragStartPoint_;		/// æ‹–åŠ¨èµ·å§‹é¼ æ ‡ä½ç½®çª—å£å†…åæ ‡
 };

@@ -1,3 +1,8 @@
+/*!
+*  @Author: crylittlebear
+*  @Data  : 2024-7-20
+*/
+
 #pragma once
 
 #include <QObject>
@@ -9,141 +14,141 @@ class ServerSocket  : public QObject
 
 public:
     /*!
-    * @brief ¹¹Ôìº¯Êı
+    * @brief æ„é€ å‡½æ•°
     */
 	explicit ServerSocket(QTcpSocket* socket, QObject* parent = nullptr);
 
     /*!
-    * @brief Îö¹¹º¯Êı
+    * @brief ææ„å‡½æ•°
     */
 	~ServerSocket();
 
     /*!
-    * @brief »ñÈ¡µ±Ç°ÓÃ»§µÄid
+    * @brief è·å–å½“å‰ç”¨æˆ·çš„id
     */
 	int getUserId() const;
 
     /*!
-    * @brief ¹Ø±ÕÌ×½Ó×Ö
+    * @brief å…³é—­å¥—æ¥å­—
     */
 	void close();
 
 signals:
     /*!
-    * @brief Á¬½Ó³É¹¦ĞÅºÅ
+    * @brief è¿æ¥æˆåŠŸä¿¡å·
     */
 	void sigConnected();
 
     /*!
-    * @brief ¶Ï¿ªÁ¬½ÓĞÅºÅ
+    * @brief æ–­å¼€è¿æ¥ä¿¡å·
     */
 	void sigDisconnected();
 
     /*!
-    * @brief ÏÂÔØÎÄ¼şĞÅºÅ
+    * @brief ä¸‹è½½æ–‡ä»¶ä¿¡å·
     */
 	void sigDownloadFile(const QJsonValue& json);
 
     /*!
-    * @brief ·¢ËÍÏûÏ¢µ½¿Í»§¶ËĞÅºÅ
+    * @brief å‘é€æ¶ˆæ¯åˆ°å®¢æˆ·ç«¯ä¿¡å·
     */
 	void sigMsgToClient(const quint8& type, const int& id, const QJsonValue& dataVal);
 
 public slots:
     /*!
-    * @brief ·¢ËÍÏûÏ¢²Ûº¯Êı
+    * @brief å‘é€æ¶ˆæ¯æ§½å‡½æ•°
     */
     void sltSendMessage(const quint8& type, const QJsonValue& json);
 
 private:
     /*!
-    * @brief ´¦ÀíµÇÂ¼ÇëÇó²Ù×÷
+    * @brief å¤„ç†ç™»å½•è¯·æ±‚æ“ä½œ
     */
 	void parseLogin(const QJsonValue& dataVal);
 
     /*!
-    * @brief ÓÃ»§ÉÏÏß
+    * @brief ç”¨æˆ·ä¸Šçº¿
     */
 	void parseUserOnline(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíµÇ³ö²Ù×÷
+    * @brief å¤„ç†ç™»å‡ºæ“ä½œ
     */
     void parseLogout(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦Àí¸üĞÂÓÃ»§Í·Ïñ²Ù×÷
+    * @brief å¤„ç†æ›´æ–°ç”¨æˆ·å¤´åƒæ“ä½œ
     */
     void parseUpdateUserHead(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíÓÃ»§×¢²á
+    * @brief å¤„ç†ç”¨æˆ·æ³¨å†Œ
     */
     void parseRegister(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíÓÃ»§Ìí¼ÓÅóÓÑ
+    * @brief å¤„ç†ç”¨æˆ·æ·»åŠ æœ‹å‹
     */
     void parseAddFriend(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíÓÃ»§¼ÓÈëÈº×é
+    * @brief å¤„ç†ç”¨æˆ·åŠ å…¥ç¾¤ç»„
     */
     void parseAddGroup(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíÓÃ»§´´½¨Èº×é
+    * @brief å¤„ç†ç”¨æˆ·åˆ›å»ºç¾¤ç»„
     */
     void parseCreateGroup(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíÓÃ»§»ñÈ¡ÅóÓÑĞÅÏ¢
+    * @brief å¤„ç†ç”¨æˆ·è·å–æœ‹å‹ä¿¡æ¯
     */
     void parseGetMyFriend(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíÓÃ»§»ñÈ¡Èº×éĞÅÏ¢
+    * @brief å¤„ç†ç”¨æˆ·è·å–ç¾¤ç»„ä¿¡æ¯
     */
     void parseGetMyGroups(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíÓÃ»§Ë¢ĞÂÅóÓÑĞÅÏ¢
+    * @brief å¤„ç†ç”¨æˆ·åˆ·æ–°æœ‹å‹ä¿¡æ¯
     */
     void parseRefreshFriend(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíÓÃ»§Ë¢ĞÂÈº×éĞÅÏ¢
+    * @brief å¤„ç†ç”¨æˆ·åˆ·æ–°ç¾¤ç»„ä¿¡æ¯
     */
     void parseRefreshGroups(const QJsonValue& dataVal);
 
     /*!
-    * @brief ´¦ÀíÅóÓÑµÄÏûÏ¢
+    * @brief å¤„ç†æœ‹å‹çš„æ¶ˆæ¯
     */
     void parseFriendMessages(const QByteArray& reply);
 
     /*!
-    * @brief ´¦ÀíÈºÏûÏ¢
+    * @brief å¤„ç†ç¾¤æ¶ˆæ¯
     */
     void parseGroupMessages(const QByteArray& reply);
 
     /*!
-    * @brief ´¦Àí±íÇéÏûÏ¢
+    * @brief å¤„ç†è¡¨æƒ…æ¶ˆæ¯
     */
     void parseFaceMessages(const QByteArray& reply);
 
 private slots:
     /*!
-    * @brief Á¬½Ó³É¹¦²Ûº¯Êı
+    * @brief è¿æ¥æˆåŠŸæ§½å‡½æ•°
     */
     void sltConnected();
 
     /*!
-    * @brief ¶Ï¿ªÁ¬½Ó²Ûº¯Êı
+    * @brief æ–­å¼€è¿æ¥æ§½å‡½æ•°
     */
     void sltDisconnected();
 
     /*!
-    * @brief ×¼±¸¶ÁÈ¡ÏûÏ¢²Ûº¯Êı
+    * @brief å‡†å¤‡è¯»å–æ¶ˆæ¯æ§½å‡½æ•°
     */
     void sltReadyRead();
 

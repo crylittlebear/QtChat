@@ -1,3 +1,8 @@
+/*!
+*  @Author: crylittlebear
+*  @Data  : 2024-7-20
+*/
+
 #include "ServerSocket.h"
 
 #include "qdebug.h"
@@ -35,12 +40,12 @@ void ServerSocket::close() {
 }
 
 void ServerSocket::sltReadyRead() {
-	// ´ÓÌ×½Ó×ÖÖĞ¶ÁÈ¡´ı¶ÁÊı¾İ
+	// ä»å¥—æ¥å­—ä¸­è¯»å–å¾…è¯»æ•°æ®
 	QByteArray request = tcpSocket_->readAll();
 	QJsonParseError jsonErr;
-	// ½«Êı¾İ×ª»¯ÎªJsonDocument¸ñÊ½
+	// å°†æ•°æ®è½¬åŒ–ä¸ºJsonDocumentæ ¼å¼
 	QJsonDocument document = QJsonDocument::fromJson(request, &jsonErr);
-	// ½âÎöÎ´·¢Éú´íÎó
+	// è§£ææœªå‘ç”Ÿé”™è¯¯
 	if (!document.isNull() && jsonErr.error == QJsonParseError::NoError) {
 		if (document.isObject()) {
 			QJsonObject jsonObj = document.object();
@@ -106,8 +111,21 @@ void ServerSocket::sltReadyRead() {
 	}
 }
 
-void ServerSocket::sltSendMessage(const quint8& type, const QJsonValue& json) {
-
+void ServerSocket::sltSendMessage(const quint8& type, const QJsonValue& jsonVal) {
+	if (!tcpSocket_->isOpen()) {
+		return;
+	}
+	QJsonObject jsonObj;
+	jsonObj.insert("type", type);
+	jsonObj.insert("id", id_);
+	jsonObj.insert("data", jsonVal);
+	// æ„å»ºjsonæ–‡æ¡£
+	QJsonDocument document;
+	document.setObject(jsonObj);
+	// è¾“å‡ºDebugä¿¡æ¯
+	qDebug() << "tcpSocket_->write()" << document.toJson(QJsonDocument::Compact);
+	// å‘é€ä¿¡æ¯
+	tcpSocket_->write(document.toJson(QJsonDocument::Compact));
 }
 
 void ServerSocket::parseLogin(const QJsonValue& dataVal) {
@@ -143,7 +161,7 @@ void ServerSocket::parseUserOnline(const QJsonValue& dataVal) {
 		for (int i = 0; i < size; ++i) {
 			int id = jsonArr.at(i).toInt();
 			int status = DatabaseManager::instance()->getUserLineStatus(id);
-			// Èç¹ûµ±Ç°ºÃÓÑÔÚÏß
+			// å¦‚æœå½“å‰å¥½å‹åœ¨çº¿
 			if (status == Online) {
 				QJsonObject jsonObj;
 				jsonObj.insert("id", id);
@@ -199,7 +217,7 @@ void ServerSocket::parseRegister(const QJsonValue& dataVal) {
 		QString name = jsonObj.value("name").toString();
 		QString passwd = jsonObj.value("passwd").toString();
 		int regId = DatabaseManager::instance()->registerUser(name, passwd);
-		// ½«×¢²áÍê³ÉµÄĞÅÏ¢·µ»Ø¿Í»§¶Ë
+		// å°†æ³¨å†Œå®Œæˆçš„ä¿¡æ¯è¿”å›å®¢æˆ·ç«¯
 		QJsonObject responseObj;
 		responseObj.insert("id", regId);
 		responseObj.insert("name", name);
@@ -221,16 +239,16 @@ void ServerSocket::parseAddFriend(const QJsonValue& dataVal) {
 		QJsonObject jsonFriend = DatabaseManager::instance()->addFriend(strName);
 		int id = jsonFriend.value("id").toInt();
 		QString strMsg = jsonFriend.value("msg").toString();
-		// ½«²éÑ¯½á¹û·¢ËÍµ½¿Í»§¶Ë
+		// å°†æŸ¥è¯¢ç»“æœå‘é€åˆ°å®¢æˆ·ç«¯
 		sltSendMessage(AddFriend, jsonFriend);
 		if (id < 0) { return; }
-		// ¸ø¶Ô·½·¢ËÍÌí¼ÓÇëÇó
+		// ç»™å¯¹æ–¹å‘é€æ·»åŠ è¯·æ±‚
 		QJsonObject jsonQuery = DatabaseManager::instance()->getUserInfo(id);
 		QJsonObject jsonResponse;
 		jsonResponse.insert("id", id);
 		jsonResponse.insert("name", jsonQuery.value("name").toString());
 		jsonResponse.insert("head", jsonQuery.value("head").toString());
-		jsonResponse.insert("msg", strMsg.isEmpty() ? "¸½¼ÓÏûÏ¢: ÄãºÃ!" : strMsg);
+		jsonResponse.insert("msg", strMsg.isEmpty() ? "é™„åŠ æ¶ˆæ¯: ä½ å¥½!" : strMsg);
 		emit sigMsgToClient(AddFriendResponse, id, jsonResponse);
 	}
 }
@@ -241,7 +259,7 @@ void ServerSocket::parseAddGroup(const QJsonValue& dataVal) {
 		int id = dataObj.value("id").toInt();
 		QString strName = dataObj.value("name").toString();
 		auto json = DatabaseManager::instance()->addGroup(id, strName);
-		// ·¢ËÍÏûÏ¢µ½¿Í»§¶Ë
+		// å‘é€æ¶ˆæ¯åˆ°å®¢æˆ·ç«¯
 		sltSendMessage(AddGroup, json);
 	}
 }
@@ -252,7 +270,7 @@ void ServerSocket::parseCreateGroup(const QJsonValue& dataVal) {
 		int id = dataObj.value("id").toInt();
 		QString strName = dataObj.value("id").toString();
 		auto json = DatabaseManager::instance()->createGroup(id, strName);
-		// ·¢ËÍ
+		// å‘é€
 		sltSendMessage(CreateGroup, json);
 	}
 }
@@ -304,9 +322,9 @@ void ServerSocket::parseRefreshGroups(const QJsonValue& dataVal) {
 }
 
 void ServerSocket::parseFriendMessages(const QByteArray& reply) {
-	// ÖØĞÂ×é×°Êı¾İ
+	// é‡æ–°ç»„è£…æ•°æ®
 	QJsonParseError jsonErr;
-	// ×ª»¯ÎªjsonÎÄµµ
+	// è½¬åŒ–ä¸ºjsonæ–‡æ¡£
 	QJsonDocument document = QJsonDocument::fromJson(reply, &jsonErr);
 	if (!document.isNull() && jsonErr.error == QJsonParseError::NoError) {
 		if (document.isObject()) {
@@ -321,11 +339,55 @@ void ServerSocket::parseFriendMessages(const QByteArray& reply) {
 }
 
 void ServerSocket::parseGroupMessages(const QByteArray& reply) {
-
+	// é‡æ–°ç»„è£…æ•°æ®
+	QJsonParseError jsonErr;
+	// è½¬åŒ–ä¸ºjsonæ–‡æ¡£
+	QJsonDocument document = QJsonDocument::fromJson(reply, &jsonErr);
+	if (!document.isNull() && jsonErr.error == QJsonParseError::NoError) {
+		if (document.isObject()) {
+			QJsonObject dataObj = document.object();
+			int type = dataObj.value("type").toInt();
+			QJsonValue dataVal = dataObj.value("data");
+			QJsonObject jsonObj = dataVal.toObject();
+			// è½¬å‘çš„ç¾¤ç»„id
+			int groupId = jsonObj.value("to").toInt();
+			QString strMsg = jsonObj.value("msg").toString();
+			QString name = DatabaseManager::instance()->getUserName(groupId);
+			// æŸ¥è¯¢è¯¥ç¾¤ç»„é‡Œé¢çš„åœ¨çº¿å¥½å‹
+			QJsonArray jsonArr = DatabaseManager::instance()->getGroupUsers(groupId);
+			if (jsonArr.size() < 2) { return; }
+			for (int i = 0; i < jsonArr.size(); ++i) {
+				QJsonObject json = jsonArr.at(i).toObject();
+				int status = json.value("status").toInt();
+				int userId = json.value("id").toInt();
+				if (status == Online && userId != id_) {
+					QJsonObject jsonMsg;
+					jsonMsg.insert("group", groupId);
+					jsonMsg.insert("id", id_);
+					jsonMsg.insert("name", name);
+					jsonMsg.insert("to", userId);
+					jsonMsg.insert("msg", strMsg);
+					jsonMsg.insert("head", DatabaseManager::instance()->getUserHead(id_));
+					emit sigMsgToClient(type, userId, jsonMsg);
+				}
+			}
+		}
+	}
 }
 
-void ServerSocket::parseFaceMessages(const QByteArray& reply)
-{
+void ServerSocket::parseFaceMessages(const QByteArray& reply) {
+	QJsonParseError jsonErr;
+	QJsonDocument document = QJsonDocument::fromJson(reply, &jsonErr);
+	if (!document.isNull() && jsonErr.error == QJsonParseError::NoError) {
+		if (document.isObject()) {
+			QJsonObject jsonObj = document.object();
+			int type = jsonObj.value("type").toInt();
+			QJsonValue dataVal = jsonObj.value("data");
+			QJsonObject dataObj = dataVal.toObject();
+			int id = dataObj.value("id").toInt();
+			emit sigMsgToClient(type, id, dataObj);
+		}
+	}
 }
 
 void ServerSocket::sltConnected() {

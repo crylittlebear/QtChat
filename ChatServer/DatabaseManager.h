@@ -1,3 +1,8 @@
+/*!
+*  @Author: crylittlebear
+*  @Data  : 2024-7-20
+*/
+
 #pragma once
 
 #include <QObject>
@@ -9,32 +14,32 @@ class DatabaseManager  : public QObject
 
 public:
     /*!
-    * @brief ¹¹Ôìº¯Êı
+    * @brief æ„é€ å‡½æ•°
     */
     explicit DatabaseManager(QObject* parent = nullptr);
 
     /*!
-    * @brief Îö¹¹º¯Êı
+    * @brief ææ„å‡½æ•°
     */
 	~DatabaseManager();
 
     /*!
-    * @brief ´´½¨²¢´ò¿ªÃûÎªdatabaseNameµÄÊı¾İ¿â
+    * @brief åˆ›å»ºå¹¶æ‰“å¼€åä¸ºdatabaseNameçš„æ•°æ®åº“
     */
 	bool openDb(const QString& databaseName);
 
     /*!
-    * @brief ¹Ø±ÕÊı¾İ¿â
+    * @brief å…³é—­æ•°æ®åº“
     */
 	void closeDb();
 
     /*!
-    * @brief ¸üĞÂÓÃ»§×´Ì¬
+    * @brief æ›´æ–°ç”¨æˆ·çŠ¶æ€
     */
     void updateUserStatus(const int& id, const quint8& status);
 
     /*!
-    * @brief ¸üĞÂÓÃ»§Í·Ïñ
+    * @brief æ›´æ–°ç”¨æˆ·å¤´åƒ
     */
     void updateUserHead(const int& id, const QString& strHead);
 
@@ -44,72 +49,72 @@ public:
     void testHeadPic(const int& id, const QString& name, const QString& strHead);
 
     /*!
-    * @brief »ñÈ¡ËùÓĞµÄÓÃ»§
+    * @brief è·å–æ‰€æœ‰çš„ç”¨æˆ·
     */
     QJsonArray getAllUsers();
 
     /*!
-    * @brief »ñÈ¡ÓÃ»§µÄ×´Ì¬
+    * @brief è·å–ç”¨æˆ·çš„çŠ¶æ€
     */
     QJsonObject getUserStatus(const int& id) const;
 
     /*!
-    * @brief  »ñÈ¡ÓÃ»§µÄÔÚÏß×´Ì¬
+    * @brief  è·å–ç”¨æˆ·çš„åœ¨çº¿çŠ¶æ€
     */
     int getUserLineStatus(const int& id) const;
 
     /*!
-    * @brief ¶ÔÓÃ»§·¢À´µÄµÇÂ¼ÇëÇó½øĞĞĞ£Ñé
+    * @brief å¯¹ç”¨æˆ·å‘æ¥çš„ç™»å½•è¯·æ±‚è¿›è¡Œæ ¡éªŒ
     */
     QJsonObject checkUserLogin(const QString& name, const QString& passwd);
 
     /*!
-    * @brief ÓÃ»§×¢²á
+    * @brief ç”¨æˆ·æ³¨å†Œ
     */
     int registerUser(const QString& name, const QString& passwd);
 
     /*!
-    * @brief Ìí¼ÓºÃÓÑ
+    * @brief æ·»åŠ å¥½å‹
     */
     QJsonObject addFriend(const QString& name);
 
     /*!
-    * @brief Ìí¼ÓÈº×é
+    * @brief æ·»åŠ ç¾¤ç»„
     */
     QJsonObject addGroup(const int& userId, const QString& name);
 
     /*!
-    * @brief ´´½¨Èº×é
+    * @brief åˆ›å»ºç¾¤ç»„
     */
     QJsonObject createGroup(const int& userId, const QString& name);
 
     /*!
-    * @brief ²éÑ¯µ±Ç°Èº×éÏÂµÄºÃÓÑ
+    * @brief æŸ¥è¯¢å½“å‰ç¾¤ç»„ä¸‹çš„å¥½å‹
     */
     QJsonArray  getGroupUsers(const int& groupId);
 
     /*!
-    * @brief ¸üĞÂËùÓĞÓÃ»§µÄ×´Ì¬
+    * @brief æ›´æ–°æ‰€æœ‰ç”¨æˆ·çš„çŠ¶æ€
     */
     void changeAllUserStatus();
 
     /*!
-    * @brief Í¨¹ıid»ñÈ¡ÓÃ»§µÄÃû×Ö
+    * @brief é€šè¿‡idè·å–ç”¨æˆ·çš„åå­—
     */
     QString getUserName(const int& id) const;
 
     /*!
-    * @brief Í¨¹ıid»ñÈ¡ÓÃ»§µÄÍ·Ïñ
+    * @brief é€šè¿‡idè·å–ç”¨æˆ·çš„å¤´åƒ
     */
     QString getUserHead(const int& id) const;
 
     /*!
-    * @brief »ñÈ¡ÓÃ»§µÄĞÅÏ¢
+    * @brief è·å–ç”¨æˆ·çš„ä¿¡æ¯
     */
     QJsonObject getUserInfo(const int& id) const;
 
     /*!
-    * @brief µ¥ÀıÄ£Ê½£¬»ñÈ¡Î¨Ò»µÄ¶ÔÏóÊµÀı
+    * @brief å•ä¾‹æ¨¡å¼ï¼Œè·å–å”¯ä¸€çš„å¯¹è±¡å®ä¾‹
     */
     static DatabaseManager* instance() {
         static DatabaseManager manager;
@@ -117,12 +122,11 @@ public:
     }
 
     /*!
-    * @brief Ö´ĞĞselect * Óï¾ä£¬´òÓ¡Ã¿¸ö±íµÄĞÅÏ¢
+    * @brief æ‰§è¡Œselect * è¯­å¥ï¼Œæ‰“å°æ¯ä¸ªè¡¨çš„ä¿¡æ¯
     */
     void queryAll();
 
 private:
-    static DatabaseManager* self_;
     QSqlDatabase database_;
 };
 

@@ -1,3 +1,8 @@
+/*!
+*  @Author: crylittlebear
+*  @Data  : 2024-7-20
+*/
+
 #include "MainWindow.h"
 
 #include "qfile.h"
@@ -11,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowFlags(Qt::FramelessWindowHint);
     setWindowIcon(QIcon(QPixmap(":/resource/background/desktop.png")));
 
-    // ¼ÓÔØÑùÊ½±í
+    // åŠ è½½æ ·å¼è¡¨
     QFile file(":/qss/resource/qss/window.css");
     file.open(QIODevice::ReadOnly);
     qApp->setStyleSheet(QString(file.readAll()));

@@ -1,3 +1,8 @@
+/*!
+*  @Author: crylittlebear
+*  @Data  : 2024-7-20
+*/
+
 #include "rotatestackedwidget.h"
 
 #include "qpixmap.h"
@@ -43,8 +48,8 @@ void RotateStackedWidget::paintEvent(QPaintEvent* event) {
 
 			QTransform transform;
 			/*!
-			* translateµÄ×÷ÓÃÊÇÆ½ÒÆ×ø±êÔ­µãµÄÎ»ÖÃ£¬Èç¹û²»½øĞĞÆ½ÒÆ
-			* ´°¿Ú»áÒÔ×óÉÏ½ÇÎª×ø±êÔ­µã
+			* translateçš„ä½œç”¨æ˜¯å¹³ç§»åæ ‡åŸç‚¹çš„ä½ç½®ï¼Œå¦‚æœä¸è¿›è¡Œå¹³ç§»
+			* çª—å£ä¼šä»¥å·¦ä¸Šè§’ä¸ºåæ ‡åŸç‚¹
 			*/
 			transform.translate(width() / 2, 0);
 			transform.rotate(rotateVal_ + 180, Qt::YAxis);

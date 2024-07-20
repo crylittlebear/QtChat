@@ -1,56 +1,61 @@
+/*!
+*  @Author: crylittlebear
+*  @Data  : 2024-7-20
+*/
+
 #pragma once
 
-// ÆøÅİ·½Ïò
+// æ°”æ³¡æ–¹å‘
 typedef enum { None, Left, Right, } Orientation;
 
 typedef enum {
-	Text,							// ÆÕÍ¨ÎÄ×ÖÏûÏ¢
-	Audio,							// ÓïÒôÏûÏ¢
-	Picture,						// Í¼Æ¬ÏûÏ¢
-	Files,							// ÎÄ¼ş´«Êä
+	Text,							// æ™®é€šæ–‡å­—æ¶ˆæ¯
+	Audio,							// è¯­éŸ³æ¶ˆæ¯
+	Picture,						// å›¾ç‰‡æ¶ˆæ¯
+	Files,							// æ–‡ä»¶ä¼ è¾“
 } MessageType;
 
 typedef enum {
-	Unknown = 0x00,		// Î´Öª	
-	Register = 0x10,		// ÓÃ»§×¢²á
-	Login = 0x11,		// ÓÃ»§µÇÂ¼
-	Logout = 0x12,		// ÓÃ»§µÇ³ö
-	LoginRepeat = 0x13,		// ÓÃ»§ÖØ¸´µÇÂ¼
-	UserOnline = 0x15,		// ÓÃ»§ÔÚÏß
-	UserOffline = 0x16,		// ÓÃ»§ÀëÏß
-	UpdateHeadPic = 0x17,		// ¸üĞÂÍ·ÏñÇëÇó
-	AddFriend = 0x20,		// Ìí¼ÓÅóÓÑÇëÇó
-	AddGroup = 0x21,		// Ìí¼ÓÈº×éÇëÇó
-	AddFriendResponse = 0x22,		// Ìí¼ÓÅóÓÑÏìÓ¦
-	AddGroupResponse = 0x23,		// Ìí¼ÓÈº×éÏàÓ¦
-	CreateGroup = 0x25,		// ´´½¨Èº×é
-	GetMyFriends = 0x30,		// »ñÈ¡ÓÃ»§ÅóÓÑĞÅÏ¢
-	GetMyGroups = 0x31,		// »ñÈ¡ÓÃ»§Èº×éĞÅÏ¢
-	RefreshFriends = 0x35,		// Ë¢ĞÂÅóÓÑĞÅÏ¢
-	RefreshGroup = 0x36,		// Ë¢ĞÂÈº×éĞÅÏ¢
-	SendMsg = 0x40,		// ·¢ËÍÆÕÍ¨ĞÅÏ¢
-	SendGroupMsg = 0x41,		// ·¢ËÍÈº×éĞÅÏ¢
-	SendFile = 0x42,		// ·¢ËÍÎÄ¼ş
-	SendPicture = 0x43,		// ·¢ËÍÍ¼Æ¬
-	SendFace = 0x44,		// ·¢ËÍ±íÇé
-	ChangePasswd = 0x50,		// ĞŞ¸ÄÃÜÂë
-	DeleteFriend = 0x55,		// É¾³ıÅóÓÑ
-	DeleteGroup = 0x56,		// É¾³ıÈº×é
-	SendFileOk = 0x60,		// ·¢ËÍÎÄ¼şÍê±Ï
-	GetFile = 0x65,		// »ñÈ¡ÎÄ¼ş
-	GetPicture = 0x66		// »ñÈ¡Í¼Æ¬
+	Unknown				= 0x00,		// æœªçŸ¥	
+	Register			= 0x10,		// ç”¨æˆ·æ³¨å†Œ
+	Login				= 0x11,		// ç”¨æˆ·ç™»å½•
+	Logout				= 0x12,		// ç”¨æˆ·ç™»å‡º
+	LoginRepeat			= 0x13,		// ç”¨æˆ·é‡å¤ç™»å½•
+	UserOnline			= 0x15,		// ç”¨æˆ·åœ¨çº¿
+	UserOffline			= 0x16,		// ç”¨æˆ·ç¦»çº¿
+	UpdateHeadPic		= 0x17,		// æ›´æ–°å¤´åƒè¯·æ±‚
+	AddFriend			= 0x20,		// æ·»åŠ æœ‹å‹è¯·æ±‚
+	AddGroup			= 0x21,		// æ·»åŠ ç¾¤ç»„è¯·æ±‚
+	AddFriendResponse	= 0x22,		// æ·»åŠ æœ‹å‹å“åº”
+	AddGroupResponse	= 0x23,		// æ·»åŠ ç¾¤ç»„ç›¸åº”
+	CreateGroup			= 0x25,		// åˆ›å»ºç¾¤ç»„
+	GetMyFriends		= 0x30,		// è·å–ç”¨æˆ·æœ‹å‹ä¿¡æ¯
+	GetMyGroups			= 0x31,		// è·å–ç”¨æˆ·ç¾¤ç»„ä¿¡æ¯
+	RefreshFriends		= 0x35,		// åˆ·æ–°æœ‹å‹ä¿¡æ¯
+	RefreshGroup		= 0x36,		// åˆ·æ–°ç¾¤ç»„ä¿¡æ¯
+	SendMsg				= 0x40,		// å‘é€æ™®é€šä¿¡æ¯
+	SendGroupMsg		= 0x41,		// å‘é€ç¾¤ç»„ä¿¡æ¯
+	SendFile			= 0x42,		// å‘é€æ–‡ä»¶
+	SendPicture			= 0x43,		// å‘é€å›¾ç‰‡
+	SendFace			= 0x44,		// å‘é€è¡¨æƒ…
+	ChangePasswd		= 0x50,		// ä¿®æ”¹å¯†ç 
+	DeleteFriend		= 0x55,		// åˆ é™¤æœ‹å‹
+	DeleteGroup			= 0x56,		// åˆ é™¤ç¾¤ç»„
+	SendFileOk			= 0x60,		// å‘é€æ–‡ä»¶å®Œæ¯•
+	GetFile				= 0x65,		// è·å–æ–‡ä»¶
+	GetPicture			= 0x66		// è·å–å›¾ç‰‡
 } E_MSG_TYPE;
 
 typedef enum {
-	ConnectedHot = 0x01,		// Á¬½ÓÉÏ·şÎñÆ÷
-	DisconnectedHost = 0x02,		// ´Ó·şÎñÆ÷¶Ï¿ªÁ¬½Ó
-	LoginSuccess = 0x03,		// µÇÂ¼³É¹¦
-	LoginPasswdErr = 0x04,		// ÃÜÂë´íÎó
-	Online = 0x05,		// ÔÚÏß
-	Offline = 0x06,		// ÀëÏß
-	RegisterOk = 0x07,		// ×¢²á³É¹¦
-	RegisterFailed = 0x08,		// ×¢²áÊ§°Ü
-	AddFriendOk = 0x09,		// Ìí¼ÓÅóÓÑ³É¹¦
-	AddFriendFailed = 0x0a,		// Ìí¼ÓÅóÓÑÊ§°Ü
-	UserNotFound = 0x0b,		// ÓÃ»§²»´æÔÚ
+	ConnectedHot		= 0x01,		// è¿æ¥ä¸ŠæœåŠ¡å™¨
+	DisconnectedHost	= 0x02,		// ä»æœåŠ¡å™¨æ–­å¼€è¿æ¥
+	LoginSuccess		= 0x03,		// ç™»å½•æˆåŠŸ
+	LoginPasswdErr		= 0x04,		// å¯†ç é”™è¯¯
+	Online				= 0x05,		// åœ¨çº¿
+	Offline				= 0x06,		// ç¦»çº¿
+	RegisterOk			= 0x07,		// æ³¨å†ŒæˆåŠŸ
+	RegisterFailed		= 0x08,		// æ³¨å†Œå¤±è´¥
+	AddFriendOk			= 0x09,		// æ·»åŠ æœ‹å‹æˆåŠŸ
+	AddFriendFailed		= 0x0a,		// æ·»åŠ æœ‹å‹å¤±è´¥
+	UserNotFound		= 0x0b,		// ç”¨æˆ·ä¸å­˜åœ¨
 } E_STATUS;
