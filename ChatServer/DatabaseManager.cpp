@@ -164,7 +164,7 @@ QJsonObject DatabaseManager::checkUserLogin(const QString& name, const QString& 
 	* 这里还是有一些逻辑上的漏洞需要完善，比如账号不存在和密码错误，这里在执行select的
 	* 时候是账号和密码一起搜索的，严谨一点应该先查找账号是否存在
 	*/
-	QString sql = QString("select [id], [passwd], [head], [status] from userinfo where name = %1;").arg(name);
+	QString sql = QString("select [id], [passwd], [head], [status] from userinfo where name = '%1';").arg(name);
 	QSqlQuery query(sql);
 	QJsonObject responseObj;
 	int id = -1;
@@ -191,7 +191,7 @@ QJsonObject DatabaseManager::checkUserLogin(const QString& name, const QString& 
 	responseObj.insert("id", id);
 	responseObj.insert("msg", code < 0 ? "error" : "ok");
 	responseObj.insert("head", head);
-	responseObj.insert("code", -1);
+	responseObj.insert("code", code);
 	return responseObj;
 #else 
 	QString sql = QString("select [id], [head], [status] from userinfo where "

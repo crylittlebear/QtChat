@@ -25,8 +25,6 @@ public:
 
     static void checkDirs();
 
-    static void checkSounds();
-
     static void saveConfig();
 
 public:
@@ -35,7 +33,7 @@ public:
     static QString strRecvPath_;
     static QString strDataBasePath_;
     static QString strConfigPath_;
-    static QString strSoundPath_;
+    static QString strBackupPath_;
     static QString strRecordPath_;
 
     static QString strFacePath_;

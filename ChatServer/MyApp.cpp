@@ -18,7 +18,7 @@ QString MyApp::strDataBasePath_ = "";
 QString MyApp::strConfigPath_ = "";
 QString MyApp::strFacePath_ = "";
 QString MyApp::strHeadPath_ = "";
-QString MyApp::strSoundPath_ = "";
+QString MyApp::strBackupPath_ = "";
 QString MyApp::strRecordPath_ = "";
 QString MyApp::strIniFile_ = "config.ini";
 
@@ -44,14 +44,12 @@ void MyApp::initApp(const QString& appPath) {
     strDataBasePath_ = strDataPath_ + "DataBase/";
     strConfigPath_ = strDataPath_ + "Conf/";
     strHeadPath_ = strDataPath_ + "Head/";
-    strSoundPath_ = strDataPath_ + "Sound/";
+    strBackupPath_ = strDataPath_ + "Backup/";
     strRecordPath_ = strDataPath_ + "Record/";
     strFacePath_ = strDataPath_ + "Face/";
     strIniFile_ = strDataPath_ + "config.ini";
 
     checkDirs();
-
-    checkSounds();
 
     createSettingFile();
 
@@ -162,36 +160,6 @@ void MyApp::checkDirs() {
 #ifdef Q_WS_QWS
         QProcess::execute("sync");
 #endif
-    }
-    // 音频目录
-    dir.setPath(strSoundPath_);
-    if (!dir.exists()) {
-        dir.mkdir(strSoundPath_);
-#ifdef Q_WS_QWS
-        QProcess::execute("sync");
-#endif
-    }
-}
-
-void MyApp::checkSounds() {
-    if (!QFile::exists(MyApp::strSoundPath_ + "message.wav")) {
-        QFile::copy(":/sound/resource/sound/message.wav", MyApp::strSoundPath_ + "message.wav");
-    }
-
-    if (!QFile::exists(MyApp::strSoundPath_ + "msg.wav")) {
-        QFile::copy(":/sound/resource/sound/msg.wav", MyApp::strSoundPath_ + "msg.wav");
-    }
-
-    if (!QFile::exists(MyApp::strSoundPath_ + "ringin.wav")) {
-        QFile::copy(":/sound/resource/sound/ringin.wav", MyApp::strSoundPath_ + "ringin.wav");
-    }
-
-    if (!QFile::exists(MyApp::strSoundPath_ + "system.wav")) {
-        QFile::copy(":/sound/resource/sound/system.wav", MyApp::strSoundPath_ + "system.wav");
-    }
-
-    if (!QFile::exists(MyApp::strSoundPath_ + "userlogon.wav")) {
-        QFile::copy(":/sound/resource/sound/userlogon.wav", MyApp::strSoundPath_ + "userlogon.wav");
     }
 }
 

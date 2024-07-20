@@ -95,6 +95,7 @@
     <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="MyApp.cpp" />
     <ClCompile Include="ServerSocket.cpp" />
+    <ClCompile Include="TcpServer.cpp" />
     <QtRcc Include="MainWindow.qrc" />
     <QtUic Include="MainWindow.ui" />
     <QtMoc Include="MainWindow.h" />
@@ -111,8 +112,10 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="DatabaseManager.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="MyApp.h" />
     <QtMoc Include="ServerSocket.h" />
+    <QtMoc Include="TcpServer.h" />
     <ClInclude Include="unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
