@@ -451,17 +451,20 @@
                  <layout class="QVBoxLayout" name="verticalLayout_17">
                   <item>
                    <layout class="QVBoxLayout" name="verticalLayout_2">
+                    <property name="spacing">
+                     <number>15</number>
+                    </property>
                     <item>
                      <widget class="QPushButton" name="btnUserSearchPage">
                       <property name="minimumSize">
                        <size>
-                        <width>100</width>
-                        <height>45</height>
+                        <width>150</width>
+                        <height>60</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>130</width>
+                        <width>150</width>
                         <height>45</height>
                        </size>
                       </property>
@@ -484,13 +487,13 @@
                      <widget class="QPushButton" name="btnUserInfoPage">
                       <property name="minimumSize">
                        <size>
-                        <width>0</width>
-                        <height>45</height>
+                        <width>150</width>
+                        <height>60</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>130</width>
+                        <width>150</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -513,13 +516,13 @@
                      <widget class="QPushButton" name="btnServerConfigPage">
                       <property name="minimumSize">
                        <size>
-                        <width>0</width>
-                        <height>45</height>
+                        <width>150</width>
+                        <height>60</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>130</width>
+                        <width>150</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -542,13 +545,13 @@
                      <widget class="QPushButton" name="btnUserConfigPage">
                       <property name="minimumSize">
                        <size>
-                        <width>0</width>
-                        <height>45</height>
+                        <width>150</width>
+                        <height>60</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>130</width>
+                        <width>150</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -571,13 +574,13 @@
                      <widget class="QPushButton" name="btnPasswdModPage">
                       <property name="minimumSize">
                        <size>
-                        <width>0</width>
-                        <height>45</height>
+                        <width>150</width>
+                        <height>60</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>130</width>
+                        <width>150</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -600,13 +603,13 @@
                      <widget class="QPushButton" name="btnDataBackupPage">
                       <property name="minimumSize">
                        <size>
-                        <width>0</width>
-                        <height>45</height>
+                        <width>150</width>
+                        <height>60</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>130</width>
+                        <width>150</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -644,13 +647,13 @@
                    <widget class="QPushButton" name="btnExit">
                     <property name="minimumSize">
                      <size>
-                      <width>0</width>
-                      <height>45</height>
+                      <width>150</width>
+                      <height>60</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>130</width>
+                      <width>150</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -696,7 +699,7 @@
                <item>
                 <widget class="QStackedWidget" name="stackWidgetWorkSpace">
                  <property name="currentIndex">
-                  <number>5</number>
+                  <number>3</number>
                  </property>
                  <widget class="QWidget" name="pageUserSearch">
                   <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -844,7 +847,7 @@
                             <property name="minimumSize">
                              <size>
                               <width>0</width>
-                              <height>40</height>
+                              <height>50</height>
                              </size>
                             </property>
                             <property name="text">
@@ -867,7 +870,7 @@
                             <property name="minimumSize">
                              <size>
                               <width>0</width>
-                              <height>40</height>
+                              <height>50</height>
                              </size>
                             </property>
                             <property name="text">
@@ -884,7 +887,7 @@
                             <property name="minimumSize">
                              <size>
                               <width>0</width>
-                              <height>40</height>
+                              <height>50</height>
                              </size>
                             </property>
                             <property name="text">
@@ -901,7 +904,7 @@
                             <property name="minimumSize">
                              <size>
                               <width>0</width>
-                              <height>40</height>
+                              <height>50</height>
                              </size>
                             </property>
                             <property name="text">
@@ -1314,6 +1317,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="MainWindow.qrc"/>
   <include location="MainWindow.qrc"/>
   <include location="../../../../../.designer/backup/MainWindow.qrc"/>
  </resources>
