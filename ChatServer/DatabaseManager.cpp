@@ -13,7 +13,7 @@
 #include "qdebug.h"
 #include "qsqlquery.h"
 
-#define DATA_TIME_FORMAT QDateTime::currentDateTime().toString("yyyy/MM/dd hh::mm::ss")
+#define DATA_TIME_FORMAT QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
 
 DatabaseManager::DatabaseManager(QObject *parent)
 	: QObject(parent)

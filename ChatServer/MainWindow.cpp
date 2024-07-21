@@ -11,9 +11,13 @@
 #include "qfile.h"
 #include "qbuttongroup.h"
 #include "qjsonobject.h"
+#include "qjsonarray.h"
 #include "qmessagebox.h"
 #include "qlineedit.h"
 #include "qevent.h"
+#include "qtableview.h"
+#include "qmenu.h"
+#include "qstringlist.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : CustomWidget(parent)
@@ -70,12 +74,29 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEditPasswd->setText("123456");
     ui->lineEditPasswd->setEchoMode(QLineEdit::Password);
 
+    // 新建QSystemTrayIcon对象
+    sysTrayIcon_ = new QSystemTrayIcon(this);
+    // 新建托盘要显示的icon
+    QIcon icon = QIcon(":/resource/background/desktop.png");
+    // 将icon设置到QSystemTrayIcon中
+    sysTrayIcon_->setIcon(icon);
+    // 当鼠标移动到托盘时要显示的内容
+    sysTrayIcon_->setToolTip(QStringLiteral(" 通信服务器系统图标 "));
+
+    QMenu* menu = new QMenu(this);
+    menu->addAction(QString::fromLocal8Bit("MainWindow"));
+    menu->addAction(QString::fromLocal8Bit("exit"));
+    sysTrayIcon_->setContextMenu(menu);
+
     // 界面按钮相应的信号槽
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::sltBtnLoginClicked);
     connect(ui->btnLoginExit, &QPushButton::clicked, this, &MainWindow::sltBtnLoginExitClicked);
     connect(ui->btnWinClose, &QPushButton::clicked, this, &MainWindow::sltBtnWinCloseClicked);
     connect(ui->btnWinMin, &QPushButton::clicked, this, &MainWindow::sltBtnWinMinClicked);
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::sltBtnExitClicked);
+    connect(sysTrayIcon_, &QSystemTrayIcon::activated, this, &MainWindow::sltTrayIconClicked);
+    connect(menu, &QMenu::triggered, this, &MainWindow::sltTrayIconMenuClicked);
+    connect(ui->btnUserRefresh, &QPushButton::clicked, this, &MainWindow::sltBtnUserRefreshClicked);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -94,7 +115,12 @@ void MainWindow::changeEvent(QEvent* event) {
 
 void MainWindow::sltBtnLoginExitClicked() { this->close(); }
 
-void MainWindow::sltBtnWinCloseClicked() { this->close(); }
+void MainWindow::sltBtnWinCloseClicked() { 
+    // 隐藏主程序窗口
+    this->hide();
+    // 在系统托盘显示此对象
+    sysTrayIcon_->show();
+}
 
 void MainWindow::sltBtnWinMinClicked() { this->showMinimized(); }
 
@@ -139,15 +165,32 @@ void MainWindow::sltBtnExitClicked() {
 }
 
 void MainWindow::sltTrayIconClicked(QSystemTrayIcon::ActivationReason reason) {
-
+    switch (reason) {
+    case QSystemTrayIcon::Trigger:
+        break;
+    case QSystemTrayIcon::DoubleClick:
+        if (!this->isVisible()) {
+            this->show();
+        }
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::sltTrayIconMenuClicked(QAction* action) {
-
+    if (action->text() == "MainWindow") {
+        if (!this->isVisible()) {
+            this->show();
+        }
+    }
+    else if (action->text() == "exit") {
+        this->close();
+    }
 }
 
 void MainWindow::sltShowUserStatus(const QString& text) {
-
+    ui->textBrowser->append(text);
 }
 
 void MainWindow::sltTableClicked(const QModelIndex& index) {
@@ -155,7 +198,31 @@ void MainWindow::sltTableClicked(const QModelIndex& index) {
 }
 
 void MainWindow::sltBtnUserRefreshClicked() {
-
+    QJsonArray jsonArr = DatabaseManager::instance()->getAllUsers();
+    itemModel_->clear();
+    itemModel_->setColumnCount(5);
+    itemModel_->setRowCount(jsonArr.size());
+    itemModel_->setHorizontalHeaderLabels(QStringList() << "user"
+        << "name" << "password" << "status" << "lastLoadTime");
+    for (int i = 0; i < jsonArr.size(); ++i) {
+        QJsonObject jsonObj = jsonArr.at(i).toObject();
+        itemModel_->setData(itemModel_->index(i, 0), jsonObj.value("id").toInt());
+        itemModel_->setData(itemModel_->index(i, 1), jsonObj.value("name").toString());
+        itemModel_->setData(itemModel_->index(i, 2), jsonObj.value("passwd").toString());
+        itemModel_->setData(itemModel_->index(i, 3), jsonObj.value("status").toInt());
+        itemModel_->setData(itemModel_->index(i, 4), jsonObj.value("lasttime").toString());
+    }
+    for (int i = 0; i < jsonArr.size(); ++i) {
+        for (int j = 0; j < 5; ++j) {
+            itemModel_->item(i, j)->setTextAlignment(Qt::AlignCenter);
+        }
+    }
+    int tableViewerWidth = ui->tableViewUsers->width();
+    ui->tableViewUsers->setColumnWidth(0, tableViewerWidth * 0.1);
+    ui->tableViewUsers->setColumnWidth(1, tableViewerWidth * 0.2);
+    ui->tableViewUsers->setColumnWidth(2, tableViewerWidth * 0.2);
+    ui->tableViewUsers->setColumnWidth(3, tableViewerWidth * 0.1);
+    ui->tableViewUsers->setColumnWidth(4, tableViewerWidth * 0.4);
 }
 
 void MainWindow::sltBtnUserInserClicked() {
@@ -163,8 +230,10 @@ void MainWindow::sltBtnUserInserClicked() {
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
+#if 0
     this->hide();
     event->ignore();
+#endif
 }
 
 void MainWindow::timerEvent(QTimerEvent* event) {
