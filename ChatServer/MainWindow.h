@@ -48,6 +48,21 @@ private slots:
     void sltChangePages(int index);
 
     /*!
+    * @brief 登陆界面退出按钮点击
+    */
+    void sltBtnLoginExitClicked();
+
+    /*!
+    * @brief 标题栏关闭按钮点击
+    */
+    void sltBtnWinCloseClicked();
+
+    /*!
+    * @brief 功能界面退出按钮点击
+    */
+    void sltBtnWinMinClicked();
+
+    /*!
     * @brief 备份按钮点击
     */
     void sltBtnBackupClicked();
@@ -63,7 +78,7 @@ private slots:
     void sltBtnLoginClicked();
 
     /*!
-    * @brief 退出按钮点击
+    * @brief 功能界面退出按钮点击
     */
     void sltBtnExitClicked();
 
@@ -99,7 +114,8 @@ private slots:
 
 protected:
     /*!
-    * @brief 关闭事件
+    * @brief 关闭事件,点击桌面右上角关闭按钮缩小到托盘
+    * 将关闭事件拦截，不关闭窗口
     */
     virtual void closeEvent(QCloseEvent* event) override;
 

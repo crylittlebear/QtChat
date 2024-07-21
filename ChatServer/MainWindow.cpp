@@ -6,11 +6,14 @@
 #include "MainWindow.h"
 #include "global.h"
 #include "DatabaseManager.h"
+#include "baseWidget/CustomWidget.h"
 
 #include "qfile.h"
 #include "qbuttongroup.h"
 #include "qjsonobject.h"
 #include "qmessagebox.h"
+#include "qlineedit.h"
+#include "qevent.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : CustomWidget(parent)
@@ -29,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     buttonGroup_->addButton(ui->btnUserInfoPage, 1);
     buttonGroup_->addButton(ui->btnServerConfigPage, 2);
     buttonGroup_->addButton(ui->btnUserConfigPage, 3);
-    buttonGroup_->addButton(ui->btnPasswdModify, 4);
+    buttonGroup_->addButton(ui->btnPasswdModPage, 4);
     buttonGroup_->addButton(ui->btnDataBackupPage, 5);
 
     // 按钮切换页面
@@ -62,13 +65,20 @@ MainWindow::MainWindow(QWidget *parent)
         QDateTime::currentDateTime().toString("yyyy-MM-dd  hh:mm:ss  ddd"));
     timerId_ = startTimer(1000);
 
+    // 设置默认的账号和密码
+    ui->lineEditUserName->setText("admin");
+    ui->lineEditPasswd->setText("123456");
+    ui->lineEditPasswd->setEchoMode(QLineEdit::Password);
+
+    // 界面按钮相应的信号槽
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::sltBtnLoginClicked);
+    connect(ui->btnLoginExit, &QPushButton::clicked, this, &MainWindow::sltBtnLoginExitClicked);
+    connect(ui->btnWinClose, &QPushButton::clicked, this, &MainWindow::sltBtnWinCloseClicked);
+    connect(ui->btnWinMin, &QPushButton::clicked, this, &MainWindow::sltBtnWinMinClicked);
+    connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::sltBtnExitClicked);
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::changeEvent(QEvent* event) {
     QWidget::changeEvent(event);
@@ -82,12 +92,18 @@ void MainWindow::changeEvent(QEvent* event) {
     }
 }
 
-void MainWindow::sltBtnBackupClicked()
-{
+void MainWindow::sltBtnLoginExitClicked() { this->close(); }
+
+void MainWindow::sltBtnWinCloseClicked() { this->close(); }
+
+void MainWindow::sltBtnWinMinClicked() { this->showMinimized(); }
+
+void MainWindow::sltBtnBackupClicked() {
+
 }
 
-void MainWindow::sltBtnDataUdoClicked()
-{
+void MainWindow::sltBtnDataUdoClicked() {
+
 }
 
 void MainWindow::sltBtnLoginClicked() {
@@ -102,63 +118,65 @@ void MainWindow::sltBtnLoginClicked() {
         ui->stackedWidgetMainPage->nextPage();
         break;
     case -1:
-        QMessageBox::warning(this, "警告", "未查询到");
+        CustomMessageBox::question(this, tr("查询用户失败"), tr("警告"));
         break;
     case -2:
-        QMessageBox::warning(this, "警告", "密码错误");
+        CustomMessageBox::warning(this, tr("密码错误"), tr("警告"));
         break;
     case -3:
-        QMessageBox::warning(this, "警告", "重复登录");
-        break;
-    default:
+        CustomMessageBox::warning(this, tr("重复登录"), tr("警告"));
         break;
     }
 }
 
 void MainWindow::sltChangePages(int index) {
+    qDebug() << "page index: " << index;
+    ui->stackWidgetWorkSpace->setCurrentIndex(index);
+}
+
+void MainWindow::sltBtnExitClicked() {
+    this->close();
+}
+
+void MainWindow::sltTrayIconClicked(QSystemTrayIcon::ActivationReason reason) {
 
 }
 
-void MainWindow::sltBtnExitClicked()
-{
+void MainWindow::sltTrayIconMenuClicked(QAction* action) {
+
 }
 
-void MainWindow::sltTrayIconClicked(QSystemTrayIcon::ActivationReason reason)
-{
+void MainWindow::sltShowUserStatus(const QString& text) {
+
 }
 
-void MainWindow::sltTrayIconMenuClicked(QAction* action)
-{
+void MainWindow::sltTableClicked(const QModelIndex& index) {
+
 }
 
-void MainWindow::sltShowUserStatus(const QString& text)
-{
+void MainWindow::sltBtnUserRefreshClicked() {
+
 }
 
-void MainWindow::sltTableClicked(const QModelIndex& index)
-{
+void MainWindow::sltBtnUserInserClicked() {
+
 }
 
-void MainWindow::sltBtnUserRefreshClicked()
-{
+void MainWindow::closeEvent(QCloseEvent* event) {
+    this->hide();
+    event->ignore();
 }
 
-void MainWindow::sltBtnUserInserClicked()
-{
+void MainWindow::timerEvent(QTimerEvent* event) {
+    if (timerId_ == event->timerId()) {
+        ui->labelSystemTime->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd  hh:mm:ss  ddd"));
+    }
 }
 
-void MainWindow::closeEvent(QCloseEvent* event)
-{
+void MainWindow::initNetwork() {
+
 }
 
-void MainWindow::timerEvent(QTimerEvent* event)
-{
-}
+void MainWindow::setUserIdentity(const int& identity) {
 
-void MainWindow::initNetwork()
-{
-}
-
-void MainWindow::setUserIdentity(const int& identity)
-{
 }

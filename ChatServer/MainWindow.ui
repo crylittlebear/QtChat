@@ -193,7 +193,7 @@
            <number>0</number>
           </property>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="5,2">
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="6,3">
             <property name="spacing">
              <number>0</number>
             </property>
@@ -325,11 +325,11 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_6">
                     <item>
-                     <widget class="QPushButton" name="btnExitLogin">
+                     <widget class="QPushButton" name="btnLoginExit">
                       <property name="minimumSize">
                        <size>
-                        <width>120</width>
-                        <height>0</height>
+                        <width>150</width>
+                        <height>50</height>
                        </size>
                       </property>
                       <property name="text">
@@ -337,7 +337,13 @@
                       </property>
                       <property name="icon">
                        <iconset resource="MainWindow.qrc">
-                        <normaloff>:/resource/images/ic_cancel.png</normaloff>:/resource/images/ic_cancel.png</iconset>
+                        <normaloff>:/resource/buttonIcon/multiply.png</normaloff>:/resource/buttonIcon/multiply.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>25</width>
+                        <height>25</height>
+                       </size>
                       </property>
                      </widget>
                     </item>
@@ -358,8 +364,8 @@
                      <widget class="QPushButton" name="btnLogin">
                       <property name="minimumSize">
                        <size>
-                        <width>120</width>
-                        <height>0</height>
+                        <width>150</width>
+                        <height>50</height>
                        </size>
                       </property>
                       <property name="text">
@@ -367,7 +373,13 @@
                       </property>
                       <property name="icon">
                        <iconset resource="MainWindow.qrc">
-                        <normaloff>:/resource/images/ic_ok.png</normaloff>:/resource/images/ic_ok.png</iconset>
+                        <normaloff>:/resource/buttonIcon/checked.png</normaloff>:/resource/buttonIcon/checked.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>25</width>
+                        <height>25</height>
+                       </size>
                       </property>
                      </widget>
                     </item>
@@ -459,13 +471,13 @@
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
-                        <height>60</height>
+                        <height>50</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
                         <width>150</width>
-                        <height>45</height>
+                        <height>16777215</height>
                        </size>
                       </property>
                       <property name="text">
@@ -473,12 +485,12 @@
                       </property>
                       <property name="icon">
                        <iconset resource="MainWindow.qrc">
-                        <normaloff>:/resource/images/ic_find.png</normaloff>:/resource/images/ic_find.png</iconset>
+                        <normaloff>:/resource/buttonIcon/personal-information.png</normaloff>:/resource/buttonIcon/personal-information.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
-                        <width>40</width>
-                        <height>40</height>
+                        <width>30</width>
+                        <height>30</height>
                        </size>
                       </property>
                      </widget>
@@ -488,7 +500,7 @@
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
-                        <height>60</height>
+                        <height>50</height>
                        </size>
                       </property>
                       <property name="maximumSize">
@@ -502,7 +514,7 @@
                       </property>
                       <property name="icon">
                        <iconset resource="MainWindow.qrc">
-                        <normaloff>:/resource/images/ic_goods.png</normaloff>:/resource/images/ic_goods.png</iconset>
+                        <normaloff>:/resource/buttonIcon/info.png</normaloff>:/resource/buttonIcon/info.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -517,7 +529,7 @@
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
-                        <height>60</height>
+                        <height>50</height>
                        </size>
                       </property>
                       <property name="maximumSize">
@@ -531,7 +543,7 @@
                       </property>
                       <property name="icon">
                        <iconset resource="MainWindow.qrc">
-                        <normaloff>:/resource/images/ic_goods.png</normaloff>:/resource/images/ic_goods.png</iconset>
+                        <normaloff>:/resource/buttonIcon/db-configuration.png</normaloff>:/resource/buttonIcon/db-configuration.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -546,7 +558,7 @@
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
-                        <height>60</height>
+                        <height>50</height>
                        </size>
                       </property>
                       <property name="maximumSize">
@@ -560,7 +572,7 @@
                       </property>
                       <property name="icon">
                        <iconset resource="MainWindow.qrc">
-                        <normaloff>:/resource/images/if_users.png</normaloff>:/resource/images/if_users.png</iconset>
+                        <normaloff>:/resource/buttonIcon/avatar.png</normaloff>:/resource/buttonIcon/avatar.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -575,7 +587,7 @@
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
-                        <height>60</height>
+                        <height>50</height>
                        </size>
                       </property>
                       <property name="maximumSize">
@@ -589,7 +601,7 @@
                       </property>
                       <property name="icon">
                        <iconset resource="MainWindow.qrc">
-                        <normaloff>:/resource/images/ic_key.png</normaloff>:/resource/images/ic_key.png</iconset>
+                        <normaloff>:/resource/buttonIcon/password.png</normaloff>:/resource/buttonIcon/password.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -604,7 +616,7 @@
                       <property name="minimumSize">
                        <size>
                         <width>150</width>
-                        <height>60</height>
+                        <height>50</height>
                        </size>
                       </property>
                       <property name="maximumSize">
@@ -618,7 +630,7 @@
                       </property>
                       <property name="icon">
                        <iconset resource="MainWindow.qrc">
-                        <normaloff>:/resource/images/ic_backup.png</normaloff>:/resource/images/ic_backup.png</iconset>
+                        <normaloff>:/resource/buttonIcon/sync.png</normaloff>:/resource/buttonIcon/sync.png</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -648,7 +660,7 @@
                     <property name="minimumSize">
                      <size>
                       <width>150</width>
-                      <height>60</height>
+                      <height>50</height>
                      </size>
                     </property>
                     <property name="maximumSize">
@@ -662,7 +674,7 @@
                     </property>
                     <property name="icon">
                      <iconset resource="MainWindow.qrc">
-                      <normaloff>:/resource/images/ic_exit.png</normaloff>:/resource/images/ic_exit.png</iconset>
+                      <normaloff>:/resource/buttonIcon/switch.png</normaloff>:/resource/buttonIcon/switch.png</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
@@ -847,7 +859,7 @@
                             <property name="minimumSize">
                              <size>
                               <width>0</width>
-                              <height>50</height>
+                              <height>45</height>
                              </size>
                             </property>
                             <property name="text">
@@ -855,12 +867,12 @@
                             </property>
                             <property name="icon">
                              <iconset resource="MainWindow.qrc">
-                              <normaloff>:/resource/images/ic_add.png</normaloff>:/resource/images/ic_add.png</iconset>
+                              <normaloff>:/resource/buttonIcon/add-user.png</normaloff>:/resource/buttonIcon/add-user.png</iconset>
                             </property>
                             <property name="iconSize">
                              <size>
-                              <width>20</width>
-                              <height>20</height>
+                              <width>25</width>
+                              <height>25</height>
                              </size>
                             </property>
                            </widget>
@@ -870,7 +882,7 @@
                             <property name="minimumSize">
                              <size>
                               <width>0</width>
-                              <height>50</height>
+                              <height>45</height>
                              </size>
                             </property>
                             <property name="text">
@@ -878,7 +890,13 @@
                             </property>
                             <property name="icon">
                              <iconset resource="MainWindow.qrc">
-                              <normaloff>:/resource/images/ic_refresh.png</normaloff>:/resource/images/ic_refresh.png</iconset>
+                              <normaloff>:/resource/buttonIcon/refresh.png</normaloff>:/resource/buttonIcon/refresh.png</iconset>
+                            </property>
+                            <property name="iconSize">
+                             <size>
+                              <width>25</width>
+                              <height>25</height>
+                             </size>
                             </property>
                            </widget>
                           </item>
@@ -887,7 +905,7 @@
                             <property name="minimumSize">
                              <size>
                               <width>0</width>
-                              <height>50</height>
+                              <height>45</height>
                              </size>
                             </property>
                             <property name="text">
@@ -895,7 +913,13 @@
                             </property>
                             <property name="icon">
                              <iconset resource="MainWindow.qrc">
-                              <normaloff>:/resource/images/ic_edit.png</normaloff>:/resource/images/ic_edit.png</iconset>
+                              <normaloff>:/resource/buttonIcon/compose.png</normaloff>:/resource/buttonIcon/compose.png</iconset>
+                            </property>
+                            <property name="iconSize">
+                             <size>
+                              <width>25</width>
+                              <height>25</height>
+                             </size>
                             </property>
                            </widget>
                           </item>
@@ -904,7 +928,7 @@
                             <property name="minimumSize">
                              <size>
                               <width>0</width>
-                              <height>50</height>
+                              <height>45</height>
                              </size>
                             </property>
                             <property name="text">
@@ -912,7 +936,13 @@
                             </property>
                             <property name="icon">
                              <iconset resource="MainWindow.qrc">
-                              <normaloff>:/resource/images/ic_delete.png</normaloff>:/resource/images/ic_delete.png</iconset>
+                              <normaloff>:/resource/buttonIcon/delete.png</normaloff>:/resource/buttonIcon/delete.png</iconset>
+                            </property>
+                            <property name="iconSize">
+                             <size>
+                              <width>25</width>
+                              <height>25</height>
+                             </size>
                             </property>
                            </widget>
                           </item>
@@ -962,51 +992,80 @@
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_11">
                         <item>
-                         <spacer name="verticalSpacer_15">
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                          <property name="sizeHint" stdset="0">
-                           <size>
-                            <width>20</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                         </spacer>
-                        </item>
-                        <item>
                          <layout class="QFormLayout" name="formLayout">
+                          <property name="verticalSpacing">
+                           <number>15</number>
+                          </property>
                           <property name="leftMargin">
-                           <number>40</number>
+                           <number>80</number>
                           </property>
                           <property name="rightMargin">
-                           <number>40</number>
+                           <number>80</number>
                           </property>
                           <item row="0" column="1">
-                           <widget class="QLineEdit" name="lineEdit"/>
+                           <widget class="QLineEdit" name="lineEdit">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>45</height>
+                             </size>
+                            </property>
+                           </widget>
                           </item>
                           <item row="1" column="0">
                            <widget class="QLabel" name="label_9">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>45</height>
+                             </size>
+                            </property>
                             <property name="text">
                              <string>新密码：</string>
                             </property>
                            </widget>
                           </item>
                           <item row="1" column="1">
-                           <widget class="QLineEdit" name="lineEdit_4"/>
+                           <widget class="QLineEdit" name="lineEdit_4">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>45</height>
+                             </size>
+                            </property>
+                           </widget>
                           </item>
                           <item row="2" column="0">
                            <widget class="QLabel" name="label_10">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>45</height>
+                             </size>
+                            </property>
                             <property name="text">
                              <string>新密码</string>
                             </property>
                            </widget>
                           </item>
                           <item row="2" column="1">
-                           <widget class="QLineEdit" name="lineEdit_5"/>
+                           <widget class="QLineEdit" name="lineEdit_5">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>45</height>
+                             </size>
+                            </property>
+                           </widget>
                           </item>
                           <item row="0" column="0">
                            <widget class="QLabel" name="label_8">
+                            <property name="minimumSize">
+                             <size>
+                              <width>0</width>
+                              <height>45</height>
+                             </size>
+                            </property>
                             <property name="text">
                              <string>旧密码：</string>
                             </property>
@@ -1019,10 +1078,13 @@
                           <property name="orientation">
                            <enum>Qt::Vertical</enum>
                           </property>
+                          <property name="sizeType">
+                           <enum>QSizePolicy::Fixed</enum>
+                          </property>
                           <property name="sizeHint" stdset="0">
                            <size>
                             <width>20</width>
-                            <height>40</height>
+                            <height>20</height>
                            </size>
                           </property>
                          </spacer>
@@ -1043,11 +1105,11 @@
                            </spacer>
                           </item>
                           <item>
-                           <widget class="QPushButton" name="btnPasswdModify">
+                           <widget class="QPushButton" name="btnPasswdModifyConfirm">
                             <property name="minimumSize">
                              <size>
-                              <width>120</width>
-                              <height>0</height>
+                              <width>150</width>
+                              <height>50</height>
                              </size>
                             </property>
                             <property name="text">
@@ -1055,7 +1117,13 @@
                             </property>
                             <property name="icon">
                              <iconset resource="MainWindow.qrc">
-                              <normaloff>:/resource/images/ic_ok.png</normaloff>:/resource/images/ic_ok.png</iconset>
+                              <normaloff>:/resource/buttonIcon/checked.png</normaloff>:/resource/buttonIcon/checked.png</iconset>
+                            </property>
+                            <property name="iconSize">
+                             <size>
+                              <width>25</width>
+                              <height>25</height>
+                             </size>
                             </property>
                            </widget>
                           </item>
@@ -1073,19 +1141,6 @@
                            </spacer>
                           </item>
                          </layout>
-                        </item>
-                        <item>
-                         <spacer name="verticalSpacer_12">
-                          <property name="orientation">
-                           <enum>Qt::Vertical</enum>
-                          </property>
-                          <property name="sizeHint" stdset="0">
-                           <size>
-                            <width>20</width>
-                            <height>40</height>
-                           </size>
-                          </property>
-                         </spacer>
                         </item>
                        </layout>
                       </widget>
@@ -1191,7 +1246,7 @@
                        <widget class="QPushButton" name="btnBackup">
                         <property name="minimumSize">
                          <size>
-                          <width>100</width>
+                          <width>120</width>
                           <height>45</height>
                          </size>
                         </property>
@@ -1207,7 +1262,13 @@
                         </property>
                         <property name="icon">
                          <iconset resource="MainWindow.qrc">
-                          <normaloff>:/resource/images/ic_data_backup.png</normaloff>:/resource/images/ic_data_backup.png</iconset>
+                          <normaloff>:/resource/buttonIcon/backup-copy.png</normaloff>:/resource/buttonIcon/backup-copy.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>30</width>
+                          <height>30</height>
+                         </size>
                         </property>
                        </widget>
                       </item>
@@ -1215,7 +1276,7 @@
                        <widget class="QPushButton" name="btnUndo">
                         <property name="minimumSize">
                          <size>
-                          <width>100</width>
+                          <width>120</width>
                           <height>45</height>
                          </size>
                         </property>
@@ -1231,7 +1292,13 @@
                         </property>
                         <property name="icon">
                          <iconset resource="MainWindow.qrc">
-                          <normaloff>:/resource/images/ic_data_udo.png</normaloff>:/resource/images/ic_data_udo.png</iconset>
+                          <normaloff>:/resource/buttonIcon/data-recovery.png</normaloff>:/resource/buttonIcon/data-recovery.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>30</width>
+                          <height>30</height>
+                         </size>
                         </property>
                        </widget>
                       </item>
@@ -1319,7 +1386,7 @@
  <resources>
   <include location="MainWindow.qrc"/>
   <include location="MainWindow.qrc"/>
-  <include location="../../../../../.designer/backup/MainWindow.qrc"/>
+  <include location="MainWindow.qrc"/>
  </resources>
  <connections/>
 </ui>

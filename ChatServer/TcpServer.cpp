@@ -46,13 +46,11 @@ void TcpServer::closeListen() {
 */
 
 TcpMsgServer::TcpMsgServer(QObject* parent)
-	: TcpServer(parent)
-{
+	: TcpServer(parent) {
 
 }
 
-TcpMsgServer::~TcpMsgServer()
-{
+TcpMsgServer::~TcpMsgServer() {
 	qDebug() << "Tcp Server close!";
 	for (const auto& client : clients_) {
 		clients_.removeOne(client);

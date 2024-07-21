@@ -37,6 +37,25 @@
         <file>resource/background/back9.png</file>
         <file>resource/images/user.png</file>
         <file>resource/images/server.png</file>
+        <file>resource/buttonIcon/avatar.png</file>
+        <file>resource/buttonIcon/db-configuration.png</file>
+        <file>resource/buttonIcon/info.png</file>
+        <file>resource/buttonIcon/password.png</file>
+        <file>resource/buttonIcon/personal-information.png</file>
+        <file>resource/buttonIcon/seo.png</file>
+        <file>resource/buttonIcon/switch.png</file>
+        <file>resource/buttonIcon/sync.png</file>
+        <file>resource/buttonIcon/add-user.png</file>
+        <file>resource/buttonIcon/compose.png</file>
+        <file>resource/buttonIcon/delete.png</file>
+        <file>resource/buttonIcon/refresh.png</file>
+        <file>resource/buttonIcon/backup-copy.png</file>
+        <file>resource/buttonIcon/data-recovery.png</file>
+        <file>resource/buttonIcon/checked.png</file>
+        <file>resource/buttonIcon/multiply.png</file>
+        <file>resource/buttonIcon/infoDialog.png</file>
+        <file>resource/buttonIcon/questionDialog.png</file>
+        <file>resource/buttonIcon/warning.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>resource/qss/default.css</file>

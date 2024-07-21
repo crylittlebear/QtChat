@@ -99,12 +99,12 @@ QPushButton#btnExit:hover {
 } */
 
 QPushButton {
-    border: 2px solid #0da2af;
+    border: 3px solid #0da2af;
     border-radius: 4px;
 }
 
 QPushButton:hover {
-    background-color: #0da2af;
+    background-color: #ade0e0;
 }
 
 QPushButton#btnWinClose:hover{
