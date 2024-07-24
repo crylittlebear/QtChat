@@ -56,6 +56,9 @@
         <file>resource/buttonIcon/infoDialog.png</file>
         <file>resource/buttonIcon/questionDialog.png</file>
         <file>resource/buttonIcon/warning.png</file>
+        <file>resource/buttonIcon/magnifying-glass.png</file>
+        <file>resource/background/messages.png</file>
+        <file>resource/background/back8.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>resource/qss/default.css</file>

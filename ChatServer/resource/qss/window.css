@@ -11,13 +11,22 @@ QPushButton#btnWinMin {
     background-color: #0da2af;
 }
 
-/* QWidget#widgetWinBody {
+QWidget#LoginWidget {
+    border: 3px solid #0da2af;
+}
+
+/* QWidget#widgetWinBody { 
     background-color:#0da2af;
 } */
 
-QWidget#widgetLoading {
+/* QWidget#widgetLoading {
     background-color:azure;
     border: 3px solid #FF0000;
+} */
+
+QLabel#labelLoadTitle {
+    background-color: #0da2af;
+    color:#FFFFFF;
 }
 
 QWidget#widgetNavi {

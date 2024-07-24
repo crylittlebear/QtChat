@@ -94,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnWinClose, &QPushButton::clicked, this, &MainWindow::sltBtnWinCloseClicked);
     connect(ui->btnWinMin, &QPushButton::clicked, this, &MainWindow::sltBtnWinMinClicked);
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::sltBtnExitClicked);
+    connect(ui->btnSearch, &QPushButton::clicked, this, &MainWindow::sltBtnUserSearchClicked);
     connect(sysTrayIcon_, &QSystemTrayIcon::activated, this, &MainWindow::sltTrayIconClicked);
     connect(menu, &QMenu::triggered, this, &MainWindow::sltTrayIconMenuClicked);
     connect(ui->btnUserRefresh, &QPushButton::clicked, this, &MainWindow::sltBtnUserRefreshClicked);
@@ -227,6 +228,29 @@ void MainWindow::sltBtnUserRefreshClicked() {
 
 void MainWindow::sltBtnUserInserClicked() {
 
+}
+
+void MainWindow::sltBtnUserSearchClicked() {
+    // 清空textBrowser的内容
+    ui->textBrowser->clear();
+    // 首先读取用户输入框的内容
+    QString input = ui->lineEditSearch->text();
+    if (input.isEmpty()) return;
+    // 如果输入不为空
+    QJsonArray jsonArr = DatabaseManager::instance()->getAllUsers();
+    for (int i = 0; i < jsonArr.size(); ++i) {
+        QJsonObject jsonObj = jsonArr.at(i).toObject();
+        if (jsonObj.value("name").toString() == input) {
+            QString res;
+            res += QString::number(jsonObj.value("id").toInt());
+            res += "    ";
+            res += jsonObj.value("name").toString();
+            res += "    ";
+            res += QString::number(jsonObj.value("status").toInt());
+            ui->textBrowser->append(res);
+        }
+    }
+    ui->stackWidgetWorkSpace->setCurrentIndex(1);
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {

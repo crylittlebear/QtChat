@@ -112,6 +112,11 @@ private slots:
     */
     void sltBtnUserInserClicked();
 
+    /*!
+    * @brief 用户搜索按钮点击
+    */
+    void sltBtnUserSearchClicked();
+
 protected:
     /*!
     * @brief 关闭事件,点击桌面右上角关闭按钮缩小到托盘
