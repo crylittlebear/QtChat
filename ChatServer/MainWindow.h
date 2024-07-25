@@ -48,11 +48,6 @@ private slots:
     void sltChangePages(int index);
 
     /*!
-    * @brief 登陆界面退出按钮点击
-    */
-    void sltBtnLoginExitClicked();
-
-    /*!
     * @brief 标题栏关闭按钮点击
     */
     void sltBtnWinCloseClicked();

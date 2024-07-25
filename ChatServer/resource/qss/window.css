@@ -11,9 +11,9 @@ QPushButton#btnWinMin {
     background-color: #0da2af;
 }
 
-QWidget#LoginWidget {
+/* QWidget#LoginWidget {
     border: 3px solid #0da2af;
-}
+} */
 
 /* QWidget#widgetWinBody { 
     background-color:#0da2af;
@@ -24,9 +24,17 @@ QWidget#LoginWidget {
     border: 3px solid #FF0000;
 } */
 
-QLabel#labelLoadTitle {
+/* QLabel#labelLoadTitle {
     background-color: #0da2af;
     color:#FFFFFF;
+} */
+
+/* QWidget#widgetUserHead {
+    border: 3px solid #ffffff;
+} */
+
+QWidget#widgetLoading {
+    background-color: #0da2af;
 }
 
 QWidget#widgetNavi {
@@ -120,6 +128,50 @@ QPushButton#btnWinClose:hover{
     background-color: #FF0000;
 }
 
+QPushButton#btnWinMin:hover{
+    background-color: #7b7878;
+}
+
+QPushButton#btnLogin:hover{
+    background-color: #bbb9b9;
+}
+
 QGroupBox#groupBox {
     border: 3px solid #0da2af;
 }
+
+QPushButton#btnLogin {
+    color: #FFFFFF;
+    background-color: #0da2af;
+    border-radius: 8px;
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+QPushButton#btnLoginExit {
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    font-size: 16pt;
+}
+
+QLabel#label_6, QLabel#label_7 {
+    color: #FFFFFF;
+    font-size: 16pt;
+}
+
+QWidget#LoginWidget {
+    background-color: #bbb9b9;
+}
+
+/* QWidget#widgetInput {
+    background-color: #bbb9b9;
+} */
+
+QLineEdit#lineEditUserName, QLineEdit#lineEditPasswd {
+    font-size: 16pt;
+    border-radius: 8px;
+}
+
+/* QWidget#widgetUser, QWidget#widgetPasswd {
+    border: 2px solid #FFFFFF;
+} */

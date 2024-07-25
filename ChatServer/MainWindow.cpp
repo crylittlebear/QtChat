@@ -28,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowFlags(Qt::FramelessWindowHint);
     setWindowIcon(QIcon(QPixmap(":/resource/background/desktop.png")));
 
+    ui->lineEditUserName->setPixmap(":/resource/common/user.png");
+    ui->lineEditPasswd->setPixmap(":/resource/common/padlock.png");
+
     itemModel_ = new QStandardItemModel(this);
     ui->tableViewUsers->setModel(itemModel_);
 
@@ -90,7 +93,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 界面按钮相应的信号槽
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::sltBtnLoginClicked);
-    connect(ui->btnLoginExit, &QPushButton::clicked, this, &MainWindow::sltBtnLoginExitClicked);
     connect(ui->btnWinClose, &QPushButton::clicked, this, &MainWindow::sltBtnWinCloseClicked);
     connect(ui->btnWinMin, &QPushButton::clicked, this, &MainWindow::sltBtnWinMinClicked);
     connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::sltBtnExitClicked);
@@ -113,8 +115,6 @@ void MainWindow::changeEvent(QEvent* event) {
         break;
     }
 }
-
-void MainWindow::sltBtnLoginExitClicked() { this->close(); }
 
 void MainWindow::sltBtnWinCloseClicked() { 
     // 隐藏主程序窗口

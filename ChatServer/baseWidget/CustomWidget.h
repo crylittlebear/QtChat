@@ -271,3 +271,19 @@ private:
 	QPushButton* btnOk_;
 	QPushButton* btnCancel_;
 };
+
+/*!
+* =================================================================================================
+*									CustomLabelLineEdit
+* =================================================================================================
+*/
+
+class LabelLineEdit : public QLineEdit {
+public:
+	LabelLineEdit(QWidget* parent = nullptr);
+	~LabelLineEdit();
+
+	void setPixmap(const QString& pixmapPath);
+private:
+	QLabel* label_;
+};

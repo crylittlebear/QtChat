@@ -404,3 +404,25 @@ void CustomInputDialog::setInputText(const QString& text) {
 }
 
 void CustomInputDialog::setEchoMode(QLineEdit::EchoMode mode) { lineEditInput_->setEchoMode(mode); }
+
+/*!
+* =================================================================================================
+*									CustomLabelLineEdit
+* =================================================================================================
+*/
+
+LabelLineEdit::LabelLineEdit(QWidget* parent) : QLineEdit(parent) {
+	label_ = new QLabel(this);
+	label_->setVisible(false);
+}
+
+LabelLineEdit::~LabelLineEdit() {
+}
+
+void LabelLineEdit::setPixmap(const QString& pixmapPath) {
+	label_->setPixmap(QPixmap(pixmapPath));
+	label_->setScaledContents(true);
+	label_->setVisible(true);
+	label_->setGeometry(12, 12, this->height() - 24, this->height() - 24);
+	this->setTextMargins(30, 1, 1, 1);
+}
