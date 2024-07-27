@@ -83,6 +83,17 @@ void DatabaseManager::updateUserStatus(const int& id, const quint8& status)
 	query.exec();
 }
 
+void DatabaseManager::updateUserStatus(const QString& name, const quint8& status) {
+	QString sql = QString("update userinfo set status=%1 where name='%2'").arg(status).arg(name);
+	QSqlQuery query(sql);
+	if (query.exec()) {
+		qDebug() << QString::fromLocal8Bit("更新用户状态成功").toUtf8().data();
+	}
+	else {
+		qDebug() << QString::fromLocal8Bit("更新用户状态失败").toUtf8().data();
+	}
+}
+
 void DatabaseManager::updateUserHead(const int& id, const QString& strHead)
 {
 	QString sql = "update userhead set head='";

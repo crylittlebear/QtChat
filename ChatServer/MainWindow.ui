@@ -713,7 +713,7 @@
                    </spacer>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="btnExit">
+                   <widget class="QPushButton" name="btnLogout">
                     <property name="minimumSize">
                      <size>
                       <width>150</width>
@@ -727,7 +727,7 @@
                      </size>
                     </property>
                     <property name="text">
-                     <string>退出系统</string>
+                     <string>退出登录</string>
                     </property>
                     <property name="icon">
                      <iconset resource="MainWindow.qrc">
@@ -1570,28 +1570,23 @@
                <item>
                 <widget class="QWidget" name="widgetBottom" native="true">
                  <layout class="QHBoxLayout" name="horizontalLayout_3">
-                  <property name="spacing">
-                   <number>6</number>
-                  </property>
-                  <property name="leftMargin">
-                   <number>11</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>11</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>11</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>11</number>
-                  </property>
                   <item>
-                   <widget class="QWidget" name="widget_7" native="true"/>
+                   <widget class="QLabel" name="labelCurrentUser">
+                    <property name="text">
+                     <string>TextLabel</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <widget class="QLabel" name="labelSystemTime">
                     <property name="text">
                      <string>2024-7-16 21:20 星期三</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1599,6 +1594,9 @@
                    <widget class="QLabel" name="labelHostAddr">
                     <property name="text">
                      <string> 本机IP：192.168.1.1</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1637,6 +1635,7 @@
   <include location="MainWindow.qrc"/>
   <include location="MainWindow.qrc"/>
   <include location="MainWindow.qrc"/>
+  <include location="../../../../../.designer/backup/MainWindow.qrc"/>
  </resources>
  <connections/>
 </ui>

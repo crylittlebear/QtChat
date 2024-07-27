@@ -9,45 +9,46 @@
 #include "qsettings.h"
 #include "qfile.h"
 #include "qdir.h"
+#include "qdebug.h"
 
 // 应用程序配置目录
-QString MyApp::strAppPath_ = "./";
-QString MyApp::strDataPath_ = "";
-QString MyApp::strRecvPath_ = "";
-QString MyApp::strDataBasePath_ = "";
-QString MyApp::strConfigPath_ = "";
-QString MyApp::strFacePath_ = "";
-QString MyApp::strHeadPath_ = "";
-QString MyApp::strBackupPath_ = "";
-QString MyApp::strRecordPath_ = "";
-QString MyApp::strIniFile_ = "config.ini";
+QString MyApp::strAppPath_                  = "";
+QString MyApp::strDataPath_                 = "";
+QString MyApp::strRecvPath_                 = "";
+QString MyApp::strDataBasePath_             = "";
+QString MyApp::strConfigPath_               = "";
+QString MyApp::strFacePath_                 = "";
+QString MyApp::strHeadPath_                 = "";
+QString MyApp::strBackupPath_               = "";
+QString MyApp::strRecordPath_               = "";
+QString MyApp::strIniFile_                  = "config.ini";
 
 // 服务器相关配置
-QString MyApp::strHostAddr_ = "192.168.2.199";
-int     MyApp::msgPort_ = 60001;
-int     MyApp::filePort_ = 60002;
-int     MyApp::groupPort_ = 60003;
+QString MyApp::strHostAddr_                 = "192.168.0.109";
+int     MyApp::msgPort_                     = 60100;
+int     MyApp::filePort_                    = 60101;
+int     MyApp::groupPort_                   = 60102;
 
-QString MyApp::strUserName_ = "zhangsan";
-QString MyApp::strPasswd_ = "123456";
-QString MyApp::strHeadFile_ = "head-64.png";
+QString MyApp::strUserName_                 = "admin";
+QString MyApp::strPasswd_                   = "root";
+QString MyApp::strHeadFile_                 = "head-64.png";
 
-int     MyApp::id_ = -1;
-int     MyApp::winX_ = 0;
-int     MyApp::winY_ = 0;
+int     MyApp::id_                          = -1;
+int     MyApp::winX_                        = 0;
+int     MyApp::winY_                        = 0;
 
 void MyApp::initApp() {
-    strAppPath_ = "./";
-
-    strDataPath_ = strAppPath_ + "Data/";
-    strRecvPath_ = strDataPath_ + "RecvFiles/";
-    strDataBasePath_ = strDataPath_ + "DataBase/";
-    strConfigPath_ = strDataPath_ + "Conf/";
-    strHeadPath_ = strDataPath_ + "Head/";
-    strBackupPath_ = strDataPath_ + "Backup/";
-    strRecordPath_ = strDataPath_ + "Record/";
-    strFacePath_ = strDataPath_ + "Face/";
-    strIniFile_ = strDataPath_ + "config.ini";
+    strAppPath_ = QDir::currentPath();
+    qDebug() << strAppPath_;
+    strDataPath_ = strAppPath_ + "/Data/";
+    strRecvPath_ = strDataPath_ + "/RecvFiles/";
+    strDataBasePath_ = strDataPath_ + "/DataBase/";
+    strConfigPath_ = strDataPath_ + "/Conf/";
+    strHeadPath_ = strDataPath_ + "/Head/";
+    strBackupPath_ = strDataPath_ + "/Backup/";
+    strRecordPath_ = strDataPath_ + "/Record/";
+    strFacePath_ = strDataPath_ + "/Face/";
+    strIniFile_ = strDataPath_ + "/config.ini";
 
     checkDirs();
 
@@ -85,12 +86,12 @@ void MyApp::createSettingFile() {
 void MyApp::readSettingFile() {
     QSettings settings(strIniFile_, QSettings::IniFormat);
     settings.beginGroup("UserCfg");
-    strUserName_ = settings.value("User", "zhangsan").toString();
-    strPasswd_ = settings.value("Passwd", "123456").toString();
+    strUserName_ = settings.value("User", "admin").toString();
+    strPasswd_ = settings.value("Passwd", "root").toString();
     settings.endGroup();
 
     settings.beginGroup("Server");
-    strHostAddr_ = settings.value("HostAddr", "192.168.2.199").toString();
+    strHostAddr_ = settings.value("HostAddr", "192.168.0.109").toString();
     msgPort_ = settings.value("MsgPort", 32101).toInt();
     filePort_ = settings.value("FilePort", 32102).toInt();
     groupPort_ = settings.value("GroupPort", 32103).toInt();

@@ -19,7 +19,7 @@
 #include "qmenu.h"
 #include "qstringlist.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget* parent)
     : CustomWidget(parent)
     , ui(new Ui::MainWindow())
 {
@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
     using funcButtonGroupPtr = void (QButtonGroup::*)(int);
     funcButtonGroupPtr buttonGroupClickIntPtr = &QButtonGroup::idClicked;
     connect(buttonGroup_, buttonGroupClickIntPtr, this, &MainWindow::sltChangePages);
-    
+
     // 设置stackWidget的初始页面
     ui->stackedWidgetMainPage->setCurrentIndex(0);
     ui->stackWidgetWorkSpace->setCurrentIndex(0);
@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 设置本机IP显示
     ui->labelHostAddr->setText(QString::fromLocal8Bit("本机IP: ") + myHelper::GetIP());
-    
+
     // 设置当前事件
     ui->labelSystemTime->setText(
         QDateTime::currentDateTime().toString("yyyy-MM-dd  hh:mm:ss  ddd"));
@@ -102,7 +102,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnLogin, &QPushButton::clicked, this, &MainWindow::sltBtnLoginClicked);
     connect(ui->btnWinClose, &QPushButton::clicked, this, &MainWindow::sltBtnWinCloseClicked);
     connect(ui->btnWinMin, &QPushButton::clicked, this, &MainWindow::sltBtnWinMinClicked);
-    connect(ui->btnExit, &QPushButton::clicked, this, &MainWindow::sltBtnExitClicked);
+    connect(ui->btnLogout, &QPushButton::clicked, this, &MainWindow::sltBtnLogoutClicked);
     connect(ui->btnSearch, &QPushButton::clicked, this, &MainWindow::sltBtnUserSearchClicked);
     connect(sysTrayIcon_, &QSystemTrayIcon::activated, this, &MainWindow::sltTrayIconClicked);
     connect(menu, &QMenu::triggered, this, &MainWindow::sltTrayIconMenuClicked);
@@ -110,6 +110,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnUserAdd, &QPushButton::clicked, this, &MainWindow::sltBtnUserInserClicked);
     connect(ui->btnUserDelete, &QPushButton::clicked, this, &MainWindow::sltBtnUserDeleteClicked);
     connect(ui->btnBackup, &QPushButton::clicked, this, &MainWindow::sltBtnBackupClicked);
+    connect(ui->btnUndo, &QPushButton::clicked, this, &MainWindow::sltBtnDataUdoClicked);
+    connect(ui->toolButton, &QToolButton::clicked, [this]() {
+        QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("备份文件夹"), MyApp::strBackupPath_);
+    });
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -138,8 +142,15 @@ void MainWindow::sltBtnWinMinClicked() {
 }
 
 void MainWindow::sltBtnBackupClicked() {
-    QString newFile = MyApp::strBackupPath_ + QString("info_%1.bak").arg(QDate::currentDate().toString("yyyy_MM_dd"));
+    QDir dir(MyApp::strBackupPath_);
+    if (!dir.exists()) {
+        dir.mkdir(MyApp::strBackupPath_);
+    }
+    dir.setCurrent(MyApp::strBackupPath_);
+    QString newFile = MyApp::strBackupPath_ + QString("info_%1.bak").arg(QDateTime::currentDateTime().toString("yyyy_MM_dd__hh_mm_ss"));
+    qDebug() << "new file: " << newFile;
     if (QFile::exists(newFile)) {
+        qDebug() << "file already exists!";
         QFile::remove(newFile);
     }
     bool bOk = QFile::copy(MyApp::strDataBasePath_ + "info.db", newFile);
@@ -147,7 +158,26 @@ void MainWindow::sltBtnBackupClicked() {
 }
 
 void MainWindow::sltBtnDataUdoClicked() {
-
+    if (CustomMessageBox::question(this, QString::fromLocal8Bit("是否还原数据库,该操作不可逆,请确认!"))) {
+        DatabaseManager::instance()->closeDb();
+        bool bOk = QFile::remove(MyApp::strDataBasePath_ + "info.db");
+        if (bOk) {
+            QString strFile = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择还原文件"), 
+                MyApp::strBackupPath_, QString::fromLocal8Bit("备份(*.bak)"));
+            if (strFile.isEmpty()) {
+                CustomMessageBox::warning(this, QString::fromLocal8Bit("备份文件选择错误,还原终止"));
+                DatabaseManager::instance()->openDb(MyApp::strDataBasePath_ + "info.db");
+                return;
+            }
+            bOk = QFile::copy(strFile, MyApp::strDataBasePath_ + "info.db");
+            CustomMessageBox::information(this, bOk ? QString::fromLocal8Bit("还原成功") : QString::fromLocal8Bit("还原失败"));
+        }
+        else {
+            CustomMessageBox::information(this, QString::fromLocal8Bit("删除当前数据库文件失败,还原终止!"));
+        }
+        // 重新打开数据库
+        DatabaseManager::instance()->openDb(MyApp::strDataBasePath_ + "info.db");
+    }
 }
 
 void MainWindow::sltBtnLoginClicked() {
@@ -159,11 +189,15 @@ void MainWindow::sltBtnLoginClicked() {
     qDebug() << "code = " << code;
     switch (code) {
     case 0:
-        curUser_ = name;
+        curUserName_ = name;
+        curUserPasswd_ = passwd;
         qDebug() << QString::fromLocal8Bit("用户: ").toUtf8().data() 
-            << curUser_.toUtf8().data() 
+            << curUserName_.toUtf8().data() 
             << QString::fromLocal8Bit("成功登陆了").toUtf8().data();
         ui->stackedWidgetMainPage->nextPage();
+        ui->labelCurrentUser->setText(QString::fromLocal8Bit("当前登录用户:   %1").arg(curUserName_));
+        ui->labelCurrentUser->setStyleSheet("color: #0da2af; font-weight: bold;");
+        sltBtnUserRefreshClicked();
         break;
     case -1:
         CustomMessageBox::information(this, QString::fromLocal8Bit("用户不存在"), QString::fromLocal8Bit("提示"));
@@ -186,7 +220,10 @@ void MainWindow::sltChangePages(int index) {
     }
 }
 
-void MainWindow::sltBtnExitClicked() {
+void MainWindow::sltBtnLogoutClicked() {
+    DatabaseManager::instance()->updateUserStatus(curUserName_, Offline);
+    qDebug() << QString::fromLocal8Bit("用户 ").toUtf8().data()
+        << curUserName_.toUtf8().data() << QString::fromLocal8Bit(" 下线了").toUtf8().data();
     ui->stackedWidgetMainPage->nextPage();
 }
 

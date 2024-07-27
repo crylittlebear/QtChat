@@ -75,7 +75,7 @@ private slots:
     /*!
     * @brief 功能界面退出按钮点击
     */
-    void sltBtnExitClicked();
+    void sltBtnLogoutClicked();
 
     /*!
     * @brief 系统托盘图标点击
@@ -157,5 +157,6 @@ private:
     QSystemTrayIcon* sysTrayIcon_;
 
     // 当前登录用户的账户
-    QString curUser_;
+    QString curUserName_;
+    QString curUserPasswd_;
 };

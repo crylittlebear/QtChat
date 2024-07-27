@@ -39,6 +39,11 @@ public:
     void updateUserStatus(const int& id, const quint8& status);
 
     /*!
+    * @brief 更新用户状态
+    */
+    void updateUserStatus(const QString& name, const quint8& status);
+
+    /*!
     * @brief 更新用户头像
     */
     void updateUserHead(const int& id, const QString& strHead);
