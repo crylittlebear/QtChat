@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 *  @Author: crylittlebear
 *  @Data  : 2024-7-20
 */
@@ -112,6 +112,11 @@ private slots:
     */
     void sltBtnUserSearchClicked();
 
+    /*!
+    * @brief 删除用户按钮点击
+    */
+    void sltBtnUserDeleteClicked();
+
 protected:
     /*!
     * @brief 关闭事件,点击桌面右上角关闭按钮缩小到托盘
@@ -146,7 +151,11 @@ private:
 
     // 服务器配置
     TcpMsgServer* msgServer_;
+    TcpFileServer* fileServer_;
 
     // 系统菜单
     QSystemTrayIcon* sysTrayIcon_;
+
+    // 当前登录用户的账户
+    QString curUser_;
 };

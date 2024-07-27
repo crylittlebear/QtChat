@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
 #include "qtcpserver.h"
@@ -59,4 +59,28 @@ private slots:
 private:
 	// 客户端管理
 	QVector<ServerSocket*> clients_;
+};
+
+/*!
+* ===========================================================
+*						 文件服务器
+* ===========================================================
+*/
+class TcpFileServer : public TcpServer {
+	Q_OBJECT
+public:
+	explicit TcpFileServer(QObject* parent = 0);
+	~TcpFileServer();
+signals:
+	void signalRecvFinished(int id, const QJsonValue& json);
+
+private slots:
+	virtual void sltNewConnection() override;
+	virtual void sltConnected() override;
+	virtual void sltDisconnected() override;
+	void sltClientDownloadFile(const QJsonValue& json);
+
+private:
+	// 客户端管理
+	QVector < ServerFileSocket* > clients_;
 };

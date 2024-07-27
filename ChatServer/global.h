@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <stdlib.h>
 #include <string>
@@ -158,13 +158,13 @@ public:
     //获取选择的文件
     static QString GetFileName(QString filter)
     {
-        return QFileDialog::getOpenFileName(NULL, "选择文件", QCoreApplication::applicationDirPath(), filter);
+        return QFileDialog::getOpenFileName(NULL, QString::fromLocal8Bit("选择文件"), QCoreApplication::applicationDirPath(), filter);
     }
 
     //获取选择的文件集合
     static QStringList GetFileNames(QString filter)
     {
-        return QFileDialog::getOpenFileNames(NULL, "选择文件", QCoreApplication::applicationDirPath(), filter);
+        return QFileDialog::getOpenFileNames(NULL, QString::fromLocal8Bit("选择文件"), QCoreApplication::applicationDirPath(), filter);
     }
 
     //获取选择的目录
@@ -236,7 +236,8 @@ public:
     {
         if (FileIsExist(targetFile))
         {
-            int ret = QMessageBox::information(NULL, "提示", "文件已经存在，是否替换？", QMessageBox::Yes | QMessageBox::No);
+            int ret = QMessageBox::information(NULL, QString::fromLocal8Bit("提示"), 
+                QString::fromLocal8Bit("文件已经存在，是否替换？"), QMessageBox::Yes | QMessageBox::No);
             if (ret != QMessageBox::Yes)
             {
                 return false;

@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 *  @Author: crylittlebear
 *  @Data  : 2024-7-20
 */
@@ -72,6 +72,11 @@ public:
     * @brief 用户注册
     */
     int registerUser(const QString& name, const QString& passwd);
+
+    /*!
+    * @brief 删除用户
+    */
+    int removeUser(const QString& name);
 
     /*!
     * @brief 添加好友

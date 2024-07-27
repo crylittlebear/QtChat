@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 *  @Author: crylittlebear
 *  @Data  : 2024-7-20
 */
@@ -10,6 +10,9 @@
 #include "qdialog.h"
 #include "qlabel.h"
 #include "qlineedit.h"
+#include "qstringlist.h"
+#include "qtableview.h"
+#include "qdebug.h"
 
 /*!
 * =================================================================================================
@@ -118,8 +121,8 @@ protected:
 	virtual void mouseReleaseEvent(QMouseEvent* event) override;
 
 protected:
-	QPoint mousePoint_;
-	bool mousePressed_;
+	QPoint mousePoint_;		/// 记录鼠标按下位置的相对位置
+	bool mousePressed_;		/// 判断鼠标是否按下
 };
 
 /*!
@@ -151,14 +154,14 @@ public:
 	void setWinTitle(const QString& text);
 
 protected:
-	QWidget* widgetBody_;
+	QWidget* widgetBody_;			/// 消息窗口的窗体部分
+	QLabel* labelWinIcon_;			/// 消息窗口图标
 
 private:
-	QWidget* widgetWindowTitle_;
-	QLabel* labelWinIcon_;
-	QLabel* labelWinTitle_;
-	QPushButton* btnWinMin_;
-	QPushButton* btnWinClose_;
+	QWidget* widgetWindowTitle_;	/// 消息窗口的标题部分
+	QLabel* labelWinTitle_;			/// 消息窗口标题显示部分
+	QPushButton* btnWinMin_;		/// 消息窗口最小化按钮
+	QPushButton* btnWinClose_;		/// 消息窗口关闭按钮
 };
 
 /*!
@@ -169,7 +172,12 @@ private:
 class CustomMessageBox : public CustomBaseDialog {
 	Q_OBJECT
 public:
-	typedef enum { Information = 0x01, Warning, Question, Error } E_MSGBOX_TYPE;
+	typedef enum { 
+		Information = 0x01, 
+		Warning		= 0x02,
+		Question	= 0x03,
+		Error		= 0x04,
+	} E_MSGBOX_TYPE;
 
 public:
 	/*!
@@ -189,37 +197,53 @@ public:
 					 const quint8& msgType = CustomMessageBox::Information, 
 					 const QString& title = "");
 	/*!
-	* @brief 构造函数
+	* @brief 开启窗口显示时间定时器
 	*/
 	void startTimer();
 
 	/*!
 	* @brief 显示信息提示窗口
 	*/
-	static int information(QWidget* parent, const QString& content, const QString& title = "提示");
+	static int information(QWidget* parent, 
+						   const QString& content, 
+						   const QString& title = QString::fromLocal8Bit("信息"));
 
 	/*!
-	* @brief 显示信息提示窗口
+	* @brief 显示问题提示窗口
 	*/
-	static int question(QWidget* parent, const QString& content, const QString& title = "询问");
+	static int question(QWidget* parent, 
+						const QString& content, 
+						const QString& title = QString::fromLocal8Bit("询问"));
 
 	/*!
-	* @brief 显示信息提示窗口
+	* @brief 显示警告提示窗口
 	*/
-	static int warning(QWidget* parent, const QString& content, const QString& title = "告警");
+	static int warning(QWidget* parent, 
+					   const QString& content, 
+					   const QString& title = QString::fromLocal8Bit("警告"));
+
+	/*!
+	* @brief 显示警告提示窗口
+	*/
+	static int error(QWidget* parent,
+				       const QString& content,
+		               const QString& title = QString::fromLocal8Bit("错误"));
 
 public slots:
+	/*!
+	* @brief 定时器到期槽函数，消息窗口倒计时显示减一
+	*/
 	void sltTimerOut();
 
 private:
-	QLabel* labelIcon_;			/// 提示窗口图标
+	QLabel* labelIcon_;				/// 提示窗口图标
 	QLabel* labelMsgContent_;		/// 提示窗口内容
 
-	QPushButton* btnOk_;		/// 确认按钮
-	QPushButton* btnCancel_;	/// 取消按钮
+	QPushButton* btnOk_;			/// 确认按钮
+	QPushButton* btnCancel_;		/// 取消按钮
 
-	QTimer* timer_;				/// 定时器
-	int timerCount_;			
+	QTimer* timer_;					/// 定时器
+	int timerCount_;				/// 窗口倒计时秒数
 };
 
 /*!
@@ -227,7 +251,7 @@ private:
 *									CustomInputDialog
 * =================================================================================================
 */
-
+/// 自定义输入对话框
 class CustomInputDialog : public CustomBaseDialog {
 	Q_OBJECT
 
@@ -235,7 +259,7 @@ public:
 	/*!
 	* @brief 构造函数
 	*/
-	explicit CustomInputDialog(QWidget* parent = nullptr);
+	explicit CustomInputDialog(QString title, QWidget* parent = nullptr);
 
 	/*!
 	* @brief 析构函数
@@ -245,20 +269,17 @@ public:
 	/*!
 	* @brief 获取输入文档
 	*/
-	static QString getInputText(QWidget* parent,
-		const QString& text = "",
-		const QString& title = "输入",
-		QLineEdit::EchoMode mode = QLineEdit::Password);
+	QStringList getInputText();
 
 	/*!
-	* @brief 
+	* @brief 获取用户和密码信息
 	*/
-	QString getText() const;
+	QStringList getStringList() const;
 
 	/*!
 	* @brief 设置输入文档
 	*/
-	void setInputText(const QString& text);
+	void setTitle(const QString& text);
 
 	/*!
 	* @brief 设置密码显示模式
@@ -266,10 +287,14 @@ public:
 	void setEchoMode(QLineEdit::EchoMode mode);
 
 private:
-	QLabel* labelText_;
-	QLineEdit* lineEditInput_;
-	QPushButton* btnOk_;
-	QPushButton* btnCancel_;
+	QLabel* labelText1_;			/// 窗口显示标签
+	QLabel* labelText2_;			/// 窗口显示标签
+	QLineEdit* lineEditInput1_;		/// 输入控件
+	QLineEdit* lineEditInput2_;		/// 输入控件
+	QPushButton* btnOk_;			/// 确定按钮
+	QPushButton* btnCancel_;		/// 取消按钮
+
+	QStringList list_;
 };
 
 /*!
@@ -277,13 +302,24 @@ private:
 *									CustomLabelLineEdit
 * =================================================================================================
 */
-
+/// 自定义LineEdit控件，实现在lineEdit的前面部分显示图标
 class LabelLineEdit : public QLineEdit {
 public:
+	/*!
+	* @brief 构造函数
+	*/
 	LabelLineEdit(QWidget* parent = nullptr);
+
+	/*!
+	* @brief 析构函数
+	*/
 	~LabelLineEdit();
 
+	/*!
+	* @brief 为lineEdit中的label设置图片
+	*/
 	void setPixmap(const QString& pixmapPath);
+
 private:
-	QLabel* label_;
+	QLabel* label_;				/// lineEdit中的图片显示label
 };

@@ -63,6 +63,12 @@
         <file>resource/common/user.png</file>
         <file>resource/buttonIcon/check.png</file>
         <file>resource/buttonIcon/check-box.png</file>
+        <file>resource/images/doctor.png</file>
+        <file>resource/images/judge.png</file>
+        <file>resource/images/male.png</file>
+        <file>resource/images/policeman.png</file>
+        <file>resource/buttonIcon/error.png</file>
+        <file>resource/buttonIcon/checkicon.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>resource/qss/default.css</file>

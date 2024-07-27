@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 *  @Author: crylittlebear
 *  @Data  : 2024-7-20
 */
@@ -225,15 +225,17 @@ QJsonObject DatabaseManager::checkUserLogin(const QString& name, const QString& 
 int DatabaseManager::registerUser(const QString& name, const QString& passwd)
 {
 	QString sql = QString("select [id] from userinfo where name = '%1';").arg(name);
+	//qDebug() << "sql: " << sql;
 	QSqlQuery query(sql);
 	if (query.next()) {
 		return -1;
 	}
-	query = QSqlQuery("select [id] from userinfo order by id;");
+	query = QSqlQuery("select [id] from userinfo order by id desc;");
 	int id = 1;
 	if (query.next()) {
 		id = query.value(0).toInt();
 	}
+	//qDebug() << "id = " << id;
 	// 创建新用户
 	query.prepare("insert into userinfo (id, name, passwd, head, status, groupId, lasttime)"
 		" values(?, ?, ?, ?, ?, ?, ?);");
@@ -244,9 +246,26 @@ int DatabaseManager::registerUser(const QString& name, const QString& passwd)
 	query.bindValue(4, 0);
 	query.bindValue(5, 0);
 	query.bindValue(6, DATA_TIME_FORMAT);
-	// 执行sql语句
 	query.exec();
+	// 执行sql语句
+	//if (query.exec()) {
+	//	qDebug() << "query exec successed!";
+	//}
+	//else {
+	//	qDebug() << "query exec failed!";
+	//}
 	return id + 1;
+}
+
+int DatabaseManager::removeUser(const QString& name) {
+	QString sql = QString("delete from userinfo where name = '%1'").arg(name);
+	QSqlQuery query(sql);
+	if (query.exec()) {
+		qDebug() << "删除用户：" << name << " 成功";
+		return 0;
+	}
+	qDebug() << "删除用户：" << name << " 失败";
+	return -1;
 }
 
 QJsonObject DatabaseManager::addFriend(const QString& name)

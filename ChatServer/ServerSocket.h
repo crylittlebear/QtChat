@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 *  @Author: crylittlebear
 *  @Data  : 2024-7-20
 */
@@ -7,6 +7,7 @@
 
 #include <QObject>
 #include "qtcpsocket.h"
+#include "qfile.h"
 
 class ServerSocket  : public QObject
 {
@@ -155,4 +156,60 @@ private slots:
 private:
     QTcpSocket* tcpSocket_;
     int id_;
+};
+
+/*!
+* =======================================================================
+*                           文件套接字
+* =======================================================================
+*/
+
+class ServerFileSocket : public QObject {
+    Q_OBJECT
+public:
+    explicit ServerFileSocket(QObject* parent = nullptr, QTcpSocket* socket = nullptr);
+    ~ServerFileSocket();
+
+    void close();
+    bool checkUserId(const qint32 id, const qint32& winId);
+
+    void fileTransferFinished();
+    void startTransferFile(const QString& fileName);
+
+signals:
+    void sigConnected();
+    void sigDisconnected();
+    void sigRecvFinished(int id, const QJsonValue& json);
+
+private:
+    void initSocket();
+
+private slots:
+    void sltDisplayError(QAbstractSocket::SocketError);
+    void sltReadyRead();
+    void sltUpdateClientProcess(quint64 numBytes);
+
+private:
+    // 文件接收
+    quint64 loadSize_;
+    quint64 bytesReceived_;
+    quint64 fileNameSize_;
+    QString fileReadName_;
+    QByteArray inBlock_;
+    quint64 totalRecvBytes_;
+    QFile* fileToRecv_;
+
+    QTcpSocket* tcpSocket_;
+
+    // 文件发送
+    //quint16 blockSize_;
+    QFile* fileToSend_;
+    quint64 totalSendBytes_;
+    quint64 bytesWritten_;
+    quint64 bytesToWrite_;
+    QByteArray outBlock_;
+
+    bool busy_;
+    quint32 userId_;
+    quint32 msgToId_;
 };

@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 *  @Author: crylittlebear
 *  @Data  : 2024-7-20
 */
@@ -117,7 +117,6 @@ void CustomDialog::mousePressEvent(QMouseEvent* event) {
 void CustomDialog::mouseMoveEvent(QMouseEvent* event) {
 	if (mousePressed_ && (event->buttons() & Qt::LeftButton)) {
 		move(event->globalPos() - mousePoint_);
-		//move(event->globalX() - mousePoint_.x(), event->globalY() - mousePoint_.y());
 	}
 	event->accept();
 }
@@ -137,8 +136,9 @@ void CustomDialog::mouseReleaseEvent(QMouseEvent* event) {
 
 CustomBaseDialog::CustomBaseDialog(QWidget* parent) : CustomDialog(parent) {
 	this->setObjectName("CustomBaseDialog");
-	this->setMinimumSize(360, 240);
+	this->setMinimumSize(320, 200);
 	this->setAttribute(Qt::WA_DeleteOnClose);
+	this->setStyleSheet("font-size: 15pt");
 
 	// 重新构建界面
 	widgetWindowTitle_ = new QWidget(this);
@@ -157,7 +157,7 @@ CustomBaseDialog::CustomBaseDialog(QWidget* parent) : CustomDialog(parent) {
 	labelWinTitle_ = new QLabel(this);
 	labelWinTitle_->setObjectName("labelWinTitle");
 	labelWinTitle_->setFixedHeight(30);
-	labelWinTitle_->setText(tr("自定义系统提示框"));
+	labelWinTitle_->setText(QString::fromLocal8Bit("自定义系统提示框"));
 
 	// 最小化和关闭按钮
 	btnWinMin_ = new QPushButton(this);
@@ -188,6 +188,7 @@ CustomBaseDialog::CustomBaseDialog(QWidget* parent) : CustomDialog(parent) {
 	// 窗口体
 	widgetBody_ = new QWidget(this);
 	widgetBody_->setObjectName("widgetBody");
+	widgetBody_->setStyleSheet("background-color: #cbc3cd");
 
 	// 设置垂直布局
 	QVBoxLayout* vBoxLayout = new QVBoxLayout(this);
@@ -206,7 +207,6 @@ CustomBaseDialog::~CustomBaseDialog() { }
 void CustomBaseDialog::setWinIcon(QPixmap pixmap) {
 	if (pixmap.isNull()) { return; }
 	if (pixmap.width() > 30 || pixmap.height() > 30) {
-		//labelWinIcon_->setScaledContents(true);
 		pixmap = pixmap.scaled(30, 30);
 	}
 	labelWinIcon_->setPixmap(pixmap);
@@ -238,25 +238,25 @@ CustomMessageBox::CustomMessageBox(QWidget* parent) : CustomBaseDialog(parent) {
 	labelMsgContent_->setMinimumHeight(64);
 	labelMsgContent_->setObjectName("labelMsgContent");
 	labelMsgContent_->setStyleSheet(QString("QLabel {font: 15pt;}"));
-	labelMsgContent_->setText(tr("恭喜你, 中了500万!"));
+	labelMsgContent_->setText(QString::fromLocal8Bit("恭喜你, 中了500万!"));
 
-	// 设置水平布局
+	// 设置警告图标和警告消息水平布局
 	QHBoxLayout* hBoxLayout = new QHBoxLayout();
-	hBoxLayout->setContentsMargins(60, 2, 60, 2);
+	hBoxLayout->setContentsMargins(30, 2, 30, 2);
 	hBoxLayout->setSpacing(10);
 	hBoxLayout->addWidget(labelIcon_);
 	hBoxLayout->addWidget(labelMsgContent_, 1);
 
-	// 设置窗口按钮
+	// 设置窗口按钮属性
 	btnOk_ = new QPushButton(widgetBody_);
 	btnOk_->setFocusPolicy(Qt::NoFocus);
 	btnOk_->setFixedSize(80, 40);
-	btnOk_->setText(tr("确定"));
+	btnOk_->setText(QString::fromLocal8Bit("确定"));
 
 	btnCancel_ = new QPushButton(widgetBody_);
 	btnCancel_->setFocusPolicy(Qt::NoFocus);
 	btnCancel_->setFixedSize(80, 40);
-	btnCancel_->setText(tr("取消"));
+	btnCancel_->setText(QString::fromLocal8Bit("取消"));
 
 	// 设置按钮的水平布局
 	QHBoxLayout* hBoxLayoutBtn = new QHBoxLayout();
@@ -273,16 +273,14 @@ CustomMessageBox::CustomMessageBox(QWidget* parent) : CustomBaseDialog(parent) {
 	vBoxLayout->addLayout(hBoxLayoutBtn);
 
 	// 信号和槽
-	connect(btnOk_, &QPushButton::clicked, this, &QDialog::reject);
-	connect(btnCancel_, &QPushButton::clicked, this, &QDialog::accept);
+	connect(btnOk_, &QPushButton::clicked, this, &QDialog::accept);
+	connect(btnCancel_, &QPushButton::clicked, this, &QDialog::reject);
 
 	// 倒计时定时器
 	timerCount_ = 10;
 	timer_ = new QTimer(this);
 	connect(timer_, &QTimer::timeout, this, &CustomMessageBox::sltTimerOut);
-
-	this->setWinTitle(tr("提示"));
-	//this->setWindowTitle(tr("提示"));
+	this->setWinTitle(QString::fromLocal8Bit("提示"));
 }
 
 CustomMessageBox::~CustomMessageBox() { }
@@ -295,12 +293,19 @@ void CustomMessageBox::showMessage(const QString& content, const quint8& msgType
 	btnCancel_->setVisible(msgType == CustomMessageBox::Question);
 	if (msgType == CustomMessageBox::Information) {
 		labelIcon_->setPixmap(QPixmap(":/resource/buttonIcon/infoDialog.png"));
+		labelWinIcon_->setPixmap(QPixmap(":/resource/buttonIcon/infoDialog.png"));
 	}
 	else if (msgType == CustomMessageBox::Question) {
 		labelIcon_->setPixmap(QPixmap(":/resource/buttonIcon/questionDialog.png"));
+		labelWinIcon_->setPixmap(QPixmap(":/resource/buttonIcon/questionDialog.png"));
 	}
 	else if (msgType == CustomMessageBox::Warning) {
 		labelIcon_->setPixmap(QPixmap(":/resource/buttonIcon/warning.png"));
+		labelWinIcon_->setPixmap(QPixmap(":/resource/buttonIcon/warning.png"));
+	}
+	else if (msgType == CustomMessageBox::Error) {
+		labelIcon_->setPixmap(QPixmap(":/resource/buttonIcon/error.png"));
+		labelWinIcon_->setPixmap(QPixmap(":/resource/buttonIcon/error.png"));
 	}
 }
 
@@ -310,7 +315,7 @@ void CustomMessageBox::startTimer() {
 }
 
 void CustomMessageBox::sltTimerOut() {
-	btnOk_->setText(tr("确定(%1)").arg(timerCount_--));
+	btnOk_->setText(QString::fromLocal8Bit("确定(%1)").arg(timerCount_--));
 	if (timerCount_ < 0) {
 		timer_->stop();
 		this->accept();
@@ -321,21 +326,24 @@ int CustomMessageBox::information(QWidget* parent, const QString& content, const
 	CustomMessageBox* msgBox = new CustomMessageBox(parent);
 	msgBox->showMessage(content, CustomMessageBox::Information, title);
 	msgBox->startTimer();
-	msgBox->sltTimerOut();
 	return msgBox->exec();
 }
 
-int CustomMessageBox::question(QWidget* parent, const QString& content, const QString& title)
-{
+int CustomMessageBox::question(QWidget* parent, const QString& content, const QString& title) {
 	CustomMessageBox* msgBox = new CustomMessageBox(parent);
 	msgBox->showMessage(content, CustomMessageBox::Question, title);
 	return msgBox->exec();
 }
 
-int CustomMessageBox::warning(QWidget* parent, const QString& content, const QString& title)
-{
+int CustomMessageBox::warning(QWidget* parent, const QString& content, const QString& title) {
 	CustomMessageBox* msgBox = new CustomMessageBox(parent);
 	msgBox->showMessage(content, CustomMessageBox::Warning, title);
+	return msgBox->exec();
+}
+
+int CustomMessageBox::error(QWidget* parent, const QString& content, const QString& title) {
+	CustomMessageBox* msgBox = new CustomMessageBox(parent);
+	msgBox->showMessage(content, CustomMessageBox::Error, title);
 	return msgBox->exec();
 }
 
@@ -345,65 +353,104 @@ int CustomMessageBox::warning(QWidget* parent, const QString& content, const QSt
 * =================================================================================================
 */
 
-CustomInputDialog::CustomInputDialog(QWidget* parent) {
+CustomInputDialog::CustomInputDialog(QString title, QWidget* parent) : CustomBaseDialog(parent) {
 	this->setAttribute(Qt::WA_DeleteOnClose, false);
-	labelText_ = new QLabel(widgetBody_);
-	labelText_->setText(tr("输入"));
+	labelText1_ = new QLabel(widgetBody_);
+	labelText1_->setText(QString::fromLocal8Bit("账号"));
 	
-	lineEditInput_ = new QLineEdit(widgetBody_);
-	lineEditInput_->setEchoMode(QLineEdit::Normal);
+	lineEditInput1_ = new QLineEdit(widgetBody_);
+	lineEditInput1_->setEchoMode(QLineEdit::Normal);
+	lineEditInput1_->setAlignment(Qt::AlignCenter);
+	lineEditInput1_->setStyleSheet("background-color: #FFFFFF; border-radius: 8px; border: 3px solid #0da2af");
+
+	QHBoxLayout* hLayout1 = new QHBoxLayout(this);
+	hLayout1->addWidget(labelText1_);
+	hLayout1->addWidget(lineEditInput1_);
+	hLayout1->setStretch(0, 1);
+	hLayout1->setStretch(1, 4);
+
+	labelText2_ = new QLabel(widgetBody_);
+	labelText2_->setText(QString::fromLocal8Bit("密码"));
+
+	lineEditInput2_ = new QLineEdit(widgetBody_);
+	lineEditInput2_->setEchoMode(QLineEdit::Normal);
+	lineEditInput2_->setAlignment(Qt::AlignCenter);
+	lineEditInput2_->setStyleSheet("background-color: #FFFFFF; border-radius: 8px; border: 3px solid #0da2af");
+
+	QHBoxLayout* hLayout2 = new QHBoxLayout(this);
+	hLayout2->addWidget(labelText2_);
+	hLayout2->addWidget(lineEditInput2_);
+	hLayout2->setStretch(0, 1);
+	hLayout2->setStretch(1, 4);
 
 	btnCancel_ = new QPushButton(widgetBody_);
 	btnCancel_->setFocusPolicy(Qt::NoFocus);
-	btnCancel_->setText(tr("取消"));
+	btnCancel_->setFixedSize(80, 40);
+	btnCancel_->setText(QString::fromLocal8Bit("取消"));
 
 	btnOk_ = new QPushButton(widgetBody_);
 	btnOk_->setFocusPolicy(Qt::NoFocus);
-	btnOk_->setText(tr("确定"));
+	btnOk_->setFixedSize(80, 40);
+	btnOk_->setText(QString::fromLocal8Bit("确定"));
 
 	QHBoxLayout* horLayoutBtn = new QHBoxLayout();
-	horLayoutBtn->setContentsMargins(10, 10, 10, 10);
+	horLayoutBtn->setContentsMargins(0, 0, 0, 0);
 	horLayoutBtn->setSpacing(10);
 	horLayoutBtn->addStretch();
 	horLayoutBtn->addWidget(btnCancel_);
 	horLayoutBtn->addWidget(btnOk_);
 
-	QVBoxLayout* verLayout = new QVBoxLayout(widgetBody_);
-	verLayout->setContentsMargins(10, 10, 10, 10);
-	verLayout->addWidget(labelText_);
-	verLayout->addWidget(lineEditInput_);
-	verLayout->addLayout(horLayoutBtn);
+	QVBoxLayout* verLayout = new QVBoxLayout();
+	verLayout->setContentsMargins(40, 10, 40, 10);
+	verLayout->addLayout(hLayout1);
+	verLayout->addLayout(hLayout2);
+	verLayout->setSpacing(12);
+	//verLayout->addLayout(horLayoutBtn);
+	//verLayout->setStretch(0, 2);
+	//verLayout->setStretch(1, 2);
+	//verLayout->setStretch(2, 1);
+
+	QVBoxLayout* verLayout2 = new QVBoxLayout(widgetBody_);
+	verLayout2->addLayout(verLayout);
+	verLayout2->addLayout(horLayoutBtn);
+
+	setTitle(title);
 
 	// 信号和槽
 	connect(btnCancel_, &QPushButton::clicked, this, &QDialog::reject);
-	connect(btnOk_, &QPushButton::clicked, this, &QDialog::accept);
+	connect(btnOk_, &QPushButton::clicked, [this]() {
+		list_ = getInputText();
+		QDialog::accept();
+	});
 }
 
 CustomInputDialog::~CustomInputDialog() { }
 
-QString CustomInputDialog::getInputText(QWidget* parent, const QString& text, 
-										const QString& title, QLineEdit::EchoMode mode) {
-	CustomInputDialog inputDlg(parent);
-	inputDlg.setInputText(text);
-	inputDlg.setEchoMode(mode);
-	inputDlg.setWinTitle(title);
-	
-	if (inputDlg.exec() == QDialog::Accepted) {
-		return inputDlg.getText();
+QStringList CustomInputDialog::getInputText() {
+	QString name = lineEditInput1_->text();
+	QString passwd = lineEditInput2_->text();
+	if (!name.isEmpty() && !passwd.isEmpty()) {
+		return QStringList() << name << passwd;
 	}
-	return QString();
+	return QStringList();
 }
 
-QString CustomInputDialog::getText() const { return lineEditInput_->text(); }
-
-void CustomInputDialog::setInputText(const QString& text) {
-	if (text.isEmpty()) return;
-	lineEditInput_->setText(text);
-	lineEditInput_->setFocus();
-	lineEditInput_->selectAll();
+QStringList CustomInputDialog::getStringList() const
+{
+	return list_;
 }
 
-void CustomInputDialog::setEchoMode(QLineEdit::EchoMode mode) { lineEditInput_->setEchoMode(mode); }
+void CustomInputDialog::setTitle(const QString& text) {
+	setWinTitle(text);
+	//if (text.isEmpty()) return;
+	//lineEditInput_->setText(text);
+	//lineEditInput_->setFocus();
+	//lineEditInput_->selectAll();
+}
+
+void CustomInputDialog::setEchoMode(QLineEdit::EchoMode mode) { 
+	//lineEditInput_->setEchoMode(mode); 
+}
 
 /*!
 * =================================================================================================
@@ -423,6 +470,10 @@ void LabelLineEdit::setPixmap(const QString& pixmapPath) {
 	label_->setPixmap(QPixmap(pixmapPath));
 	label_->setScaledContents(true);
 	label_->setVisible(true);
-	label_->setGeometry(12, 12, this->height() - 24, this->height() - 24);
+	label_->setGeometry(10, 15, this->height() - 30, this->height() - 30);
 	this->setTextMargins(30, 1, 1, 1);
 }
+
+
+
+

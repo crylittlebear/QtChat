@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 *  @Author: crylittlebear
 *  @Data  : 2024-7-20
 */
@@ -6,6 +6,12 @@
 #pragma once
 
 #include <QObject>
+
+typedef enum {
+    Administor = 0x01,
+    Manager,
+    Worker
+} E_IDENTITY;
 
 class QApplication;
 

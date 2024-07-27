@@ -1,10 +1,12 @@
-/*!
+﻿/*!
 *  @Author: crylittlebear
 *  @Data  : 2024-7-20
 */
 
 #include "ServerSocket.h"
+#include "MyApp.h"
 
+#include "qdatastream.h"
 #include "qdebug.h"
 #include "qjsonarray.h"
 #include "qjsonobject.h"
@@ -400,4 +402,171 @@ void ServerSocket::sltDisconnected() {
 	emit sigDisconnected();
 }
 
+/*!
+* =======================================================================
+*                           文件套接字
+* =======================================================================
+*/
 
+ServerFileSocket::ServerFileSocket(QObject* parent, QTcpSocket* socket) : QObject(parent) {
+	loadSize_ = 50 * 1024;
+	totalSendBytes_ = 0;
+	totalRecvBytes_ = 0;
+	bytesWritten_ = 0;
+	bytesToWrite_ = 0;
+	bytesReceived_ = 0;
+
+	fileNameSize_ = 0;
+	busy_ = false;
+
+	userId_ = -1;
+	msgToId_ = -1;
+
+	// 本地文件存储
+	fileToSend_ = new QFile(this);
+	fileToRecv_ = new QFile(this);
+
+	// 客户端
+	if (socket == nullptr) {
+		tcpSocket_ = new QTcpSocket(this);
+	}
+	tcpSocket_ = socket;
+
+	// 信号槽
+	connect(tcpSocket_, &QTcpSocket::readyRead, this, &ServerFileSocket::sltReadyRead);
+	connect(tcpSocket_, &QTcpSocket::disconnected, this, &ServerFileSocket::sigDisconnected);
+	connect(tcpSocket_, &QTcpSocket::bytesWritten, this, &ServerFileSocket::sltUpdateClientProcess);
+}
+
+ServerFileSocket::~ServerFileSocket() {
+
+}
+
+void ServerFileSocket::close() {
+	tcpSocket_->abort();
+}
+
+bool ServerFileSocket::checkUserId(const qint32 id, const qint32& winId)
+{
+	return (id == userId_) && (winId == msgToId_);
+}
+
+void ServerFileSocket::fileTransferFinished() {
+	bytesToWrite_ = 0;
+	bytesWritten_ = 0;
+	totalSendBytes_ = 0;
+	totalRecvBytes_ = 0;
+	bytesReceived_ = 0;
+	fileNameSize_ = 0;
+	busy_ = false;
+}
+
+void ServerFileSocket::startTransferFile(const QString& fileName) {
+	if (busy_ || !tcpSocket_->isOpen()) {
+		return;
+	}
+	fileToSend_ = new QFile((msgToId_ == -2 ? MyApp::strHeadPath_ : MyApp::strRecvPath_) + fileName);
+	if (!fileToSend_->open(QFile::ReadOnly)) {
+		qDebug() << "open file error!";
+		return;
+	}
+	totalSendBytes_ = fileToSend_->size();
+	QDataStream sendStream(&outBlock_, QIODevice::WriteOnly);
+	sendStream.setVersion(QDataStream::Qt_5_15);
+	QString currentFileName = fileName.right(fileName.size() - fileName.lastIndexOf('/') - 1);
+	sendStream << qint64(0) << qint64(0) << currentFileName;
+	totalSendBytes_ += outBlock_.size();
+	sendStream.device()->seek(0);
+	sendStream << totalSendBytes_ << quint64(outBlock_.size() - sizeof(qint64) * 2);
+	bytesToWrite_ = totalSendBytes_ - tcpSocket_->write(outBlock_);
+	outBlock_.resize(0);
+	busy_ = true;
+	qDebug() << "Begin to send file " << fileName << userId_ << msgToId_;
+}
+
+void ServerFileSocket::initSocket()
+{
+}
+
+void ServerFileSocket::sltReadyRead() {
+	QDataStream in(tcpSocket_);
+	in.setVersion(QDataStream::Qt_5_15);
+	// 初始连接时的消息
+	if (bytesReceived_ == 0 && userId_ == -1 && msgToId_ == -1 &&
+		(tcpSocket_->bytesAvailable() == sizeof(quint32) * 2)) {
+		in >> userId_ >> msgToId_;
+		qDebug() << "File Server get Userid: " << userId_ << ", " << msgToId_;
+		emit sigConnected();
+		return;
+	}
+	// 如果接收到的数据小于等于20个字节，那么刚开始接收数据，保存头文件信息
+	if (bytesReceived_ <= (sizeof(qint64) * 2)) {
+		int len = sizeof(qint64) * 2;
+		if (tcpSocket_->bytesAvailable() >= len && fileNameSize_ == 0) {
+			in >> totalRecvBytes_ >> fileNameSize_;
+			if (totalRecvBytes_ != 0) {
+				bytesReceived_ += len;
+			}
+		}
+		if (tcpSocket_->bytesAvailable() >= (qint64)fileNameSize_ &&
+			fileNameSize_ != 0 && totalRecvBytes_ != 0) {
+			in >> fileReadName_;
+			bytesReceived_ += fileNameSize_;
+			fileToRecv_->setFileName(((msgToId_ == -2) ? MyApp::strHeadPath_ : MyApp::strRecvPath_) + fileReadName_);
+			if (!fileToRecv_->open(QFile::ReadOnly | QIODevice::Truncate)) {
+				qDebug() << "open File error!";
+				return;
+			}
+			qDebug() << "begin to recv file: " <<  fileReadName_;
+		}
+	}
+	// 如果接受的数据小于总数据大小，那么写入文件
+	if (bytesReceived_ < totalRecvBytes_) {
+		bytesReceived_ += tcpSocket_->bytesAvailable();
+		inBlock_ = tcpSocket_->readAll();
+		if (fileToRecv_->isOpen()) {
+			fileToRecv_->write(inBlock_);
+		}
+		inBlock_.resize(0);
+	}
+	// 接收数据完成
+	if ((bytesReceived_ >= totalRecvBytes_) && (totalRecvBytes_ != 0)) {
+		fileToRecv_->close();
+		bytesReceived_ = 0;
+		totalRecvBytes_ = 0;
+		fileNameSize_ = 0;
+		qDebug() << "recv file " << fileToRecv_->fileName() << " ok";
+		fileTransferFinished();
+	}
+}
+
+void ServerFileSocket::sltUpdateClientProcess(quint64 numBytes) {
+	bytesWritten_ += numBytes;
+	// 如果文件还没发送完，则继续发送
+	if (bytesToWrite_ > 0) {
+		outBlock_ = fileToSend_->read(qMin(loadSize_, bytesToWrite_));
+		bytesToWrite_ -= outBlock_.size();
+		outBlock_.resize(0);
+	}
+	else {
+		// 没有任何数据需要发送
+		if (fileToSend_->isOpen()) {
+			fileToSend_->close();
+		}
+	}
+	// 如果文件已经发送完毕
+	if (bytesWritten_ >= totalSendBytes_) {
+		if (fileToSend_->isOpen()) {
+			fileToSend_->close();
+		}
+		bytesWritten_ = 0;
+		bytesToWrite_ = 0;
+		totalSendBytes_ = 0;
+		qDebug() << fileToSend_->fileName() << "send finished";
+		fileTransferFinished();
+	}
+}
+
+void ServerFileSocket::sltDisplayError(QAbstractSocket::SocketError) {
+	tcpSocket_->abort();
+}
