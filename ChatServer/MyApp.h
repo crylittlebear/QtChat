@@ -17,7 +17,8 @@ class QApplication;
 
 class MyApp {
 public:
-    static void initApp(const QString& appPath);
+    //static void initApp(const QString& appPath);
+    static void initApp();
 
     static void createSettingFile();
 

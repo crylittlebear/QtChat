@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+ï»¿#include "MainWindow.h"
 
 #include "qpixmap.h"
 #include "qevent.h"
@@ -9,16 +9,16 @@ MainWindow::MainWindow(QWidget *parent)
 	, ui(new Ui::MainWindowClass())
 {
 	ui->setupUi(this);
-	// ÉèÖÃ´°¿Ú¶¥²¿Òþ²Ø
+	// è®¾ç½®çª—å£é¡¶éƒ¨éšè—
 	setWindowFlags(Qt::FramelessWindowHint);
 	setWindowIcon(QIcon(":/resource/ico/chatting.png"));
-	// ÉèÖÃ´°¿ÚÍ¼±ê
+	// è®¾ç½®çª—å£å›¾æ ‡
 	ui->labelWinIcon->setPixmap(QPixmap(":/resource/ico/chatting.png"));
-	// ÉèÖÃ´°¿Ú¶¥²¿widgetÑùÊ½
+	// è®¾ç½®çª—å£é¡¶éƒ¨widgetæ ·å¼
 	ui->widgetWinTitle->setStyleSheet("background-color: #0da2af;");
 	ui->widgetHeadInfo->setStyleSheet("background-color: #0da2af;");
 	ui->labelWinIcon->setScaledContents(true);
-	ui->labelUserName->setText(QString::fromLocal8Bit("ÀîÁ¢ºã"));
+	ui->labelUserName->setText(QString::fromLocal8Bit("æŽç«‹æ’"));
 	ui->labelUserName->setStyleSheet("color: #FFFFFF; font-weight: bold");
 	ui->labelSigUp->setStyleSheet("color: #FFFFFF; font-weight: bold");
 	ui->labelSigDown->setStyleSheet("color: #FFFFFF; font-weight: bold");
@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
 	ui->labelWeather->setPixmap(QPixmap(":/resource/images/cloudy.png"));
 	ui->labelWeather->setScaledContents(true);
 
-	//ÉèÖÃÐÅºÅ²Û
+	//è®¾ç½®ä¿¡å·æ§½
 	connect(ui->btnWinClose, &QPushButton::clicked, this, &QWidget::close);
 }
 

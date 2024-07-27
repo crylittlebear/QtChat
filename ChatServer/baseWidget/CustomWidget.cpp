@@ -325,7 +325,6 @@ void CustomMessageBox::sltTimerOut() {
 int CustomMessageBox::information(QWidget* parent, const QString& content, const QString& title) {
 	CustomMessageBox* msgBox = new CustomMessageBox(parent);
 	msgBox->showMessage(content, CustomMessageBox::Information, title);
-	msgBox->startTimer();
 	return msgBox->exec();
 }
 

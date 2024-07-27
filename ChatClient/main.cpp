@@ -1,4 +1,4 @@
-#include <QtWidgets/QApplication>
+﻿#include <QtWidgets/QApplication>
 #include "login.h"
 #include "customLineEdit.h"
 #include "qdebug.h"

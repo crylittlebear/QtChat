@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QObject>
 #include "qtcpsocket.h"
@@ -9,88 +9,88 @@ class ClientSocket  : public QObject
 
 public:
 	/*!
-	* @brief ¹¹Ôìº¯Êı
+	* @brief æ„é€ å‡½æ•°
 	*/
 	explicit ClientSocket(QObject *parent = nullptr);
 
 	/*!
-	* @brief Îö¹¹º¯Êı
+	* @brief ææ„å‡½æ•°
 	*/
 	~ClientSocket();
 
 	/*!
-	* @brief »ñÈ¡ºÍÉèÖÃÓÃ»§ID
+	* @brief è·å–å’Œè®¾ç½®ç”¨æˆ·ID
 	*/
 	int getUserId() const;
 	void setUserId(int id);
 
 	/*!
-	* @brief ¼ì²éÊÇ·ñÒÑ¾­Á¬½Ó
+	* @brief æ£€æŸ¥æ˜¯å¦å·²ç»è¿æ¥
 	*/
 	void checkConnected();
 
 	/*!
-	* @brief Ö÷¶¯¶Ï¿ªÁ¬½Ó
+	* @brief ä¸»åŠ¨æ–­å¼€è¿æ¥
 	*/
 	void closeConnected();
 
 	/*!
-	* @brief Á¬½Óµ½·şÎñÆ÷
+	* @brief è¿æ¥åˆ°æœåŠ¡å™¨
 	*/
 	void connectToServer(const QString& ip, const int& port);
 	void connectToServer(const QHostAddress& host, const int& port);
 
 signals:
 	/*!
-	* @brief ÏûÏ¢ĞÅºÅ
+	* @brief æ¶ˆæ¯ä¿¡å·
 	*/
 	void signalMessage(const quint8& type, const QJsonValue& dataVal);
 
 	/*!
-	* @brief ×´Ì¬ĞÅºÅ
+	* @brief çŠ¶æ€ä¿¡å·
 	*/
 	void signalStatus(const quint8& state);
 
 public slots:
 	/*!
-	* @brief socketÏûÏ¢·¢ËÍ·â×° 
+	* @brief socketæ¶ˆæ¯å‘é€å°è£… 
 	*/
 	void sltSendMessage(const quint8& type, const QJsonValue& dataVal);
 
 	/*!
-	* @brief ·¢ËÍÉÏÏßÍ¨Öª
+	* @brief å‘é€ä¸Šçº¿é€šçŸ¥
 	*/
 	void sltSendOnline();
 
 	/*!
-	* @brief ·¢ËÍÏÂÏßÍ¨Öª
+	* @brief å‘é€ä¸‹çº¿é€šçŸ¥
 	*/
 	void sltSendOffline();
 
 private:
 	/*!
-	* @brief ½âÎöµÇÂ¼·µ»ØĞÅÏ¢
+	* @brief è§£æç™»å½•è¿”å›ä¿¡æ¯
 	*/
 	void parseLogin(const QJsonValue& dataVal);
 
 	/*!
-	* @brief ½âÎö×¢²á·µ»ØĞÅÏ¢
+	* @brief è§£ææ³¨å†Œè¿”å›ä¿¡æ¯
 	*/
 	void parseRegister(const QJsonValue& dataVal);
 
 private slots:
 	/*!
-	* @brief Óë·şÎñÆ÷¶Ï¿ªÁ¬½Ó
+	* @brief ä¸æœåŠ¡å™¨æ–­å¼€è¿æ¥
 	*/
 	void sltDisconnected();
 
 	/*!
-	* @brief ³É¹¦Á¬½Ó·şÎñÆ÷
+	* @brief æˆåŠŸè¿æ¥æœåŠ¡å™¨
 	*/
 	void sltConnected();
 
 	/*!
-	*@brief ´¦ÀíTcpÏûÏ¢
+	*@brief å¤„ç†Tcpæ¶ˆæ¯
 	*/
 	void sltReadyRead();
 

@@ -109,6 +109,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnUserRefresh, &QPushButton::clicked, this, &MainWindow::sltBtnUserRefreshClicked);
     connect(ui->btnUserAdd, &QPushButton::clicked, this, &MainWindow::sltBtnUserInserClicked);
     connect(ui->btnUserDelete, &QPushButton::clicked, this, &MainWindow::sltBtnUserDeleteClicked);
+    connect(ui->btnBackup, &QPushButton::clicked, this, &MainWindow::sltBtnBackupClicked);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -137,7 +138,12 @@ void MainWindow::sltBtnWinMinClicked() {
 }
 
 void MainWindow::sltBtnBackupClicked() {
-
+    QString newFile = MyApp::strBackupPath_ + QString("info_%1.bak").arg(QDate::currentDate().toString("yyyy_MM_dd"));
+    if (QFile::exists(newFile)) {
+        QFile::remove(newFile);
+    }
+    bool bOk = QFile::copy(MyApp::strDataBasePath_ + "info.db", newFile);
+    CustomMessageBox::information(this, bOk ? QString::fromLocal8Bit("备份数据成功") : QString::fromLocal8Bit("备份数据失败"));
 }
 
 void MainWindow::sltBtnDataUdoClicked() {
@@ -167,6 +173,7 @@ void MainWindow::sltBtnLoginClicked() {
         break;
     case -3:
         CustomMessageBox::error(this, QString::fromLocal8Bit("重复登录"), QString::fromLocal8Bit("错误"));
+        ui->stackedWidgetMainPage->nextPage();
         break;
     }
 }
@@ -275,7 +282,7 @@ void MainWindow::sltBtnUserInserClicked() {
     QStringList list = inputDlg->getStringList();
     if (list.isEmpty()) {
         qDebug() << QString::fromLocal8Bit("账号或密码为空").toUtf8().data();
-        CustomMessageBox::warning(this, QString::fromLocal8Bit("用户名或密码不能为空"));
+        CustomMessageBox::warning(this, QString::fromLocal8Bit("用户名或密码不能为空,添加用户失败"));
         return;
     }
     qDebug() << QString::fromLocal8Bit("账号: ").toUtf8().data() << list[0].toUtf8().data()

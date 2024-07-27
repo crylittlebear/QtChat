@@ -1,11 +1,11 @@
-#include "MyApp.h"
+ï»¿#include "MyApp.h"
 
 #include "qvariant.h"
 #include "qsettings.h"
 #include "qfile.h"
 #include "qdir.h"
 
-// Ó¦ÓÃ³ÌĞòÅäÖÃÄ¿Â¼
+// åº”ç”¨ç¨‹åºé…ç½®ç›®å½•
 QString MyApp::strAppPath_           = "./";
 QString MyApp::strDataPath_          = "";
 QString MyApp::strRecvPath_          = "";
@@ -17,7 +17,7 @@ QString MyApp::strSoundPath_         = "";
 QString MyApp::strRecordPath_        = "";
 QString MyApp::strIniFile_           = "config.ini";
 
-// ·şÎñÆ÷Ïà¹ØÅäÖÃ
+// æœåŠ¡å™¨ç›¸å…³é…ç½®
 QString MyApp::strHostAddr_          = "192.168.2.199";
 int     MyApp::msgPort_              = 60001;
 int     MyApp::filePort_             = 60002;
@@ -54,18 +54,18 @@ void MyApp::initApp(const QString& appPath) {
 }
 
 void MyApp::createSettingFile() {
-    // Ğ´ÈëÅäÖÃÎÄ¼ş
+    // å†™å…¥é…ç½®æ–‡ä»¶
     QSettings settings(strIniFile_, QSettings::IniFormat);
     QString strGroups = settings.childGroups().join("");
     if (!QFile::exists(strIniFile_) || (strGroups.isEmpty()))
     {
-        /*ÏµÍ³ÉèÖÃ*/
+        /*ç³»ç»Ÿè®¾ç½®*/
         settings.beginGroup("UserCfg");
         settings.setValue("User", strUserName_);
         settings.setValue("Passwd", strPasswd_);
         settings.endGroup();
 
-        /*ÆäËûÅäÖÃ*/
+        /*å…¶ä»–é…ç½®*/
         settings.beginGroup("Server");
         settings.setValue("HostAddr", strHostAddr_);
         settings.setValue("MsgPort", msgPort_);
@@ -110,7 +110,7 @@ QVariant MyApp::getSettingKeyValue(const QString& group, const QString& key,
 }
 
 void MyApp::checkDirs() {
-    // Êı¾İÎÄ¼ş¼Ğ
+    // æ•°æ®æ–‡ä»¶å¤¹
     QDir dir(strDataPath_);
     if (!dir.exists()) {
         dir.mkdir(strDataPath_);
@@ -118,7 +118,7 @@ void MyApp::checkDirs() {
         QProcess::execute("sync");
 #endif
     }
-    // ½ÓÊÕÎÄ¼şÄ¿Â¼
+    // æ¥æ”¶æ–‡ä»¶ç›®å½•
     dir.setPath(strRecvPath_);
     if (!dir.exists()) {
         dir.mkdir(strRecvPath_);
@@ -126,7 +126,7 @@ void MyApp::checkDirs() {
         QProcess::execute("sync");
 #endif
     }
-    // Êı¾İ¿âÄ¿Â¼
+    // æ•°æ®åº“ç›®å½•
     dir.setPath(strDataBasePath_);
     if (!dir.exists()) {
         dir.mkdir(strDataBasePath_);
@@ -134,7 +134,7 @@ void MyApp::checkDirs() {
         QProcess::execute("sync");
 #endif
     }
-    // ÅäÖÃÎÄ¼şÄ¿Â¼
+    // é…ç½®æ–‡ä»¶ç›®å½•
     dir.setPath(strConfigPath_);
     if (!dir.exists()) {
         dir.mkdir(strConfigPath_);
@@ -142,7 +142,7 @@ void MyApp::checkDirs() {
         QProcess::execute("sync");
 #endif
     }
-    // ±íÇéÄ¿Â¼
+    // è¡¨æƒ…ç›®å½•
     dir.setPath(strFacePath_);
     if (!dir.exists()) {
         dir.mkdir(strFacePath_);
@@ -150,7 +150,7 @@ void MyApp::checkDirs() {
         QProcess::execute("sync");
 #endif
     }
-    // Í·Ïñ¼ì²âÄ¿Â¼
+    // å¤´åƒæ£€æµ‹ç›®å½•
     dir.setPath(strHeadPath_);
     if (!dir.exists()) {
         dir.mkdir(strHeadPath_);
@@ -158,7 +158,7 @@ void MyApp::checkDirs() {
         QProcess::execute("sync");
 #endif
     }
-    // ÒôÆµÄ¿Â¼
+    // éŸ³é¢‘ç›®å½•
     dir.setPath(strSoundPath_);
     if (!dir.exists()) {
         dir.mkdir(strSoundPath_);
@@ -193,13 +193,13 @@ void MyApp::checkSounds() {
 void MyApp::saveConfig() {
     QSettings settings(strIniFile_, QSettings::IniFormat);
 
-    /*ÏµÍ³ÉèÖÃ*/
+    /*ç³»ç»Ÿè®¾ç½®*/
     settings.beginGroup("UserCfg");
     settings.setValue("User", strUserName_);
     settings.setValue("Passwd", strPasswd_);
     settings.endGroup();
 
-    /*ÆäËûÅäÖÃ*/
+    /*å…¶ä»–é…ç½®*/
     settings.beginGroup("Server");
     settings.setValue("HostAddr", strHostAddr_);
     settings.setValue("MsgPort", msgPort_);

@@ -1,4 +1,4 @@
-#include "customLineEdit.h"
+ï»¿#include "customLineEdit.h"
 
 #include "qsizepolicy.h"
 #include "qboxlayout.h"
@@ -21,22 +21,22 @@ IpLineEdit::IpLineEdit(QWidget *parent)
 	QLabel* dots[3] = { nullptr };
 	for (int i = 0; i < 4; ++i) {
 		lineEdits_[i] = new QLineEdit(this);
-		// È¥µôlineEditÎÞ±ß¿ò
+		// åŽ»æŽ‰lineEditæ— è¾¹æ¡†
 		lineEdits_[i]->setFrame(false);
-		// ÉèÖÃÃ¿¸ölineEdit¿ÉÊäÈëÊý×Ö¸öÊý
+		// è®¾ç½®æ¯ä¸ªlineEditå¯è¾“å…¥æ•°å­—ä¸ªæ•°
 		lineEdits_[i]->setMaxLength(3);
-		// ÉèÖÃlineEditÊäÈë¾ÓÖÐ
+		// è®¾ç½®lineEditè¾“å…¥å±…ä¸­
 		lineEdits_[i]->setAlignment(Qt::AlignCenter);
-		// ÉèÖÃsizePolicy
+		// è®¾ç½®sizePolicy
 		lineEdits_[i]->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-		// ÑéÖ¤ÊäÈë
+		// éªŒè¯è¾“å…¥
 		lineEdits_[i]->setValidator(new QRegExpValidator(regExp, this));
-		// °²×°ÊÂ¼þ¹ýÂËÆ÷,¹ýÂË×Ó¿Ø¼þÊÂ¼þ£¬½Ø»ñ¿Ø¼þ°´¼ü¡¢Êó±êÊÂ¼þ
+		// å®‰è£…äº‹ä»¶è¿‡æ»¤å™¨,è¿‡æ»¤å­æŽ§ä»¶äº‹ä»¶ï¼ŒæˆªèŽ·æŽ§ä»¶æŒ‰é”®ã€é¼ æ ‡äº‹ä»¶
 		lineEdits_[i]->installEventFilter(this);
 
-		lineEdits_[i]->setStyleSheet("font-family: 'Microsoft YaHei', 'Î¢ÈíÑÅºÚ', Arial, sans-serif;"
+		lineEdits_[i]->setStyleSheet("font-family: 'Microsoft YaHei', 'å¾®è½¯é›…é»‘', Arial, sans-serif;"
 			"font-size: 12pt; background-color: #f2f2f2");
-		// Ìí¼Óµ½²¼¾ÖÖÐ
+		// æ·»åŠ åˆ°å¸ƒå±€ä¸­
 		hBoxLayout->addWidget(lineEdits_[i]);
 		if (i < 3) {
 			dots[i] = new QLabel(this);

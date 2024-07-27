@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QStackedWidget>
 #include "qpropertyanimation.h"

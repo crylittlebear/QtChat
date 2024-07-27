@@ -1,4 +1,4 @@
-#include "MainWindow.h"
+﻿#include "MainWindow.h"
 #include "DatabaseManager.h"
 #include "MyApp.h"
 
@@ -16,6 +16,9 @@ int main(int argc, char *argv[])
     file.open(QIODevice::ReadOnly);
     qApp->setStyleSheet(QString(file.readAll()));
     file.close();
+
+    // 初始化数据保存路径
+    MyApp::initApp();
 
     // 打开数据库
     DatabaseManager::instance()->openDb(MyApp::strDataBasePath_ + "info.db");

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QLineEdit>
 #include "qlabel.h"
@@ -9,23 +9,23 @@ class IpLineEdit  : public QLineEdit
 
 public:
 	/*!
-	* @brief Îö¹¹º¯Êı
+	* @brief ææ„å‡½æ•°
 	*/
 	IpLineEdit(QWidget *parent = nullptr);
 
 	/*!
-	* @brief ¹¹Ôìº¯Êı
+	* @brief æ„é€ å‡½æ•°
 	*/
 	~IpLineEdit();
 	
 	/*!
-	* @brief »ñÈ¡ÊäÈëµÄIPµØÖ·
+	* @brief è·å–è¾“å…¥çš„IPåœ°å€
 	*/
 	QString text();
 
 protected:
 	/*!
-	* @brief ÊÂ¼ş¹ıÂË£¬´¦Àí°´¼üÊÂ¼ş
+	* @brief äº‹ä»¶è¿‡æ»¤ï¼Œå¤„ç†æŒ‰é”®äº‹ä»¶
 	*/
 	virtual bool eventFilter(QObject* watched, QEvent* event) override;
 
@@ -47,11 +47,11 @@ class IconLineEdit : public QLineEdit {
 	Q_OBJECT
 public:
 	/*!
-	* @brief ¹¹Ôìº¯Êı
+	* @brief æ„é€ å‡½æ•°
 	*/
 	IconLineEdit(QWidget* parent = nullptr);
 	/*!
-	* @brief Îö¹¹º¯Êı
+	* @brief ææ„å‡½æ•°
 	*/
 	~IconLineEdit();
 

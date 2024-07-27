@@ -1,4 +1,4 @@
-#include "ClientSocket.h"
+ï»¿#include "ClientSocket.h"
 
 #include "qjsonobject.h"
 #include "qjsondocument.h"
@@ -38,7 +38,7 @@ void ClientSocket::ClientSocket::closeConnected() {
 }
 
 void ClientSocket::connectToServer(const QString& ip, const int& port) {
-	// Èç¹ûÌ×½Ó×ÖÒÑ¾­Á¬½Ó£¬Ôò·ÅÆúÁ¬½Ó
+	// å¦‚æžœå¥—æŽ¥å­—å·²ç»è¿žæŽ¥ï¼Œåˆ™æ”¾å¼ƒè¿žæŽ¥
 	if (socket_->isOpen()) {
 		socket_->abort();
 	}
@@ -53,21 +53,21 @@ void ClientSocket::connectToServer(const QHostAddress& host, const int& port) {
 }
 
 void ClientSocket::sltSendMessage(const quint8& type, const QJsonValue& dataVal) {
-	// Á¬½Ó·þÎñÆ÷
+	// è¿žæŽ¥æœåŠ¡å™¨
 	if (!socket_->isOpen()) {
 		//socket_->connectToHost(QString("127.0.0.1"))
 		socket_->waitForConnected(1000);
 	}
-	// Èç¹û1sºóÒÀÈ»Ã»ÓÐÁ¬½ÓÉÏ·þÎñÆ÷£¬Ö±½Ó·µ»Ø
+	// å¦‚æžœ1såŽä¾ç„¶æ²¡æœ‰è¿žæŽ¥ä¸ŠæœåŠ¡å™¨ï¼Œç›´æŽ¥è¿”å›ž
 	if (!socket_->isOpen()) {
 		return;
 	}
-	// ¹¹½¨Json¶ÔÏó
+	// æž„å»ºJsonå¯¹è±¡
 	QJsonObject json;
 	json.insert("type", type);
 	json.insert("from", id_);
 	json.insert("data", dataVal);
-	// ¹¹½¨JsonÎÄµµ
+	// æž„å»ºJsonæ–‡æ¡£
 	QJsonDocument document;
 	document.setObject(json);
 	qDebug() << "tcpSocket_->write: " << document.toJson(QJsonDocument::Compact);
@@ -75,9 +75,9 @@ void ClientSocket::sltSendMessage(const quint8& type, const QJsonValue& dataVal)
 }
 
 void ClientSocket::sltSendOnline() {
-	// TODO ÉÏÏßµÄÊ±ºò¸øµ±Ç°ºÃÓÑÉÏ±¨×´Ì¬
+	// TODO ä¸Šçº¿çš„æ—¶å€™ç»™å½“å‰å¥½å‹ä¸ŠæŠ¥çŠ¶æ€
 	//QJsonArray frinedAddr = 
-	// ×éÖ¯JsonArray
+	// ç»„ç»‡JsonArray
 	//sltSendMessage()
 }
 
@@ -94,7 +94,7 @@ void ClientSocket::parseLogin(const QJsonValue& dataVal) {
 		
 		if (code == 0 && msg == "ok") {
 			id_ = dataObj.value("id").toInt();
-			// ±£´æÍ·Ïñ
+			// ä¿å­˜å¤´åƒ
 
 			//emit signalStatus(LoginSuccess);
 		}
@@ -120,16 +120,16 @@ void ClientSocket::sltConnected() {
 }
 
 void ClientSocket::sltReadyRead() {
-	// ´ÓsocketÖÐ¶ÁÈ¡Êý¾Ý
+	// ä»Žsocketä¸­è¯»å–æ•°æ®
 	QByteArray data = socket_->readAll();
 	QJsonParseError jsonErr;
-	// ×ª»»ÎªjsonÎÄµµ
+	// è½¬æ¢ä¸ºjsonæ–‡æ¡£
 	QJsonDocument document = QJsonDocument::fromJson(data, &jsonErr);
-	// ½âÎöÎ´·¢Éú´íÎó
+	// è§£æžæœªå‘ç”Ÿé”™è¯¯
 	if (!document.isNull() && jsonErr.error == QJsonParseError::NoError) {
-		// jsonÎÄµµ¶ÔÏó
+		// jsonæ–‡æ¡£å¯¹è±¡
 		if (document.isObject()) {
-			// ×ª»¯Îª¶ÔÏó
+			// è½¬åŒ–ä¸ºå¯¹è±¡
 			QJsonObject jsonObj = document.object();
 			QJsonValue dataVal = jsonObj.value("data");
 			int type = jsonObj.value("type").toInt();
@@ -138,11 +138,11 @@ void ClientSocket::sltReadyRead() {
 				QJsonObject dataObj = dataVal.toObject();
 				int id = dataObj.value("id").toInt();
 				if (id > 0) {
-					qDebug() << "µÇÂ¼³É¹¦";
+					qDebug() << "ç™»å½•æˆåŠŸ";
 					id_ = id;
 				}
 				else {
-					qDebug() << "µÇÂ¼Ê§°Ü";
+					qDebug() << "ç™»å½•å¤±è´¥";
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 *  @Author: crylittlebear
 *  @Data  : 2024-7-20
 */
@@ -36,8 +36,8 @@ int     MyApp::id_ = -1;
 int     MyApp::winX_ = 0;
 int     MyApp::winY_ = 0;
 
-void MyApp::initApp(const QString& appPath) {
-    strAppPath_ = appPath + "/";
+void MyApp::initApp() {
+    strAppPath_ = "./";
 
     strDataPath_ = strAppPath_ + "Data/";
     strRecvPath_ = strDataPath_ + "RecvFiles/";

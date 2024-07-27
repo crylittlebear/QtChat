@@ -1,4 +1,4 @@
-#include "login.h"
+ï»¿#include "login.h"
 
 #include "qpixmap.h"
 #include "qevent.h"
@@ -14,12 +14,12 @@ Login::Login(QWidget *parent)
 	, ui(new Ui::LoginClass())
 {
 	ui->setupUi(this);
-	// È¥µôQT×Ô´øµÄ±êÌâÀ¸
+	// åŽ»æŽ‰QTè‡ªå¸¦çš„æ ‡é¢˜æ 
 	setWindowFlags(Qt::FramelessWindowHint);
-	// Ê¹Í¸Ã÷ÉúÐ§
+	// ä½¿é€æ˜Žç”Ÿæ•ˆ
 	//setAttribute(Qt::WA_TranslucentBackground);
 	setWindowIcon(QIcon(":/resource/ico/chatting.png"));
-	// ÉèÖÃpage1
+	// è®¾ç½®page1
 	ui->btnClose->setIcon(QIcon(":/resource/common/ic_close_white.png"));
 	ui->btnMenu->setIcon(QIcon(":/resource/common/ic_login_cfg.png"));
 	ui->btnMin->setIcon(QIcon(":/resource/common/ic_min_white.png"));
@@ -29,21 +29,21 @@ Login::Login(QWidget *parent)
 	ui->labelUserHead->setPixmap(QPixmap(":/resource/head/hacker.png"));
 	ui->labelUserHead->setScaledContents(true);
 	ui->labelWelcome->setScaledContents(true);
-	ui->labelWinTitle->setText(QString::fromLocal8Bit("µÇÂ¼´°¿Ú"));
-	ui->lineEditUser->setPlaceholderText(QString::fromLocal8Bit("ÇëÊäÈëÕËºÅ"));
-	ui->lineEditPasswd->setPlaceholderText(QString::fromLocal8Bit("ÇëÊäÈëÃÜÂë"));
+	ui->labelWinTitle->setText(QString::fromLocal8Bit("ç™»å½•çª—å£"));
+	ui->lineEditUser->setPlaceholderText(QString::fromLocal8Bit("è¯·è¾“å…¥è´¦å·"));
+	ui->lineEditPasswd->setPlaceholderText(QString::fromLocal8Bit("è¯·è¾“å…¥å¯†ç "));
 	ui->lineEditPasswd->setEchoMode(QLineEdit::Password);
 
 	ui->lineEditUser->setPixmap(QPixmap(":/resource/common/ic_user.png"));
 	ui->lineEditPasswd->setPixmap(QPixmap(":/resource/common/ic_lock.png"));
 
-	// ÉèÖÃpage2
+	// è®¾ç½®page2
 	ui->btnClose2->setIcon(QIcon(":/resource/common/ic_close_white.png"));
 	ui->btnMin2->setIcon(QIcon(":/resource/common/ic_min_white.png"));
 	ui->lineEditMsgServerPort->setAlignment(Qt::AlignCenter);
 	ui->lineEditFileServerPort->setAlignment(Qt::AlignCenter);
 
-	// Í¨¹ýÑùÊ½±íÎÄ¼þ¼ÓÔØÑùÊ½
+	// é€šè¿‡æ ·å¼è¡¨æ–‡ä»¶åŠ è½½æ ·å¼
 	QFile file(":/qss/resource/qss/loadwindow.css");
 	file.open(QIODevice::ReadOnly);
 	qApp->setStyleSheet(file.readAll());
@@ -51,7 +51,7 @@ Login::Login(QWidget *parent)
 
 	tcpSocket_ = new ClientSocket;
 
-	// Á¬½ÓÐÅºÅ²Û
+	// è¿žæŽ¥ä¿¡å·æ§½
 	connect(ui->btnClose, &QPushButton::clicked, this, &QWidget::close);
 	connect(ui->btnClose2, &QPushButton::clicked, this, &QWidget::close);
 	connect(ui->btnMin, &QPushButton::clicked, this, &QWidget::showMinimized);
@@ -71,7 +71,7 @@ Login::~Login()
 
 void Login::on_btnLogin_clicked() {
 	qDebug() << "In on_btnLogin_clicked()";
-	// ¼ì²éÊÇ·ñÁ¬½Óµ½·þÎñÆ÷
+	// æ£€æŸ¥æ˜¯å¦è¿žæŽ¥åˆ°æœåŠ¡å™¨
 	tcpSocket_->checkConnected();
 
 	QString userName = ui->lineEditUser->text();

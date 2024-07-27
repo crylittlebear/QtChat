@@ -1,4 +1,4 @@
-#include "CustomWidget.h"
+﻿#include "CustomWidget.h"
 
 #include "qevent.h"
 
