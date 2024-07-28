@@ -8,6 +8,8 @@
 #include "qdebug.h"
 #include "qjsonobject.h"
 #include "MainWindow.h"
+#include "comapi/MyApp.h"
+#include "comapi/unit.h"
 
 Login::Login(QWidget *parent)
 	: CustomWidget(parent)
@@ -19,6 +21,36 @@ Login::Login(QWidget *parent)
 	// 使透明生效
 	//setAttribute(Qt::WA_TranslucentBackground);
 	setWindowIcon(QIcon(":/resource/ico/chatting.png"));
+
+	connected_ = false;
+
+	initWidget();
+
+	tcpSocket_ = new ClientSocket;
+	ui->labelWinTitle->setText(QString::fromLocal8Bit("正在连接服务器"));
+	tcpSocket_->connectToServer(MyApp::strHostAddr_, MyApp::msgPort_);
+	connect(tcpSocket_, &ClientSocket::signalStatus, this, &Login::sltTcpStatus);
+}
+
+Login::~Login()
+{
+	delete ui;
+}
+
+void Login::sltTcpStatus(const quint8& status) {
+	switch(status) {
+	case DisconnectedHost:
+		connected_ = false;
+		ui->labelWinTitle->setText(QString::fromLocal8Bit("服务器已断开"));
+		break;
+	case ConnectedHost:
+		connected_ = true;
+		ui->labelWinTitle->setText(QString::fromLocal8Bit("已连接服务器"));
+		break;
+	}
+}
+
+void Login::initWidget() {
 	// 设置page1
 	ui->btnClose->setIcon(QIcon(":/resource/common/ic_close_white.png"));
 	ui->btnMenu->setIcon(QIcon(":/resource/common/ic_login_cfg.png"));
@@ -34,22 +66,14 @@ Login::Login(QWidget *parent)
 	ui->lineEditPasswd->setPlaceholderText(QString::fromLocal8Bit("请输入密码"));
 	ui->lineEditPasswd->setEchoMode(QLineEdit::Password);
 
-	ui->lineEditUser->setPixmap(QPixmap(":/resource/common/ic_user.png"));
-	ui->lineEditPasswd->setPixmap(QPixmap(":/resource/common/ic_lock.png"));
+	ui->lineEditUser->setPic(QPixmap(":/resource/common/user.png"));
+	ui->lineEditPasswd->setPic(QPixmap(":/resource/common/padlock.png"));
 
 	// 设置page2
 	ui->btnClose2->setIcon(QIcon(":/resource/common/ic_close_white.png"));
 	ui->btnMin2->setIcon(QIcon(":/resource/common/ic_min_white.png"));
 	ui->lineEditMsgServerPort->setAlignment(Qt::AlignCenter);
 	ui->lineEditFileServerPort->setAlignment(Qt::AlignCenter);
-
-	// 通过样式表文件加载样式
-	QFile file(":/qss/resource/qss/loadwindow.css");
-	file.open(QIODevice::ReadOnly);
-	qApp->setStyleSheet(file.readAll());
-	file.close();
-
-	tcpSocket_ = new ClientSocket;
 
 	// 连接信号槽
 	connect(ui->btnClose, &QPushButton::clicked, this, &QWidget::close);
@@ -61,15 +85,10 @@ Login::Login(QWidget *parent)
 	connect(ui->btnOk, &QPushButton::clicked, [this]() {
 		qDebug() << ui->lineEditServerAddress->text();
 	});
-	connect(ui->btnLogin, &QPushButton::clicked, this, &Login::on_btnLogin_clicked);
+	connect(ui->btnLogin, &QPushButton::clicked, this, &Login::sltBtnLoginClicked);
 }
 
-Login::~Login()
-{
-	delete ui;
-}
-
-void Login::on_btnLogin_clicked() {
+void Login::sltBtnLoginClicked() {
 	qDebug() << "In on_btnLogin_clicked()";
 	// 检查是否连接到服务器
 	tcpSocket_->checkConnected();

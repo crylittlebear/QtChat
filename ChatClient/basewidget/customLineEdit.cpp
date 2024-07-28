@@ -11,7 +11,6 @@
 IpLineEdit::IpLineEdit(QWidget *parent)
 	: QLineEdit(parent)
 {
-	//setStyleSheet("background-color: #f2f2f2;");
 	QHBoxLayout* hBoxLayout = new QHBoxLayout(this);
 	hBoxLayout->setContentsMargins(2, 2, 2, 2);
 	hBoxLayout->setSpacing(5);
@@ -34,8 +33,7 @@ IpLineEdit::IpLineEdit(QWidget *parent)
 		// 安装事件过滤器,过滤子控件事件，截获控件按键、鼠标事件
 		lineEdits_[i]->installEventFilter(this);
 
-		lineEdits_[i]->setStyleSheet("font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;"
-			"font-size: 12pt; background-color: #f2f2f2");
+		lineEdits_[i]->setStyleSheet("font-family: '微软雅黑'; font-size: 14pt; background-color: #f2f2f2");
 		// 添加到布局中
 		hBoxLayout->addWidget(lineEdits_[i]);
 		if (i < 3) {
@@ -85,7 +83,6 @@ bool IpLineEdit::eventFilter(QObject * obj, QEvent * event) {
 				int index = getIndex(lineEdit);
 				if (index != -1 && index != 3) {
 					lineEdits_[index + 1]->setFocus();
-					//lineEdits_[index + 1]->selectAll();
 				}
 			}
 			return QLineEdit::eventFilter(obj, event);
@@ -97,7 +94,6 @@ bool IpLineEdit::eventFilter(QObject * obj, QEvent * event) {
 				int index = getIndex(lineEdit);
 				if (index > 0) {
 					lineEdits_[index - 1]->setFocus();
-					//lineEdits_[index - 1]->selectAll();
 					int len = lineEdits_[index - 1]->text().length();
 					lineEdits_[index - 1]->setCursorPosition(len ? len : 0);
 				}
@@ -112,7 +108,6 @@ bool IpLineEdit::eventFilter(QObject * obj, QEvent * event) {
 				int index = getIndex(lineEdit);
 				if (index != -1 && index < 3) {
 					lineEdits_[index + 1]->setFocus();
-					//lineEdits_[index - 1]->selectAll();
 					lineEdits_[index + 1]->setCursorPosition(0);
 				}
 			}
@@ -125,7 +120,6 @@ bool IpLineEdit::eventFilter(QObject * obj, QEvent * event) {
 				int index = getIndex(lineEdit);
 				if (index > 0) {
 					lineEdits_[index - 1]->setFocus();
-					//lineEdits_[index - 1]->selectAll();
 					int len = lineEdits_[index - 1]->text().length();
 					lineEdits_[index - 1]->setCursorPosition(len ? len : 0);
 				}
@@ -145,8 +139,7 @@ bool IpLineEdit::eventFilter(QObject * obj, QEvent * event) {
 	return false;
 }
 
-int IpLineEdit::getIndex(QLineEdit* lineEdit)
-{
+int IpLineEdit::getIndex(QLineEdit* lineEdit) {
 	for (int i = 0; i < 4; ++i) {
 		if (lineEdit == lineEdits_[i]) {
 			return i;
@@ -170,12 +163,11 @@ IconLineEdit::IconLineEdit(QWidget* parent) : QLineEdit(parent){
 
 IconLineEdit::~IconLineEdit() {}
 
-void IconLineEdit::setPixmap(const QPixmap& pixmap) {
+void IconLineEdit::setPic(const QPixmap& pixmap) {
 	if (pixmap.isNull()) return;
-
 	label_->setPixmap(pixmap);
 	label_->setScaledContents(true);
 	label_->setVisible(true);
-	label_->setGeometry(5, (this->height() - pixmap.height()) / 2, 25, 25);
+	label_->setGeometry(10, 10, 20, 20);
 	this->setTextMargins(30, 1, 1, 1);
 }

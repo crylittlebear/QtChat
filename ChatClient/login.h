@@ -18,13 +18,22 @@ public:
 	Login(QWidget *parent = nullptr);
 	~Login();
 
+
+signals:
+	void sigRotate();
+
 public slots:
-	void on_btnLogin_clicked();
+	void sltBtnLoginClicked();
+
+	void sltTcpStatus(const quint8& status);
+
+private:
+	void initWidget();
 
 private:
 	Ui::LoginClass *ui;
-	bool dragging_ = false;
-	bool scaling_ = false;
-	QPoint dragStartPosition_;
+
 	ClientSocket* tcpSocket_;
+
+	bool connected_;
 };	

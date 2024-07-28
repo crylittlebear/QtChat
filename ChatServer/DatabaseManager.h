@@ -44,6 +44,11 @@ public:
     void updateUserStatus(const QString& name, const quint8& status);
 
     /*!
+    * @brief 更新用户密码
+    */
+    bool updateUserPasswd(const QString& name, const QString& passwd);
+
+    /*!
     * @brief 更新用户头像
     */
     void updateUserHead(const int& id, const QString& strHead);

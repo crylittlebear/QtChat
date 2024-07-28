@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget* parent)
     // 设置表格属性不可编辑
     ui->tableViewUsers->setEditTriggers(QTableView::NoEditTriggers);
     //ui->tableViewUsers->horizontalHeader()->setStretchLastSection(true);
+    ui->tableViewUsers->horizontalHeader()->setStyleSheet("font-weight: bold");
     ui->tableViewUsers->resizeColumnsToContents();
 
     // 设置表格属性选择整行
@@ -69,7 +70,7 @@ MainWindow::MainWindow(QWidget* parent)
     // 设置本机IP显示
     ui->labelHostAddr->setText(QString::fromLocal8Bit("本机IP: ") + myHelper::GetIP());
 
-    // 设置当前事件
+    // 设置当前时间
     ui->labelSystemTime->setText(
         QDateTime::currentDateTime().toString("yyyy-MM-dd  hh:mm:ss  ddd"));
     timerId_ = startTimer(1000);
@@ -114,6 +115,7 @@ MainWindow::MainWindow(QWidget* parent)
     connect(ui->toolButton, &QToolButton::clicked, [this]() {
         QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("备份文件夹"), MyApp::strBackupPath_);
     });
+    connect(ui->btnPasswdModifyConfirm, &QPushButton::clicked, this, &MainWindow::sltBtnPasswdModify);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -387,6 +389,33 @@ void MainWindow::sltBtnUserDeleteClicked() {
         CustomMessageBox::information(this, QString::fromLocal8Bit("删除用户成功"), QString::fromLocal8Bit("信息"));
         sltBtnUserRefreshClicked();
     }
+}
+
+void MainWindow::sltBtnPasswdModify() {
+    QString oldPasswd = ui->lineEditOldPasswd->text();
+    QString newPasswd = ui->lineEditNewPasswd->text();
+    QString newPasswdConfirm = ui->lineEditNewPasswdConfirm->text();
+    // 两个新密码不一致
+    if (newPasswd != newPasswdConfirm) {
+        CustomMessageBox::warning(this, QString::fromLocal8Bit("两次密码输入不一致,请重新输入"));
+        return;
+    }
+    // 旧密码输入错误
+    qDebug() << "oldPasswd = " << oldPasswd << ", curPasswd = " << curUserPasswd_;
+    if (oldPasswd != curUserPasswd_) {
+        CustomMessageBox::warning(this, QString::fromLocal8Bit("请输入正确的旧密码"));
+        return;
+    }
+    // 修改当前登录用户的密码
+    if (DatabaseManager::instance()->updateUserPasswd(curUserName_, newPasswd)) {
+        curUserPasswd_ = newPasswd;
+        CustomMessageBox::information(this, QString::fromLocal8Bit("更新密码成功"));
+    } else {
+        CustomMessageBox::information(this, QString::fromLocal8Bit("更新密码失败"));
+    }
+    ui->lineEditOldPasswd->clear();
+    ui->lineEditNewPasswd->clear();
+    ui->lineEditNewPasswdConfirm->clear();
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {

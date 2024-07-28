@@ -117,6 +117,11 @@ private slots:
     */
     void sltBtnUserDeleteClicked();
 
+    /*!
+    * @brief 修改密码按钮点击
+    */
+    void sltBtnPasswdModify();
+
 protected:
     /*!
     * @brief 关闭事件,点击桌面右上角关闭按钮缩小到托盘

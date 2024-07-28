@@ -4,6 +4,8 @@
 #include "qjsondocument.h"
 #include "qjsonarray.h"
 
+#include "comapi/unit.h"
+
 ClientSocket::ClientSocket(QObject *parent)
 	: QObject(parent)
 {
@@ -96,13 +98,13 @@ void ClientSocket::parseLogin(const QJsonValue& dataVal) {
 			id_ = dataObj.value("id").toInt();
 			// 保存头像
 
-			//emit signalStatus(LoginSuccess);
+			emit signalStatus(LoginSuccess);
 		}
 		else if (code == -1) {
-			//emit signalStatus(LoginPasswdError);
+			emit signalStatus(LoginPasswdErr);
 		}
 		else if (code == -2) {
-			//emit signalStatus(LoginRepeat);
+			emit signalStatus(LoginRepeat);
 		}
 	}
 }
@@ -116,7 +118,8 @@ void ClientSocket::sltDisconnected() {
 }
 
 void ClientSocket::sltConnected() {
-
+	qDebug() << "connected to server!";
+	emit signalStatus(ConnectedHost);
 }
 
 void ClientSocket::sltReadyRead() {

@@ -64,7 +64,7 @@ void TcpMsgServer::sltConnected() {
 	if (c_sock == nullptr) { return; }
 	connect(c_sock, &ServerSocket::sigMsgToClient, this, &TcpMsgServer::sltMsgToClient);
 	connect(c_sock, &ServerSocket::sigDownloadFile, this, &TcpMsgServer::sigDownloadFile);
-	emit sigUserStatus(QString("用户 [%1] 上线").arg(
+	emit sigUserStatus(QString::fromLocal8Bit("用户 [%1] 上线").arg(
 		DatabaseManager::instance()->getUserName(c_sock->getUserId())));
 	clients_.push_back(c_sock);
 }

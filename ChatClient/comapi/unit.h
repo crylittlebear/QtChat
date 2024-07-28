@@ -42,7 +42,7 @@ typedef enum {
 } E_MSG_TYPE;
 
 typedef enum {
-	ConnectedHot		= 0x01,		// 连接上服务器
+	ConnectedHost		= 0x01,		// 连接上服务器
 	DisconnectedHost	= 0x02,		// 从服务器断开连接
 	LoginSuccess		= 0x03,		// 登录成功
 	LoginPasswdErr		= 0x04,		// 密码错误

@@ -94,6 +94,16 @@ void DatabaseManager::updateUserStatus(const QString& name, const quint8& status
 	}
 }
 
+bool DatabaseManager::updateUserPasswd(const QString& name, const QString& passwd) {
+	QString sql = QString("update userinfo set passwd = '%1' where name = '%2'").arg(passwd).arg(name);
+	QSqlQuery query(sql);
+	if (query.exec()) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 void DatabaseManager::updateUserHead(const int& id, const QString& strHead)
 {
 	QString sql = "update userhead set head='";

@@ -81,6 +81,8 @@
         <file>resource/buttonIcon/close_white.png</file>
         <file>resource/buttonIcon/add-user_white.png</file>
         <file>resource/buttonIcon/calendar_white.png</file>
+        <file>resource/common/padlock.png</file>
+        <file>resource/common/user.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>resource/qss/loadwindow.css</file>

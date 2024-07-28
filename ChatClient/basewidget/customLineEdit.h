@@ -55,7 +55,7 @@ public:
 	*/
 	~IconLineEdit();
 
-	void setPixmap(const QPixmap& pixmap);
+	void setPic(const QPixmap& pixmap);
 
 private:
 	QLabel* label_;
