@@ -11,6 +11,14 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    // 设置高分屏适配
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+    QFont font;
+    font.setStyleStrategy(QFont::PreferAntialias);
+    font.setHintingPreference(QFont::PreferFullHinting);
+    QApplication::setFont(font);
+
     // 加载样式表
     QFile file(":/qss/resource/qss/window.css");
     file.open(QIODevice::ReadOnly);

@@ -496,7 +496,7 @@
            <number>0</number>
           </property>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,8">
+           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,8">
             <property name="spacing">
              <number>0</number>
             </property>
@@ -517,7 +517,7 @@
                </property>
                <item>
                 <widget class="QWidget" name="widgetLeftButtons" native="true">
-                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <layout class="QVBoxLayout" name="verticalLayout_17" stretch="1,2,1">
                   <item>
                    <layout class="QVBoxLayout" name="verticalLayout_2">
                     <property name="spacing">
@@ -533,7 +533,7 @@
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>150</width>
+                        <width>16777215</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -562,7 +562,7 @@
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>150</width>
+                        <width>16777215</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -591,7 +591,7 @@
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>150</width>
+                        <width>16777215</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -620,7 +620,7 @@
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>150</width>
+                        <width>16777215</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -649,7 +649,7 @@
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>150</width>
+                        <width>16777215</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -678,7 +678,7 @@
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>150</width>
+                        <width>16777215</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -722,7 +722,7 @@
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>150</width>
+                      <width>16777215</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -768,7 +768,7 @@
                <item>
                 <widget class="QStackedWidget" name="stackWidgetWorkSpace">
                  <property name="currentIndex">
-                  <number>3</number>
+                  <number>4</number>
                  </property>
                  <widget class="QWidget" name="pageUserSearch">
                   <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,0">
@@ -1227,7 +1227,7 @@
                   </layout>
                  </widget>
                  <widget class="QWidget" name="pagePasswdMod">
-                  <layout class="QVBoxLayout" name="verticalLayout_15">
+                  <layout class="QVBoxLayout" name="verticalLayout_15" stretch="1,1,1">
                    <item>
                     <spacer name="verticalSpacer_13">
                      <property name="orientation">
@@ -1632,6 +1632,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="MainWindow.qrc"/>
   <include location="MainWindow.qrc"/>
   <include location="MainWindow.qrc"/>
   <include location="MainWindow.qrc"/>
