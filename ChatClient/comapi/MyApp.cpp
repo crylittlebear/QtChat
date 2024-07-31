@@ -18,7 +18,7 @@ QString MyApp::strRecordPath_        = "";
 QString MyApp::strIniFile_           = "config.ini";
 
 // 服务器相关配置
-QString MyApp::strHostAddr_          = "127.0.0.1";
+QString MyApp::strHostAddr_          = "192.168.0.114";
 int     MyApp::msgPort_              = 60100;
 int     MyApp::filePort_             = 60101;
 int     MyApp::groupPort_            = 60102;
@@ -87,7 +87,7 @@ void MyApp::readSettingFile() {
     settings.endGroup();
 
     settings.beginGroup("Server");
-    strHostAddr_ = settings.value("HostAddr", "192.168.0.104").toString();
+    strHostAddr_ = settings.value("HostAddr", "192.168.0.114").toString();
     msgPort_ = settings.value("MsgPort", 32101).toInt();
     filePort_ = settings.value("FilePort", 32102).toInt();
     groupPort_ = settings.value("GroupPort", 32103).toInt();

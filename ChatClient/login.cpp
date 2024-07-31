@@ -16,8 +16,6 @@ Login::Login(QWidget *parent)
 	, ui(new Ui::LoginClass())
 {
 	ui->setupUi(this);
-	// 去掉QT自带的标题栏
-	setWindowFlags(Qt::FramelessWindowHint);
 	// 使透明生效
 	//setAttribute(Qt::WA_TranslucentBackground);
 	setWindowIcon(QIcon(":/resource/icon/chat.png"));
@@ -92,9 +90,7 @@ void Login::initWidget() {
 	connect(ui->btnMin2, &QPushButton::clicked, this, &QWidget::showMinimized);
 	connect(ui->btnMenu, &QPushButton::clicked, ui->stackedWidget, &RotateStackedWidget::nextPage);
 	connect(ui->btnCancel, &QPushButton::clicked, ui->stackedWidget, &RotateStackedWidget::nextPage);
-	connect(ui->btnOk, &QPushButton::clicked, [this]() {
-		qDebug() << ui->lineEditServerAddress->text();
-	});
+	//connect(ui->btnOk, &QPushButton::clicked, );
 	connect(ui->btnLogin, &QPushButton::clicked, this, &Login::sltBtnLoginClicked);
 }
 

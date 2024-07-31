@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
 	qApp->setStyleSheet(file.readAll());
 	file.close();
 
-
     Login w;
     //MainPannel w;
     w.show();

@@ -28,17 +28,22 @@ protected:
 	/*!
 	* @brief 重写鼠标按下事件
 	*/
-	virtual void mousePressEvent(QMouseEvent* event) override;
+	//virtual void mousePressEvent(QMouseEvent* event) override;
+
+	///*!
+	//* @brief 重写鼠标拖动事件
+	//*/
+	//virtual void mouseMoveEvent(QMouseEvent* event) override;
+
+	///*!
+	//* @brief 重写鼠标释放事件
+	//*/
+	//virtual void mouseReleaseEvent(QMouseEvent* event) override;
 
 	/*!
-	* @brief 重写鼠标拖动事件
+	* @brief 重写时间过滤
 	*/
-	virtual void mouseMoveEvent(QMouseEvent* event) override;
-
-	/*!
-	* @brief 重写鼠标释放事件
-	*/
-	virtual void mouseReleaseEvent(QMouseEvent* event) override;
+	virtual bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
 	/*!
@@ -71,6 +76,8 @@ private:
 	bool isDraging_ = false;	/// 是否正在拖动中
 	bool isScaling_ = false;	/// 是否正在缩放中
 	QPoint dragStartPoint_;		/// 拖动起始鼠标位置窗口内坐标
+	QRect zoomLocation_;
+	QPoint zoomPos_;
 };
 
 /*!

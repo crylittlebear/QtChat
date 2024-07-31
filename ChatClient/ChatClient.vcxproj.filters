@@ -59,6 +59,9 @@
     <ClCompile Include="ChatUserList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="basewidget\SlideStackedWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login.h">
@@ -89,6 +92,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ChatUserList.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="basewidget\SlideStackedWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -4,11 +4,19 @@
 typedef enum { None, Left, Right,} Orientation;
 
 // 聊天模式
-enum ChatUiMode {
+typedef enum {
 	ChatMode,						// 聊天模式
 	SearchMode,						// 搜索模式
 	ContactMode,					// 联系人模式
-};
+} ChatUiMode ;
+
+// 滑动型StackedWidet的滑动类型
+typedef enum {
+	TopToBottom,
+	BottomToTop,
+	LeftToRight,
+	RightToLeft,
+} SlideOrientationType ;
 
 enum ListItemType {
 	ChatUserItem,					// 聊天用户条目

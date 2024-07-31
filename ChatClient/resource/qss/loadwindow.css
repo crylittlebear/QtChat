@@ -6,15 +6,26 @@ QWidget#LoginClass {
 }
 
 /* 标题栏背景颜色 */
-QWidget#widgetWinTitle, QWidget#widgetWinTitle2 {
+QWidget#widgetWinTitle {
+    background-color: #0da2af;
+}
+
+QWidget#widgetWinTitle2 {
     background-color: #0da2af;
 }
 
 /* 标题栏中的标签名称 */
-QLabel#labelWinTitle,QLabel#labelWinTitle2 {
+QLabel#labelWinTitle {
     color: #FFFFFF;
-    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    font-size: 15pt;
+    font-family: '微软雅黑';
+    font-size: 22px;
+    font-weight: bold;
+} 
+
+QLabel#labelWinTitle2 {
+    color: #FFFFFF;
+    font-family: '微软雅黑';
+    font-size: 22px;
     font-weight: bold;
 } 
 
@@ -24,49 +35,25 @@ QPushButton#btnClose2, QPushButton#btnMin2 {
     background-color: #0da2af;
 }
 
-/* QPushButton#btnOk, QPushButton#btnCancel {
-    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    background-color: #0da2af;
-    font-size: 15pt;
-    font-weight: 400;
-} */
-
 /*登录按钮样式*/
-QPushButton#btnLogin {
+QPushButton#btnLogin, QPushButton#btnOk, QPushButton#btnCancel {
     background-color: #0da2af;
     color: #FFFFFF;
     border-radius: 5px;
-    font-size: 14pt;
+    font-size: 22px;
     font-weight: bold;
 }
 
-QPushButton#btnLogin:hover {
+QPushButton#btnLogin:hover, QPushButton#btnOk:hover, QPushButton#btsnCancel:hover {
     background-color: #E74C3C;
 }
 
-QPushButton#btnCancel:hover, QPushButton#btnOk:hover,
-QPushButton#btnMenu:hover, QPushButton#btnMin:hover, QPushButton#btnMin2:hover {
-    background-color: #b8b5b5;
-}
 QPushButton#btnLogin:pressed {
     background-color: #1c639a;
 }
 
 QPushButton#btnClose:hover, QPushButton#btnClose2:hover {
     background-color: #E74C3C;
-}
-
-/* QPushButton {
-    border: 3px solid #0da2af;
-    border-radius: 3px;
-}
-
-QPushButton:hover {
-    background-color: #ade0e0;
-} */
-
-QPushButton#btnWinClose:hover{
-    background-color: #FF0000;
 }
 
 QPushButton#btnWinMin:hover{
@@ -91,6 +78,7 @@ QLineEdit#lineEditFileServerPort {
     color: #2C3E50;
     border-radius: 5px;
     padding: 5px;
+    font-size: 12pt;
 }
 
 
