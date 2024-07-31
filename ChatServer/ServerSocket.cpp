@@ -119,7 +119,7 @@ void ServerSocket::sltSendMessage(const quint8& type, const QJsonValue& jsonVal)
 	}
 	QJsonObject jsonObj;
 	jsonObj.insert("type", type);
-	jsonObj.insert("id", id_);
+	jsonObj.insert("from", id_);
 	jsonObj.insert("data", jsonVal);
 	// 构建json文档
 	QJsonDocument document;
@@ -135,11 +135,15 @@ void ServerSocket::parseLogin(const QJsonValue& dataVal) {
 		QJsonObject jsonObj = dataVal.toObject();
 		QString name = jsonObj.value("name").toString();
 		QString passwd = jsonObj.value("passwd").toString();
+		qDebug() << "name = " << name << ", passwd = " << passwd;
 		QJsonObject responseObj = DatabaseManager::instance()->checkUserLogin(name, passwd);
 		int code = responseObj.value("code").toInt();
+		qDebug() << "code = " << code ;
 		switch (code) {
 		case 0:
+			id_ = responseObj.value("id").toInt();
 			sltSendMessage(LoginSuccess, responseObj);
+			emit sigConnected();
 			break;
 		case -1:
 			sltSendMessage(UserNotFound, responseObj);

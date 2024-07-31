@@ -18,7 +18,7 @@ QString MyApp::strRecordPath_        = "";
 QString MyApp::strIniFile_           = "config.ini";
 
 // 服务器相关配置
-QString MyApp::strHostAddr_          = "192.168.0.104";
+QString MyApp::strHostAddr_          = "127.0.0.1";
 int     MyApp::msgPort_              = 60100;
 int     MyApp::filePort_             = 60101;
 int     MyApp::groupPort_            = 60102;

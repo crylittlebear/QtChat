@@ -7,9 +7,9 @@
 #include "qfile.h"
 #include "qdebug.h"
 #include "qjsonobject.h"
-#include "MainWindow.h"
 #include "comapi/MyApp.h"
 #include "comapi/unit.h"
+#include "basewidget/CustomWidget.h"
 
 Login::Login(QWidget *parent)
 	: CustomWidget(parent)
@@ -20,7 +20,7 @@ Login::Login(QWidget *parent)
 	setWindowFlags(Qt::FramelessWindowHint);
 	// 使透明生效
 	//setAttribute(Qt::WA_TranslucentBackground);
-	setWindowIcon(QIcon(":/resource/ico/chatting.png"));
+	setWindowIcon(QIcon(":/resource/icon/chat.png"));
 
 	connected_ = false;
 
@@ -47,31 +47,41 @@ void Login::sltTcpStatus(const quint8& status) {
 		connected_ = true;
 		ui->labelWinTitle->setText(QString::fromLocal8Bit("已连接服务器"));
 		break;
+	case LoginSuccess: {
+		mainWindow_ = new MainPannel;
+		mainWindow_->show();
+		this->hide();
+	}
+		break;
+	case LoginPasswdErr:
+		CustomMessageBox::warning(this, QString::fromLocal8Bit("密码错误"));
+		break;
+	case UserNotFound:
+		CustomMessageBox::warning(this, QString::fromLocal8Bit("用户未找到"));
+		break;
+	case LoginRepeat:
+		CustomMessageBox::warning(this, QString::fromLocal8Bit("重复登录"));
+		break;
 	}
 }
 
 void Login::initWidget() {
 	// 设置page1
-	ui->btnClose->setIcon(QIcon(":/resource/common/ic_close_white.png"));
-	ui->btnMenu->setIcon(QIcon(":/resource/common/ic_login_cfg.png"));
-	ui->btnMin->setIcon(QIcon(":/resource/common/ic_min_white.png"));
-	ui->labelWinIcon->setPixmap(QPixmap(":/resource/ico/chatting.png"));
-	ui->labelWinIcon->setScaledContents(true);
 	ui->labelWelcome->setPixmap(QPixmap(":/resource/background/welcome.png"));
-	ui->labelUserHead->setPixmap(QPixmap(":/resource/head/hacker.png"));
-	ui->labelUserHead->setScaledContents(true);
 	ui->labelWelcome->setScaledContents(true);
 	ui->labelWinTitle->setText(QString::fromLocal8Bit("登录窗口"));
 	ui->lineEditUser->setPlaceholderText(QString::fromLocal8Bit("请输入账号"));
 	ui->lineEditPasswd->setPlaceholderText(QString::fromLocal8Bit("请输入密码"));
 	ui->lineEditPasswd->setEchoMode(QLineEdit::Password);
 
-	ui->lineEditUser->setPic(QPixmap(":/resource/common/user.png"));
-	ui->lineEditPasswd->setPic(QPixmap(":/resource/common/padlock.png"));
+	// 设置默认的账号和密码
+	ui->lineEditUser->setText(QString::fromLocal8Bit("李立恒"));
+	ui->lineEditPasswd->setText("root");
+
+	ui->lineEditUser->setPic(QPixmap(":/resource/pixmap/user.png"));
+	ui->lineEditPasswd->setPic(QPixmap(":/resource/pixmap/padlock.png"));
 
 	// 设置page2
-	ui->btnClose2->setIcon(QIcon(":/resource/common/ic_close_white.png"));
-	ui->btnMin2->setIcon(QIcon(":/resource/common/ic_min_white.png"));
 	ui->lineEditMsgServerPort->setAlignment(Qt::AlignCenter);
 	ui->lineEditFileServerPort->setAlignment(Qt::AlignCenter);
 
@@ -89,18 +99,22 @@ void Login::initWidget() {
 }
 
 void Login::sltBtnLoginClicked() {
-	qDebug() << "In on_btnLogin_clicked()";
 	// 检查是否连接到服务器
 	tcpSocket_->checkConnected();
 
 	QString userName = ui->lineEditUser->text();
 	QString passwd = ui->lineEditPasswd->text();
 
+	if (userName.isEmpty() || passwd.isEmpty()) {
+		CustomMessageBox::information(this, QString::fromLocal8Bit("用户名和密码均不能为空"));
+		return;
+	}
+
 	QJsonObject json;
 	json.insert("name", userName);
 	json.insert("passwd", passwd);
 
-	tcpSocket_->sltSendMessage(0x11, json);
+	tcpSocket_->sltSendMessage(E_MSG_TYPE::Login, json);
 }
 
 

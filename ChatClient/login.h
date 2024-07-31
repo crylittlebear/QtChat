@@ -5,6 +5,8 @@
 #include "rotatestackedwidget.h"
 #include "CustomWidget.h"
 #include "ClientSocket.h"
+#include "MainWindow.h"
+#include "MainPannel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class LoginClass; };
@@ -36,4 +38,6 @@ private:
 	ClientSocket* tcpSocket_;
 
 	bool connected_;
+
+	MainPannel* mainWindow_;
 };	

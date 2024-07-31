@@ -168,6 +168,6 @@ void IconLineEdit::setPic(const QPixmap& pixmap) {
 	label_->setPixmap(pixmap);
 	label_->setScaledContents(true);
 	label_->setVisible(true);
-	label_->setGeometry(10, 10, 20, 20);
-	this->setTextMargins(30, 1, 1, 1);
+	label_->setGeometry(10, 10, 25, 25);
+	this->setTextMargins(35, 1, 1, 1);
 }

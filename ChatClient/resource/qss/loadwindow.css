@@ -14,7 +14,7 @@ QWidget#widgetWinTitle, QWidget#widgetWinTitle2 {
 QLabel#labelWinTitle,QLabel#labelWinTitle2 {
     color: #FFFFFF;
     font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    font-size: 12pt;
+    font-size: 15pt;
     font-weight: bold;
 } 
 
@@ -24,19 +24,19 @@ QPushButton#btnClose2, QPushButton#btnMin2 {
     background-color: #0da2af;
 }
 
-QPushButton#btnOk, QPushButton#btnCancel {
+/* QPushButton#btnOk, QPushButton#btnCancel {
     font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
     background-color: #0da2af;
-    font-size: 12pt;
+    font-size: 15pt;
     font-weight: 400;
-}
+} */
 
 /*登录按钮样式*/
 QPushButton#btnLogin {
     background-color: #0da2af;
     color: #FFFFFF;
     border-radius: 5px;
-    font-size: 12pt;
+    font-size: 14pt;
     font-weight: bold;
 }
 
@@ -56,16 +56,26 @@ QPushButton#btnClose:hover, QPushButton#btnClose2:hover {
     background-color: #E74C3C;
 }
 
-QLabel#label, QLabel#label_2, QLabel#label_3, QGroupBox#groupBox {
-    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    font-size: 12pt;
-    font-weight: 400;
+/* QPushButton {
+    border: 3px solid #0da2af;
+    border-radius: 3px;
 }
+
+QPushButton:hover {
+    background-color: #ade0e0;
+} */
+
+QPushButton#btnWinClose:hover{
+    background-color: #FF0000;
+}
+
+QPushButton#btnWinMin:hover{
+    background-color: #7b7878;
+}
+
 
 /* 输入框样式 */
 QLineEdit#lineEditUser, QLineEdit#lineEditPasswd {
-    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    font-size: 12pt;
     background-color: #ECF0F1;
     border: 3px solid #62dce7;
     color: #2C3E50;
@@ -76,8 +86,6 @@ QLineEdit#lineEditUser, QLineEdit#lineEditPasswd {
 IpLineEdit#lineEditServerAddress,
 QLineEdit#lineEditMsgServerPort, 
 QLineEdit#lineEditFileServerPort {
-    font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-    font-size: 12pt;
     background-color: #f2f2f2;
     border: 2px solid #62dce7;
     color: #2C3E50;
@@ -88,7 +96,7 @@ QLineEdit#lineEditFileServerPort {
 
 /*=======================Main Window======================================*/
 
-QWidget#widgetStackControlButtons,
+/* QWidget#widgetStackControlButtons,
 QWidget#widgetBottomTool {
     background-color: #0da2af;
 }
@@ -115,4 +123,13 @@ QToolButton#toolButtonApp:hover {
 QPushButton#btnConfig, QToolButton#btnAddFriend,
 QToolButton#btnWeather,QToolButton#btnCalendar {
     background-color: #0da2af;
+} */
+
+QToolButton {
+    border: none;
+}
+
+QToolButton:hover {
+    background-color: #186378;
+    background-color: #a0a3a3;
 }

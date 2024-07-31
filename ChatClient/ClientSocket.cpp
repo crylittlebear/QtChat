@@ -5,6 +5,7 @@
 #include "qjsonarray.h"
 
 #include "comapi/unit.h"
+#include "comapi/MyApp.h"
 
 ClientSocket::ClientSocket(QObject *parent)
 	: QObject(parent)
@@ -28,8 +29,7 @@ void ClientSocket::setUserId(int id) { id_ = id; }
 
 void ClientSocket::checkConnected() {
 	if (socket_->state() != QTcpSocket::ConnectedState) {
-		// TODO
-		//socket_->connectToHost();
+		socket_->connectToHost(MyApp::strHostAddr_, MyApp::msgPort_);
 	}
 }
 
@@ -93,17 +93,21 @@ void ClientSocket::parseLogin(const QJsonValue& dataVal) {
 		int code = dataObj.value("code").toInt();
 		QString msg = dataObj.value("msg").toString();
 		QString satrHead = dataObj.value("head").toString();
-		
+		// 登录成功
 		if (code == 0 && msg == "ok") {
 			id_ = dataObj.value("id").toInt();
 			// 保存头像
-
 			emit signalStatus(LoginSuccess);
-		}
+		}	
 		else if (code == -1) {
-			emit signalStatus(LoginPasswdErr);
+			// 用户未找到
+			emit signalStatus(UserNotFound);
 		}
 		else if (code == -2) {
+			// 密码错误
+			emit signalStatus(LoginPasswdErr);
+		} else if (code == -3) {
+			// 重复登录
 			emit signalStatus(LoginRepeat);
 		}
 	}
@@ -137,16 +141,13 @@ void ClientSocket::sltReadyRead() {
 			QJsonValue dataVal = jsonObj.value("data");
 			int type = jsonObj.value("type").toInt();
 			int from = jsonObj.value("from").toInt();
-			if (type == 17) {
-				QJsonObject dataObj = dataVal.toObject();
-				int id = dataObj.value("id").toInt();
-				if (id > 0) {
-					qDebug() << "登录成功";
-					id_ = id;
-				}
-				else {
-					qDebug() << "登录失败";
-				}
+			switch (type) {
+			case LoginSuccess:
+			case UserNotFound:
+			case LoginPasswdErr:
+			case LoginRepeat:
+				parseLogin(dataVal);
+				break;
 			}
 		}
 	}

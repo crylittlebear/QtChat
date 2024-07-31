@@ -100,24 +100,27 @@
     <ClCompile Include="basewidget\customLineEdit.cpp" />
     <ClCompile Include="basewidget\CustomWidget.cpp" />
     <ClCompile Include="basewidget\rotatestackedwidget.cpp" />
+    <ClCompile Include="ChatUserList.cpp" />
+    <ClCompile Include="ChatUserListItem.cpp" />
     <ClCompile Include="ClientSocket.cpp" />
     <ClCompile Include="comapi\MyApp.cpp" />
+    <ClCompile Include="ListItemBase.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainPannel.cpp" />
     <ClCompile Include="MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="ChatUserListItem.ui" />
     <QtUic Include="login.ui" />
+    <QtUic Include="MainPannel.ui" />
     <QtUic Include="MainWindow.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="basewidget\rotatestackedwidget.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="basewidget\customLineEdit.h" />
@@ -132,8 +135,15 @@
     <QtMoc Include="ClientSocket.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="ChatUserListItem.h" />
+    <QtMoc Include="ChatUserList.h" />
     <ClInclude Include="comapi\MyApp.h" />
     <ClInclude Include="comapi\unit.h" />
+    <QtMoc Include="ListItemBase.h" />
+    <QtMoc Include="MainPannel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

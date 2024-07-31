@@ -3,6 +3,18 @@
 // 气泡方向
 typedef enum { None, Left, Right,} Orientation;
 
+// 聊天模式
+enum ChatUiMode {
+	ChatMode,						// 聊天模式
+	SearchMode,						// 搜索模式
+	ContactMode,					// 联系人模式
+};
+
+enum ListItemType {
+	ChatUserItem,					// 聊天用户条目
+	ContactUserItem,				// 联系人条目
+};
+
 typedef enum {
 	Text,							// 普通文字消息
 	Audio,							// 语音消息
@@ -52,4 +64,5 @@ typedef enum {
 	RegisterFailed		= 0x08,		// 注册失败
 	AddFriendOk			= 0x09,		// 添加朋友成功
 	AddFriendFailed		= 0x0a,		// 添加朋友失败
+	UserNotFound		= 0x0b,
 } E_STATUS;

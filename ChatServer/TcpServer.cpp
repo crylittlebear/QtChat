@@ -75,7 +75,7 @@ void TcpMsgServer::sltDisconnected() {
 	for (int i = 0; i < clients_.size(); ++i) {
 		if (clients_[i] == c_sock) {
 			clients_.remove(i);
-			emit sigUserStatus(QString("用户 [%1] 下线").arg(
+			emit sigUserStatus(QString::fromLocal8Bit("用户 [%1] 下线").arg(
 				DatabaseManager::instance()->getUserName(c_sock->getUserId())));
 		}
 	}

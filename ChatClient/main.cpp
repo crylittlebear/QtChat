@@ -4,6 +4,7 @@
 #include "qdebug.h"
 #include "qfile.h"
 #include "MainWindow.h"
+#include "MainPannel.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
 
 
     Login w;
+    //MainPannel w;
     w.show();
     return a.exec();
 }
