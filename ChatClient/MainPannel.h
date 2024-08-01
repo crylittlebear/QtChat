@@ -1,8 +1,10 @@
-#pragma once
+﻿#pragma once
 
 #include <QWidget>
 #include "basewidget/CustomWidget.h"
 #include "ui_MainPannel.h"
+
+#include <qstringlist.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainPannelClass; };
@@ -19,10 +21,14 @@ public:
 	void addUserList();
 
 public slots:
-	
+	void sltPageButtonClicked(int index);
+
 private:
 	void initPannel();
 	bool isMax_;
 private:
 	Ui::MainPannelClass *ui;
+
+	QButtonGroup* btnGroup_;
+	QStringList strList_;
 };

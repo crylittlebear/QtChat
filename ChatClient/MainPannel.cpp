@@ -3,7 +3,9 @@
 #include "ChatUserListItem.h"
 
 #include <qstringlist.h>
+#include <qbuttongroup.h>
 #include <qrandom.h>
+#include <qdebug.h>
 
 MainPannel::MainPannel(QWidget *parent)
 	: CustomWidget(parent)
@@ -20,10 +22,24 @@ MainPannel::MainPannel(QWidget *parent)
 
 	addUserList();
 
-	//ui->widgetRightSide->hide();
-	//int x = 360;
-	//int y = 900;
-	//resize(x, y);
+	btnGroup_ = new QButtonGroup(this);
+	btnGroup_->addButton(ui->btnMsgPage, 0);
+	btnGroup_->addButton(ui->btnFriendPage, 1);
+	btnGroup_->addButton(ui->btnGroupPage, 2);
+	btnGroup_->addButton(ui->btnCallPage, 3);
+
+	strList_.append(":/resource/icon/chat-bubble-color.png");
+	strList_.append(":/resource/icon/chat-bubble.png");
+	strList_.append(":/resource/icon/user-profile-color.png");
+	strList_.append(":/resource/icon/user-profile.png");
+	strList_.append(":/resource/icon/friends-color.png");
+	strList_.append(":/resource/icon/friends.png");
+	strList_.append(":/resource/icon/phone-call-color.png");
+	strList_.append(":/resource/icon/phone-call.png");
+
+	btnGroup_->button(0)->setIcon(QIcon(strList_[0]));
+
+	connect(btnGroup_, &QButtonGroup::idClicked, this, &MainPannel::sltPageButtonClicked);
 }
 
 MainPannel::~MainPannel()
@@ -53,14 +69,14 @@ void MainPannel::initPannel() {
 		":/resource/icon/power.png");
 
 	// 左侧用户页面切换按钮
-	ui->btnMsgPage->setEnterLeaveIcon(":/resource/icon/chat-bubble-color.png",
-		":/resource/icon/chat-bubble.png");
-	ui->btnFriendPage->setEnterLeaveIcon(":/resource/icon/user-profile-color.png",
-		":/resource/icon/user-profile.png");
-	ui->btnGroupPage->setEnterLeaveIcon(":/resource/icon/friends-color.png",
-		":/resource/icon/friends.png");
-	ui->btnCallPage->setEnterLeaveIcon(":/resource/icon/phone-call-color.png",
-		":/resource/icon/phone-call.png");
+	//ui->btnMsgPage->setEnterLeaveIcon(":/resource/icon/chat-bubble-color.png",
+	//	":/resource/icon/chat-bubble.png");
+	//ui->btnFriendPage->setEnterLeaveIcon(":/resource/icon/user-profile-color.png",
+	//	":/resource/icon/user-profile.png");
+	//ui->btnGroupPage->setEnterLeaveIcon(":/resource/icon/friends-color.png",
+	//	":/resource/icon/friends.png");
+	//ui->btnCallPage->setEnterLeaveIcon(":/resource/icon/phone-call-color.png",
+	//	":/resource/icon/phone-call.png");
 	ui->btnSearch->setEnterLeaveIcon(":/resource/icon/loupe-color.png",
 		":/resource/icon/loupe.png");
 
@@ -140,8 +156,25 @@ void MainPannel::addUserList() {
 		item->setSizeHint(QSize(280, 76));
 		ui->listWidget->addItem(item);
 		ui->listWidget->setItemWidget(item,listItem);
-		//connect(static_cast<ChatUserListItem*>(ui->listWidget->itemWidget(item)), &ChatUserListItem::sigItemClicked, [this]() {
-		//	ui->widgetRightSide->show();
-		//});
 	}
+}
+
+void MainPannel::sltPageButtonClicked(int index) {
+	int pageSize = ui->stackedWidget->count();
+	for (int i = 0; i < pageSize; ++i) {
+		if (index != i) {
+			btnGroup_->button(i)->setIcon(QIcon(strList_[i * 2 + 1]));
+		} else {
+			btnGroup_->button(i)->setIcon(QIcon(strList_[i * 2]));
+		}
+	}
+	static int preIndex = 0;
+	if (index == preIndex) return;
+	if (index > preIndex) {
+		ui->stackedWidget->setLength(ui->stackedWidget->width(), RightToLeft);
+	} else {
+		ui->stackedWidget->setLength(ui->stackedWidget->width(), LeftToRight);
+	}
+	preIndex = index;
+	ui->stackedWidget->start(index);
 }

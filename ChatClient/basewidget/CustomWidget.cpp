@@ -23,38 +23,9 @@ CustomWidget::~CustomWidget()
 	
 }
 
-//void CustomWidget::mousePressEvent(QMouseEvent* event) {
-//	if (event->button() == Qt::LeftButton) {
-//		if (isInDragingArea(event->pos())) {
-//			isDraging_ = true;
-//			dragStartPoint_ = event->pos();
-//		}
-//	}
-//	event->accept();
-//}
-//
-//void CustomWidget::mouseMoveEvent(QMouseEvent* event) {
-//	if (event->buttons() & Qt::LeftButton) {
-//		if (isDraging_) {
-//			move(QPoint(event->globalPos().x() - dragStartPoint_.x(),
-//				event->globalPos().y() - dragStartPoint_.y()));
-//		}
-//	}
-//	event->accept();
-//}
-//
-//void CustomWidget::mouseReleaseEvent(QMouseEvent* event) {
-//	if (event->button() == Qt::LeftButton) {
-//		if (isDraging_) {
-//			isDraging_ = false;
-//		}
-//	}
-//	event->accept();
-//}
-
 bool CustomWidget::eventFilter(QObject* watched, QEvent* event) {
 	if (event->type() == QEvent::MouseButtonPress) {
-		QMouseEvent* mouseEvent = (QMouseEvent*)event;
+		QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
 		if (mouseEvent->buttons() & Qt::LeftButton) {
 			if (isInDragingArea(mouseEvent->pos())) {
 				isDraging_ = true;
@@ -69,7 +40,7 @@ bool CustomWidget::eventFilter(QObject* watched, QEvent* event) {
 			}
 		}
 	} else if (event->type() == QEvent::MouseMove) {
-		QMouseEvent* mouseEvent = (QMouseEvent*)event;
+		QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
 		if (mouseEvent->buttons() & Qt::LeftButton) {
 			if (isDraging_) {
 				move(QPoint(mouseEvent->globalPos().x() - dragStartPoint_.x(),
@@ -197,8 +168,10 @@ CustomBaseDialog::CustomBaseDialog(QWidget* parent) : CustomDialog(parent) {
 	btnWinClose_->setFixedSize(30, 30);
 	btnWinMin_->setObjectName("btnWinMin");
 	btnWinClose_->setObjectName("btnWinClose");
-	btnWinMin_->setIcon(QIcon(":/resource/common/ic_min.png"));
-	btnWinClose_->setIcon(QIcon(":/resource/common/ic_close_white.png"));
+	btnWinMin_->setIcon(QIcon(":/resource/icon/minus (3).png"));
+	btnWinClose_->setIcon(QIcon(":/resource/icon/close (4).png"));
+	btnWinMin_->setStyleSheet("border: none;");
+	btnWinClose_->setStyleSheet("border: none;");
 
 	// 设置按钮水平布局
 	QHBoxLayout* hBoxLayoutBtn = new QHBoxLayout();
@@ -435,10 +408,6 @@ CustomInputDialog::CustomInputDialog(QString title, QWidget* parent) : CustomBas
 	verLayout->addLayout(hLayout1);
 	verLayout->addLayout(hLayout2);
 	verLayout->setSpacing(12);
-	//verLayout->addLayout(horLayoutBtn);
-	//verLayout->setStretch(0, 2);
-	//verLayout->setStretch(1, 2);
-	//verLayout->setStretch(2, 1);
 
 	QVBoxLayout* verLayout2 = new QVBoxLayout(widgetBody_);
 	verLayout2->addLayout(verLayout);

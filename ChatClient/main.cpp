@@ -5,13 +5,15 @@
 #include "qfile.h"
 #include "MainWindow.h"
 #include "MainPannel.h"
+#include "comapi/MyApp.h"
 
 int main(int argc, char *argv[])
 {
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
+
     QApplication a(argc, argv);
 
     // 设置高分屏适配
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
     QFont font;
     font.setStyleStrategy(QFont::PreferAntialias);
@@ -23,6 +25,9 @@ int main(int argc, char *argv[])
 	file.open(QIODevice::ReadOnly);
 	qApp->setStyleSheet(file.readAll());
 	file.close();
+
+    // 创建数据文件夹
+    MyApp::initApp("");
 
     Login w;
     //MainPannel w;

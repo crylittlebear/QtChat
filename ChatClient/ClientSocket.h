@@ -19,9 +19,13 @@ public:
 	~ClientSocket();
 
 	/*!
-	* @brief 获取和设置用户ID
+	* @brief 获取用户ID
 	*/
 	int getUserId() const;
+
+	/*!
+	* @brief 设置用户ID
+	*/
 	void setUserId(int id);
 
 	/*!
@@ -38,6 +42,10 @@ public:
 	* @brief 连接到服务器
 	*/
 	void connectToServer(const QString& ip, const int& port);
+
+	/*!
+	* @brief 连接到服务器
+	*/
 	void connectToServer(const QHostAddress& host, const int& port);
 
 signals:
@@ -95,6 +103,6 @@ private slots:
 	void sltReadyRead();
 
 private:
-	QTcpSocket* socket_;
-	int id_;
+	QTcpSocket* socket_;	/// 封装QTcpSocket
+	int id_;				/// 当前客户端登录账户ID
 };

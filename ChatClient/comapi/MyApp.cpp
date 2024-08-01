@@ -4,6 +4,7 @@
 #include "qsettings.h"
 #include "qfile.h"
 #include "qdir.h"
+#include "qdebug.h"
 
 // 应用程序配置目录
 QString MyApp::strAppPath_           = "./";
@@ -18,7 +19,7 @@ QString MyApp::strRecordPath_        = "";
 QString MyApp::strIniFile_           = "config.ini";
 
 // 服务器相关配置
-QString MyApp::strHostAddr_          = "192.168.0.114";
+QString MyApp::strHostAddr_          = "192.168.0.106";
 int     MyApp::msgPort_              = 60100;
 int     MyApp::filePort_             = 60101;
 int     MyApp::groupPort_            = 60102;
@@ -32,16 +33,16 @@ int     MyApp::winX_                 = 0;
 int     MyApp::winY_                 = 0;
 
 void MyApp::initApp(const QString& appPath) {
-    strAppPath_         = appPath + "/";
-
-    strDataPath_        = strAppPath_ + "Data/";
-    strRecvPath_        = strDataPath_ + "RecvFiles/";
-    strDataBasePath_    = strDataPath_ + "DataBase/";
-    strConfigPath_      = strDataPath_ + "Conf/";
-    strHeadPath_        = strDataPath_ + "Head/";
-    strSoundPath_       = strDataPath_ + "Sound/";
-    strRecordPath_      = strDataPath_ + "Record/";
-    strFacePath_        = strDataPath_ + "Face/";
+    strAppPath_         = QDir::currentPath();
+    qDebug() << "app path: " << strAppPath_;
+    strDataPath_        = strAppPath_  + "/Data/";
+    strRecvPath_        = strDataPath_ + "/RecvFiles/";
+    strDataBasePath_    = strDataPath_ + "/DataBase/";
+    strConfigPath_      = strDataPath_ + "/Conf/";
+    strHeadPath_        = strDataPath_ + "/Head/";
+    strSoundPath_       = strDataPath_ + "/Sound/";
+    strRecordPath_      = strDataPath_ + "/Record/";
+    strFacePath_        = strDataPath_ + "/Face/";
     strIniFile_         = strDataPath_ + "config.ini";
 
     checkDirs();

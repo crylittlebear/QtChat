@@ -1,9 +1,15 @@
-#pragma once
+﻿#pragma once
 
 #include <QStackedWidget>
 #include <qpropertyanimation.h>
 
-#include "comapi/unit.h"
+// 滑动型StackedWidet的滑动类型
+enum SlideOrientationType {
+	TopToBottom,
+	BottomToTop,
+	LeftToRight,
+	RightToLeft,
+};
 
 /*!
 * @brief 具有滑动特效的StackedWidget类
@@ -58,7 +64,7 @@ protected:
 	/*!
 	* @brief 获取当前widget窗口
 	*/
-	void rendCurrentWidget(QPainter& painter, QTransform transform);
+	void renderCurrentWidget(QPainter& painter, QTransform transform);
 
 private slots:
 	/*!

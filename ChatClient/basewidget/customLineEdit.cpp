@@ -14,7 +14,7 @@ IpLineEdit::IpLineEdit(QWidget *parent)
 	QHBoxLayout* hBoxLayout = new QHBoxLayout(this);
 	hBoxLayout->setContentsMargins(2, 2, 2, 2);
 	hBoxLayout->setSpacing(5);
-
+	// 设置IP输入正则表达式
 	QRegExp regExp("(25[0-5]|2[0-4][0-9]|1?[0-9]{1,2})");
 
 	QLabel* dots[3] = { nullptr };
@@ -33,13 +33,21 @@ IpLineEdit::IpLineEdit(QWidget *parent)
 		// 安装事件过滤器,过滤子控件事件，截获控件按键、鼠标事件
 		lineEdits_[i]->installEventFilter(this);
 
-		lineEdits_[i]->setStyleSheet("font-family: '微软雅黑'; font-size: 14pt; background-color: #f2f2f2");
+		lineEdits_[i]->setStyleSheet(
+			"font-family: '微软雅黑';" 
+			"font-size: 20px;"
+			"font-weight: bold;"
+			"background-color: #f2f2f2"
+		);
 		// 添加到布局中
 		hBoxLayout->addWidget(lineEdits_[i]);
 		if (i < 3) {
 			dots[i] = new QLabel(this);
 			dots[i]->setText(".");
-			dots[i]->setStyleSheet("font-size: 14pt;font-weight: bold;");
+			dots[i]->setStyleSheet(
+				"font-size: 14pt;"
+				"font-weight: bold;"
+			);
 			dots[i]->setFixedWidth(5);
 			hBoxLayout->addWidget(dots[i]);
 		}

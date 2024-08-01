@@ -25,13 +25,13 @@ class MyApp {
   static void saveConfig();
 
  public:
-  static QString strAppPath_;
-  static QString strDataPath_;
-  static QString strRecvPath_;
-  static QString strDataBasePath_;
-  static QString strConfigPath_;
-  static QString strSoundPath_;
-  static QString strRecordPath_;
+  static QString strAppPath_;           /// 应用程序路径
+  static QString strDataPath_;          /// 数据保存路径
+  static QString strRecvPath_;          /// 接收数据保存路径
+  static QString strDataBasePath_;      /// 数据库保存路径
+  static QString strConfigPath_;        /// 配置文件路径
+  static QString strSoundPath_;         /// 音频文件路径
+  static QString strRecordPath_;        /// 录音保存路径
 
   static QString strFacePath_;
   static QString strHeadPath_;
@@ -50,3 +50,4 @@ class MyApp {
   static int winX_;
   static int winY_;
 };
+

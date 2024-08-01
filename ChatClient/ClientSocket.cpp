@@ -13,7 +13,7 @@ ClientSocket::ClientSocket(QObject *parent)
 	id_ = -1;
 	socket_ = new QTcpSocket(this);
 
-	connectToServer(QString("192.168.174.136"), 60100);
+	connectToServer(MyApp::strHostAddr_, MyApp::msgPort_);
 
 	connect(socket_, &QTcpSocket::readyRead, this, &ClientSocket::sltReadyRead);
 	connect(socket_, &QTcpSocket::connected, this, &ClientSocket::sltConnected);
@@ -59,16 +59,15 @@ void ClientSocket::connectToServer(const QHostAddress& host, const int& port) {
 void ClientSocket::sltSendMessage(const quint8& type, const QJsonValue& dataVal) {
 	// 连接服务器
 	if (!socket_->isOpen()) {
-		socket_->connectToHost(QString("192.168.174.136"), 60100);
+		//socket_->connectToHost(QString("192.168.174.136"), 60100);
+		socket_->connectToHost(MyApp::strHostAddr_, MyApp::msgPort_);
 		socket_->waitForConnected(1000);
 	}
 	// 如果1s后依然没有连接上服务器，直接返回
 	if (!socket_->isOpen()) {
 		qDebug() << QString::fromLocal8Bit("连接服务器失败");
 		return;
-	} else {
-		//qDebug() << "socket is open!";
-	}
+	} 
 	// 构建Json对象
 	QJsonObject json;
 	json.insert("type", type);

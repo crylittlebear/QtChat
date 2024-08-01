@@ -43,7 +43,6 @@ void ChatUserListItem::setNonReadMsg(int size){
 	QString numPath = QString(":/resource/number/number-%1.png").arg(size);
 	ui->labelMsgNotRead->setPixmap(numPath);
 	ui->labelMsgNotRead->setScaledContents(true);
-	//ui->labelMsgNotRead->show();
 }
 
 void ChatUserListItem::enterEvent(QEvent* event) {

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
-    <height>900</height>
+    <width>1434</width>
+    <height>884</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -550,8 +550,7 @@
                </property>
                <property name="styleSheet">
                 <string notr="true">border: 1px solid rgb(104, 191, 215);
-border-radius: 5
-px;</string>
+border-radius: 5px;</string>
                </property>
               </widget>
              </item>
@@ -585,7 +584,7 @@ px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QStackedWidget" name="stackedWidget">
+           <widget class="SlideStackedWidget" name="stackedWidget">
             <property name="currentIndex">
              <number>0</number>
             </property>
@@ -615,7 +614,102 @@ px;</string>
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="page_2"/>
+            <widget class="QWidget" name="page_2">
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="Resource.qrc">:/resource/head/default.jpg</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="page_3">
+             <layout class="QVBoxLayout" name="verticalLayout_11">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="Resource.qrc">:/resource/head/head2.jpg</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="page_4">
+             <layout class="QVBoxLayout" name="verticalLayout_12">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="Resource.qrc">:/resource/head/head12.jpg</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
           <item>
@@ -637,7 +731,7 @@ px;</string>
               <number>0</number>
              </property>
              <item>
-              <widget class="IconChangeButton" name="btnMsgPage">
+              <widget class="QPushButton" name="btnMsgPage">
                <property name="minimumSize">
                 <size>
                  <width>50</width>
@@ -645,7 +739,13 @@ px;</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">border: none;</string>
+                <string notr="true">QPushButton {
+	border: none;
+}
+
+QPushButton:hover {
+	background-color: #A7A7A7
+}</string>
                </property>
                <property name="text">
                 <string/>
@@ -663,7 +763,7 @@ px;</string>
               </widget>
              </item>
              <item>
-              <widget class="IconChangeButton" name="btnFriendPage">
+              <widget class="QPushButton" name="btnFriendPage">
                <property name="minimumSize">
                 <size>
                  <width>50</width>
@@ -671,7 +771,13 @@ px;</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">border: none;</string>
+                <string notr="true">QPushButton {
+	border: none;
+}
+
+QPushButton:hover {
+	background-color: #A7A7A7
+}</string>
                </property>
                <property name="text">
                 <string/>
@@ -689,7 +795,7 @@ px;</string>
               </widget>
              </item>
              <item>
-              <widget class="IconChangeButton" name="btnGroupPage">
+              <widget class="QPushButton" name="btnGroupPage">
                <property name="minimumSize">
                 <size>
                  <width>50</width>
@@ -697,7 +803,13 @@ px;</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">border: none;</string>
+                <string notr="true">QPushButton {
+	border: none;
+}
+
+QPushButton:hover {
+	background-color: #A7A7A7
+}</string>
                </property>
                <property name="text">
                 <string/>
@@ -715,7 +827,7 @@ px;</string>
               </widget>
              </item>
              <item>
-              <widget class="IconChangeButton" name="btnCallPage">
+              <widget class="QPushButton" name="btnCallPage">
                <property name="minimumSize">
                 <size>
                  <width>50</width>
@@ -723,7 +835,13 @@ px;</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">border: none;</string>
+                <string notr="true">QPushButton {
+	border: none;
+}
+
+QPushButton:hover {
+	background-color: #A7A7A7
+}</string>
                </property>
                <property name="text">
                 <string/>
@@ -1386,6 +1504,12 @@ QPushButton:hover{
    <class>ChatUserList</class>
    <extends>QListWidget</extends>
    <header location="global">ChatUserList.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SlideStackedWidget</class>
+   <extends>QStackedWidget</extends>
+   <header location="global">SlideStackedWidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

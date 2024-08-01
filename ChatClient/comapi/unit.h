@@ -10,13 +10,13 @@ typedef enum {
 	ContactMode,					// 联系人模式
 } ChatUiMode ;
 
-// 滑动型StackedWidet的滑动类型
-typedef enum {
-	TopToBottom,
-	BottomToTop,
-	LeftToRight,
-	RightToLeft,
-} SlideOrientationType ;
+//// 滑动型StackedWidet的滑动类型
+//enum SlideOrientationType {
+//	TopToBottom,
+//	BottomToTop,
+//	LeftToRight,
+//	RightToLeft,
+//};
 
 enum ListItemType {
 	ChatUserItem,					// 聊天用户条目
@@ -33,7 +33,7 @@ typedef enum {
 typedef enum {
 	Unknown				= 0x00,		// 未知	
 	Register			= 0x10,		// 用户注册
-	Login				= 0x11,		// 用户登录
+	UserLogin			= 0x11,		// 用户登录
 	Logout				= 0x12,		// 用户登出
 	LoginRepeat			= 0x13,		// 用户重复登录
 	UserOnline			= 0x15,		// 用户在线
