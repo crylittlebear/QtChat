@@ -5,7 +5,6 @@
 #include "rotatestackedwidget.h"
 #include "CustomWidget.h"
 #include "ClientSocket.h"
-#include "MainWindow.h"
 #include "MainPannel.h"
 
 QT_BEGIN_NAMESPACE

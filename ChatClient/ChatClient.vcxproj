@@ -37,7 +37,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>5.15.2_msvc2019_64</QtInstall>
-    <QtModules>core;network;gui;widgets</QtModules>
+    <QtModules>core;network;gui;multimedia;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -65,7 +65,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)/basewidget;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)basewidget;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -102,6 +102,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="basewidget\ChatBubble.cpp" />
     <ClCompile Include="basewidget\customLineEdit.cpp" />
     <ClCompile Include="basewidget\CustomWidget.cpp" />
     <ClCompile Include="basewidget\rotatestackedwidget.cpp" />
@@ -109,12 +110,12 @@
     <ClCompile Include="ChatUserList.cpp" />
     <ClCompile Include="ChatUserListItem.cpp" />
     <ClCompile Include="ClientSocket.cpp" />
+    <ClCompile Include="comapi\ItemInfo.cpp" />
     <ClCompile Include="comapi\MyApp.cpp" />
     <ClCompile Include="ListItemBase.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainPannel.cpp" />
-    <ClCompile Include="MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login.h" />
@@ -123,16 +124,12 @@
     <QtUic Include="ChatUserListItem.ui" />
     <QtUic Include="login.ui" />
     <QtUic Include="MainPannel.ui" />
-    <QtUic Include="MainWindow.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="basewidget\rotatestackedwidget.h" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="basewidget\customLineEdit.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="basewidget\CustomWidget.h" />
@@ -144,6 +141,9 @@
     <QtMoc Include="ChatUserListItem.h" />
     <QtMoc Include="ChatUserList.h" />
     <QtMoc Include="basewidget\SlideStackedWidget.h" />
+    <QtMoc Include="basewidget\ChatBubble.h" />
+    <ClInclude Include="comapi\global.h" />
+    <ClInclude Include="comapi\ItemInfo.h" />
     <ClInclude Include="comapi\MyApp.h" />
     <ClInclude Include="comapi\unit.h" />
     <QtMoc Include="ListItemBase.h" />

@@ -1,5 +1,10 @@
 ﻿#pragma once
 
+#define SIZE_HINT QSize(300, 300)
+#define ITEM_HEIGHT 40
+#define ITEM_SPACE 20
+#define ITEM_TITLE_HEIGHT 20
+
 // 气泡方向
 typedef enum { None, Left, Right,} Orientation;
 

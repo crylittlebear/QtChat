@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
+        <file>resource/background/image.png</file>
         <file>resource/background/welcome.png</file>
+        <file>resource/head/default.jpg</file>
         <file>resource/head/head1.jpg</file>
         <file>resource/head/head2.jpg</file>
         <file>resource/head/head3.jpg</file>
@@ -16,8 +18,10 @@
         <file>resource/head/head13.jpg</file>
         <file>resource/icon/broom.png</file>
         <file>resource/icon/broom-color.png</file>
+        <file>resource/icon/chat.png</file>
         <file>resource/icon/chat-bubble.png</file>
         <file>resource/icon/chat-bubble-color.png</file>
+        <file>resource/icon/close (4).png</file>
         <file>resource/icon/close.png</file>
         <file>resource/icon/close-color.png</file>
         <file>resource/icon/close-red.png</file>
@@ -35,12 +39,16 @@
         <file>resource/icon/happiness-color.png</file>
         <file>resource/icon/image-color.png</file>
         <file>resource/icon/image-gray.png</file>
+        <file>resource/icon/line.png</file>
         <file>resource/icon/loupe.png</file>
         <file>resource/icon/loupe-color.png</file>
         <file>resource/icon/maximize.png</file>
         <file>resource/icon/maximize-color.png</file>
+        <file>resource/icon/menu.png</file>
+        <file>resource/icon/menu-color.png</file>
         <file>resource/icon/message.png</file>
         <file>resource/icon/message-color.png</file>
+        <file>resource/icon/minus (3).png</file>
         <file>resource/icon/minus.png</file>
         <file>resource/icon/minus-color.png</file>
         <file>resource/icon/mobile.png</file>
@@ -57,6 +65,7 @@
         <file>resource/icon/power-color.png</file>
         <file>resource/icon/scissors.png</file>
         <file>resource/icon/scissors-color.png</file>
+        <file>resource/icon/setting.png</file>
         <file>resource/icon/telephone.png</file>
         <file>resource/icon/user-profile.png</file>
         <file>resource/icon/user-profile-color.png</file>
@@ -75,18 +84,24 @@
         <file>resource/number/number-8.png</file>
         <file>resource/number/number-9.png</file>
         <file>resource/number/number-10.png</file>
+        <file>resource/pixmap/admin.png</file>
+        <file>resource/pixmap/email (2).png</file>
         <file>resource/pixmap/error.png</file>
+        <file>resource/pixmap/exit.png</file>
+        <file>resource/pixmap/folder (4).png</file>
         <file>resource/pixmap/infoDialog.png</file>
+        <file>resource/pixmap/mainPannel.png</file>
+        <file>resource/pixmap/neural.png</file>
+        <file>resource/pixmap/offline.png</file>
+        <file>resource/pixmap/online.png</file>
         <file>resource/pixmap/padlock.png</file>
         <file>resource/pixmap/questionDialog.png</file>
+        <file>resource/pixmap/reset-password.png</file>
+        <file>resource/pixmap/setting (2).png</file>
+        <file>resource/pixmap/sync.png</file>
         <file>resource/pixmap/user.png</file>
         <file>resource/pixmap/warning.png</file>
-        <file>resource/head/default.jpg</file>
-        <file>resource/icon/line.png</file>
-        <file>resource/icon/chat.png</file>
-        <file>resource/icon/close (4).png</file>
-        <file>resource/icon/minus (3).png</file>
-        <file>resource/icon/setting.png</file>
+        <file>resource/pixmap/zip.png</file>
     </qresource>
     <qresource prefix="/qss">
         <file>resource/qss/default.css</file>

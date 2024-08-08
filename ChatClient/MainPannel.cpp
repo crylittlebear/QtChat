@@ -1,4 +1,4 @@
-#include "MainPannel.h"
+﻿#include "MainPannel.h"
 
 #include "ChatUserListItem.h"
 
@@ -6,6 +6,8 @@
 #include <qbuttongroup.h>
 #include <qrandom.h>
 #include <qdebug.h>
+#include <qmenu.h>
+#include <qsystemtrayicon.h>
 
 MainPannel::MainPannel(QWidget *parent)
 	: CustomWidget(parent)
@@ -19,6 +21,10 @@ MainPannel::MainPannel(QWidget *parent)
 	setWindowIcon(QIcon(":/resource/icon/chat.png"));
 
 	initPannel();
+
+	initSysmenu();
+
+	initSysTrayIcon();
 
 	addUserList();
 
@@ -47,6 +53,45 @@ MainPannel::~MainPannel()
 	delete ui;
 }
 
+void MainPannel::sltSysMenuClicked(QAction* action) {
+	qDebug() << "clicked!";
+	if (action->text() == "我在线上") {
+
+	} else if (action->text() == "离线") {
+
+	} else if (action->text() == "显示主界面") {
+
+	} else if (action->text() == QString::fromLocal8Bit("退出")) {
+		this->close();
+	}
+}
+
+void MainPannel::sltSystemTrayIconClicked(QSystemTrayIcon::ActivationReason reason) {
+	switch (reason) {
+		case QSystemTrayIcon::DoubleClick:
+			if (!this->isVisible()) {
+				this->show();
+			}
+			break;
+		case QSystemTrayIcon::Trigger:
+			break;
+		default:
+			break;
+	}
+}
+
+void MainPannel::sltTrayIconMenuClicked(QAction* action) {
+	if (action->text() == QString::fromLocal8Bit("我在线上")) {
+
+	} else if (action->text() == QString::fromLocal8Bit("离线")) {
+
+	} else if (action->text() == QString::fromLocal8Bit("显示主界面")) {
+
+	} else if (action->text() == QString::fromLocal8Bit("退出")) {
+		this->close();
+	}
+}
+
 void MainPannel::initPannel() {
 	// 左侧边栏
 	ui->btnSidebarMessage->setEnterLeaveIcon(":/resource/icon/message-color.png",
@@ -65,8 +110,8 @@ void MainPannel::initPannel() {
 		":/resource/icon/mobile.png");
 	ui->btnSidebarGame->setEnterLeaveIcon(":/resource/icon/game-color.png",
 		":/resource/icon/game.png");
-	ui->btnSidebarPower->setEnterLeaveIcon(":/resource/icon/power-color.png",
-		":/resource/icon/power.png");
+	ui->btnSidebarMenu->setEnterLeaveIcon(":/resource/icon/menu-color.png",
+		":/resource/icon/menu.png");
 
 	// 左侧用户页面切换按钮
 	//ui->btnMsgPage->setEnterLeaveIcon(":/resource/icon/chat-bubble-color.png",
@@ -99,8 +144,8 @@ void MainPannel::initPannel() {
 		":/resource/icon/minus.png");
 	ui->btnMainPannelMax->setEnterLeaveIcon(":/resource/icon/maximize-color.png",
 		":/resource/icon/maximize.png");
-	//ui->btnWinClose->setEnterLeaveIcon(":/resource/icon/close-red.png",
-	//	":/resource/icon/close.png");
+	ui->btnMainPannelClose->setEnterLeaveIcon(":/resource/icon/close-red.png",
+		":/resource/icon/close.png");
 
 	connect(ui->btnMainPannelClose, &QPushButton::clicked, this, &QWidget::close);
 	connect(ui->btnMainPannelMin, &QPushButton::clicked, this, &QWidget::showMinimized);
@@ -113,6 +158,43 @@ void MainPannel::initPannel() {
 			isMax_ = false;
 		}
 	});
+}
+
+void MainPannel::initSysmenu() {
+	// 设置子菜单
+	QMenu* sysMenu = new QMenu(this);
+	sysMenu->setStyleSheet("font-size: 12pt;");
+	sysMenu->addAction(QIcon(":/resource/pixmap/setting (2).png"), QString::fromLocal8Bit("系统设置"));
+	sysMenu->addAction(QIcon(":/resource/pixmap/email (2).png"), QString::fromLocal8Bit("消息管理器"));
+	sysMenu->addAction(QIcon(":/resource/pixmap/folder (4).png"), QString::fromLocal8Bit("文件助手"));
+	sysMenu->addAction(QIcon(":/resource/pixmap/reset-password.png"), QString::fromLocal8Bit("修改密码"));
+	sysMenu->addAction(QIcon(":/resource/pixmap/admin.png"), QString::fromLocal8Bit("帮助"));
+	sysMenu->addAction(QIcon(":/resource/pixmap/neural.png"), QString::fromLocal8Bit("连接服务器"));
+	sysMenu->addAction(QIcon(":/resource/pixmap/sync.png"), QString::fromLocal8Bit("升级"));
+	// 设置鼠标点击事件，向上弹出菜单项
+	connect(ui->btnSidebarMenu, &QPushButton::clicked, [this, sysMenu]() {
+		QRect buttonRect = ui->btnSidebarMenu->rect();
+		QPoint globalPos = ui->btnSidebarMenu->mapToGlobal(buttonRect.bottomLeft());
+		QPoint menuPos = QPoint(globalPos.x(), globalPos.y() - sysMenu->sizeHint().height());
+		sysMenu->exec(menuPos);
+	});
+	connect(sysMenu, &QMenu::triggered, this, &MainPannel::sltSysMenuClicked);
+}
+
+void MainPannel::initSysTrayIcon() {
+	trayIcon_ = new QSystemTrayIcon(this);
+	trayIcon_->setIcon(QIcon(":/resource/icon/chat.png"));
+	
+	QMenu* menu = new QMenu(this);
+	menu->setStyleSheet("font-size: 12pt;");
+	menu->addAction(QIcon(":/resource/pixmap/online.png"), QString::fromLocal8Bit("我在线上"));
+	menu->addAction(QIcon(":/resource/pixmap/offline.png"), QString::fromLocal8Bit("离线"));
+	menu->addAction(QIcon(":/resource/pixmap/mainPannel.png"), QString::fromLocal8Bit("显示主界面"));
+	menu->addAction(QIcon(":/resource/pixmap/exit.png"), QString::fromLocal8Bit("退出"));
+	trayIcon_->setContextMenu(menu);
+	trayIcon_->show();
+	connect(trayIcon_, &QSystemTrayIcon::activated, this, &MainPannel::sltSystemTrayIconClicked);
+	connect(menu, &QMenu::triggered, this, &MainPannel::sltTrayIconMenuClicked);
 }
 
 void MainPannel::addUserList() {

@@ -3,13 +3,12 @@
 #include "customLineEdit.h"
 #include "qdebug.h"
 #include "qfile.h"
-#include "MainWindow.h"
 #include "MainPannel.h"
 #include "comapi/MyApp.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
+    //QApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
 
     QApplication a(argc, argv);
 

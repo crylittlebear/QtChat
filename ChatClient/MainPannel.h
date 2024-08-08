@@ -5,6 +5,7 @@
 #include "ui_MainPannel.h"
 
 #include <qstringlist.h>
+#include <qsystemtrayicon.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainPannelClass; };
@@ -23,12 +24,25 @@ public:
 public slots:
 	void sltPageButtonClicked(int index);
 
+	void sltSysMenuClicked(QAction* action);
+
+	void sltSystemTrayIconClicked(QSystemTrayIcon::ActivationReason);
+
+	void sltTrayIconMenuClicked(QAction* action);
+
 private:
 	void initPannel();
+
+	void initSysmenu();
+
+	void initSysTrayIcon();
+
 	bool isMax_;
 private:
 	Ui::MainPannelClass *ui;
 
 	QButtonGroup* btnGroup_;
 	QStringList strList_;
+
+	QSystemTrayIcon* trayIcon_;
 };

@@ -110,8 +110,12 @@ void Login::sltBtnLoginClicked() {
 	json.insert("name", userName);
 	json.insert("passwd", passwd);
 
-	//tcpSocket_->sltSendMessage(E_MSG_TYPE::Login, json);
-	tcpSocket_->sltSendMessage(0x11, json);
+	////tcpSocket_->sltSendMessage(E_MSG_TYPE::Login, json);
+	//tcpSocket_->sltSendMessage(0x11, json);
+
+	mainWindow_ = new MainPannel;
+	mainWindow_->show();
+	this->hide();
 }
 
 

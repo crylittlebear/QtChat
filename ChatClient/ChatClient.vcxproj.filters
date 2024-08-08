@@ -35,9 +35,6 @@
     <ClCompile Include="basewidget\customLineEdit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="basewidget\CustomWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -62,6 +59,12 @@
     <ClCompile Include="basewidget\SlideStackedWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="basewidget\ChatBubble.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="comapi\ItemInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login.h">
@@ -71,9 +74,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="basewidget\customLineEdit.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="MainWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="basewidget\CustomWidget.h">
@@ -97,12 +97,12 @@
     <QtMoc Include="basewidget\SlideStackedWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="basewidget\ChatBubble.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="login.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="MainWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="MainPannel.ui">
@@ -117,6 +117,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="comapi\MyApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="comapi\ItemInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="comapi\global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
